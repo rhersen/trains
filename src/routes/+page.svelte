@@ -1,4 +1,4 @@
-<a href="https://countdown-hersen.netlify.app/">
+<a href="countdown">
     <img src="countdown.png" width="120" alt="countdown" />
 </a>
 <a href="https://cancelled-hersen.netlify.app">

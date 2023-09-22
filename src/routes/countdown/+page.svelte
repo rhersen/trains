@@ -1,0 +1,13 @@
+<h1>Välj station</h1>
+<a href="countdown/station/Mr">Märsta</a>
+<a href="countdown/station/Sub">Sundbyberg</a>
+<a href="countdown/station/So">Solna</a>
+<a href="countdown/station/Sod">Odenplan</a>
+<a href="countdown/station/Sci">City</a>
+<a href="countdown/station/Sst">Södra</a>
+<a href="countdown/station/Åbe">Årstaberg</a>
+<a href="countdown/station/Äs">Älvsjö</a>
+<a href="countdown/station/Hu">Huddinge</a>
+<a href="countdown/station/Flb">Flemingsberg</a>
+<a href="countdown/station/Tul">Tullinge</a>
+<a href="countdown/station/Tu">Tumba</a>

@@ -13,6 +13,6 @@
 <a href="https://text-hersen.netlify.app/">
     <img src="text.png" width="120" alt="text" />
 </a>
-<a href="https://trainfreq-hersen.netlify.app/">
+<a href="trainfreq">
     <img src="trainfreq.png" width="120" alt="text" />
 </a>

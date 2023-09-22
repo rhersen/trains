@@ -1,7 +1,7 @@
 <a href="countdown">
     <img src="countdown.png" width="120" alt="countdown" />
 </a>
-<a href="https://cancelled-hersen.netlify.app">
+<a href="cancelled">
     <img src="cancelled.png" width="120" alt="cancelled" />
 </a>
 <a href="https://text-vite.netlify.app/">

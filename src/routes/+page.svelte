@@ -10,7 +10,7 @@
 <a href="https://sheet-react.netlify.app/">
     <img src="sheet.png" width="120" alt="sheet" />
 </a>
-<a href="https://text-hersen.netlify.app/">
+<a href="text">
     <img src="text.png" width="120" alt="text" />
 </a>
 <a href="trainfreq">

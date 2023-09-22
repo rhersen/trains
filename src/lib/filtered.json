@@ -1,0 +1,1406 @@
+{
+	"Alä": {
+		"AdvertisedShortLocationName": "Almnäs",
+		"Geometry": {
+			"SWEREF99TM": "POINT (643349 6561610)",
+			"WGS84": "POINT (17.507802824548527 59.169404149769846)"
+		}
+	},
+	"Arne": {
+		"AdvertisedShortLocationName": "Arlanda nedre",
+		"Geometry": {
+			"SWEREF99TM": "POINT (664813 6614137)",
+			"WGS84": "POINT (17.923106648878097 59.63271292158976)"
+		}
+	},
+	"Arns": {
+		"AdvertisedShortLocationName": "Arlanda S",
+		"Geometry": {
+			"SWEREF99TM": "POINT (665038 6615720)",
+			"WGS84": "POINT (17.92832852166955 59.646820357358884)"
+		}
+	},
+	"Arnc": {
+		"AdvertisedShortLocationName": "Arlanda",
+		"Geometry": {
+			"SWEREF99TM": "POINT (665036 6615971)",
+			"WGS84": "POINT (17.928489392445165 59.64907212086778)"
+		}
+	},
+	"Arnn": {
+		"AdvertisedShortLocationName": "Arlanda N",
+		"Geometry": {
+			"SWEREF99TM": "POINT (665100 6616247)",
+			"WGS84": "POINT (17.929839291864006 59.651521946991636)"
+		}
+	},
+	"Bra": {
+		"AdvertisedShortLocationName": "Brista",
+		"Geometry": {
+			"SWEREF99TM": "POINT (661774 6611469)",
+			"WGS84": "POINT (17.867244912541 59.609974570890515)"
+		}
+	},
+	"Bjn": {
+		"AdvertisedShortLocationName": "Björnkulla",
+		"Geometry": {
+			"SWEREF99TM": "POINT (667224 6566413)",
+			"WGS84": "POINT (17.928581196472948 59.20375584268418)"
+		}
+	},
+	"Bvr": {
+		"AdvertisedShortLocationName": "Blackvreten",
+		"Geometry": {
+			"SWEREF99TM": "POINT (664059 6611304)",
+			"WGS84": "POINT (17.907555581954057 59.60760320890258)"
+		}
+	},
+	"Bro": {
+		"AdvertisedShortLocationName": "Bro",
+		"Geometry": {
+			"SWEREF99TM": "POINT (648991 6600050)",
+			"WGS84": "POINT (17.63295834870672 59.51230001368409)"
+		}
+	},
+	"Bkb": {
+		"AdvertisedShortLocationName": "Barkarby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (662554 6588698)",
+			"WGS84": "POINT (17.86367834371055 59.4054464125127)"
+		}
+	},
+	"Brny": {
+		"AdvertisedShortLocationName": "Bro Nygård",
+		"Geometry": {
+			"SWEREF99TM": "POINT (651265 6598512)",
+			"WGS84": "POINT (17.672002311768015 59.49768936938677)"
+		}
+	},
+	"Bre": {
+		"AdvertisedShortLocationName": "Bränninge",
+		"Geometry": {
+			"SWEREF99TM": "POINT (650758 6558674)",
+			"WGS84": "POINT (17.63523655054902 59.14050116995778)"
+		}
+	},
+	"Bäl": {
+		"AdvertisedShortLocationName": "Bällsta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673739 6602430)",
+			"WGS84": "POINT (18.07156718518678 59.52411556085246)"
+		}
+	},
+	"Dån": {
+		"AdvertisedShortLocationName": "Dånviken",
+		"Geometry": {
+			"SWEREF99TM": "POINT (655058 6564353)",
+			"WGS84": "POINT (17.71433976088987 59.18989801084126)"
+		}
+	},
+	"Bål": {
+		"AdvertisedShortLocationName": "Bålsta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (643031 6606187)",
+			"WGS84": "POINT (17.531884549633357 59.56943227548269)"
+		}
+	},
+	"Cst": {
+		"AdvertisedShortLocationName": "Stockholm C",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673924 6580788)",
+			"WGS84": "POINT (18.057267018575825 59.329970842872264)"
+		}
+	},
+	"Dk.rin": {
+		"AdvertisedShortLocationName": "Ringsted",
+		"Geometry": {
+			"SWEREF99TM": "POINT (676398 6147838)",
+			"WGS84": "POINT (17.78890644854053 55.444898506915564)"
+		}
+	},
+	"Dk.höj": {
+		"AdvertisedShortLocationName": "Höje Taastrup",
+		"Geometry": {
+			"SWEREF99TM": "POINT (707519 6171616)",
+			"WGS84": "POINT (18.297928018816638 55.646015186923115)"
+		}
+	},
+	"Duo": {
+		"AdvertisedShortLocationName": "Duvbo",
+		"Geometry": {
+			"SWEREF99TM": "POINT (666612 6585006)",
+			"WGS84": "POINT (17.932196987513084 59.37074867405395)"
+		}
+	},
+	"Eby": {
+		"AdvertisedShortLocationName": "Ekeby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (654689 6629785)",
+			"WGS84": "POINT (17.7553140479258 59.776942406174726)"
+		}
+	},
+	"Eko": {
+		"AdvertisedShortLocationName": "Ekolsund",
+		"Geometry": {
+			"SWEREF99TM": "POINT (633723 6610818)",
+			"WGS84": "POINT (17.370210482695857 59.61406263439008)"
+		}
+	},
+	"Fas": {
+		"AdvertisedShortLocationName": "Farsta strand",
+		"Geometry": {
+			"SWEREF99TM": "POINT (677073 6570533)",
+			"WGS84": "POINT (18.104137121732695 59.23670496034276)"
+		}
+	},
+	"Flb": {
+		"AdvertisedShortLocationName": "Flemingsberg",
+		"Geometry": {
+			"SWEREF99TM": "POINT (668247 6568187)",
+			"WGS84": "POINT (17.947841798445623 59.21926148988484)"
+		}
+	},
+	"Gn": {
+		"AdvertisedShortLocationName": "Gnesta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (632674 6547755)",
+			"WGS84": "POINT (17.312841134340005 59.04854927680454)"
+		}
+	},
+	"Ghu": {
+		"AdvertisedShortLocationName": "Gula huset",
+		"Geometry": {
+			"SWEREF99TM": "POINT (670685 6585712)",
+			"WGS84": "POINT (18.004324812598888 59.375450332677566)"
+		}
+	},
+	"Gau": {
+		"AdvertisedShortLocationName": "Garnudden",
+		"Geometry": {
+			"SWEREF99TM": "POINT (658267 6564870)",
+			"WGS84": "POINT (17.77081470259223 59.19335122369514)"
+		}
+	},
+	"Gdv": {
+		"AdvertisedShortLocationName": "Gröndalsviken",
+		"Geometry": {
+			"SWEREF99TM": "POINT (668892 6532535)",
+			"WGS84": "POINT (17.931729038968886 58.89925320225162)"
+		}
+	},
+	"Hgl": {
+		"AdvertisedShortLocationName": "Hagalund",
+		"Geometry": {
+			"SWEREF99TM": "POINT (670775 6585341)",
+			"WGS84": "POINT (18.005611850474132 59.37208683071199)"
+		}
+	},
+	"Hel": {
+		"AdvertisedShortLocationName": "Helenelund",
+		"Geometry": {
+			"SWEREF99TM": "POINT (667775 6590278)",
+			"WGS84": "POINT (17.956751377736484 59.41756747147486)"
+		}
+	},
+	"Hfa": {
+		"AdvertisedShortLocationName": "Hemfosa",
+		"Geometry": {
+			"SWEREF99TM": "POINT (670634 6551515)",
+			"WGS84": "POINT (17.976580294148828 59.06878868253162)"
+		}
+	},
+	"Hgv": {
+		"AdvertisedShortLocationName": "Häggvik",
+		"Geometry": {
+			"SWEREF99TM": "POINT (666342 6593076)",
+			"WGS84": "POINT (17.933708229792504 59.443229737156024)"
+		}
+	},
+	"Hlö": {
+		"AdvertisedShortLocationName": "Hölö",
+		"Geometry": {
+			"SWEREF99TM": "POINT (645499 6545700)",
+			"WGS84": "POINT (17.534812607709043 59.02593382032083)"
+		}
+	},
+	"Hnd": {
+		"AdvertisedShortLocationName": "Handen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (679149 6562777)",
+			"WGS84": "POINT (18.134083407444244 59.16628512713939)"
+		}
+	},
+	"Huv": {
+		"AdvertisedShortLocationName": "Huvudsta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (670580 6583400)",
+			"WGS84": "POINT (18.000647047100582 59.35475926458733)"
+		}
+	},
+	"Hu": {
+		"AdvertisedShortLocationName": "Huddinge",
+		"Geometry": {
+			"SWEREF99TM": "POINT (669888 6570098)",
+			"WGS84": "POINT (17.978043145418106 59.23574545252347)"
+		}
+	},
+	"Jbo": {
+		"AdvertisedShortLocationName": "Jordbro",
+		"Geometry": {
+			"SWEREF99TM": "POINT (678848 6560092)",
+			"WGS84": "POINT (18.126627633514342 59.14233539839546)"
+		}
+	},
+	"Hön": {
+		"AdvertisedShortLocationName": "Högdalen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673424 6572669)",
+			"WGS84": "POINT (18.041982001377352 59.25736898830077)"
+		}
+	},
+	"Jkb": {
+		"AdvertisedShortLocationName": "Jakobsberg",
+		"Geometry": {
+			"SWEREF99TM": "POINT (660733 6590667)",
+			"WGS84": "POINT (17.833119618641522 59.42380587742837)"
+		}
+	},
+	"Jn": {
+		"AdvertisedShortLocationName": "Järna",
+		"Geometry": {
+			"SWEREF99TM": "POINT (647135 6553329)",
+			"WGS84": "POINT (17.568388900751486 59.09381755899731)"
+		}
+	},
+	"Kda": {
+		"AdvertisedShortLocationName": "Krigslida",
+		"Geometry": {
+			"SWEREF99TM": "POINT (675527 6556210)",
+			"WGS84": "POINT (18.0655526617058 59.108906680414336)"
+		}
+	},
+	"Khä": {
+		"AdvertisedShortLocationName": "Kallhäll",
+		"Geometry": {
+			"SWEREF99TM": "POINT (659134 6593781)",
+			"WGS84": "POINT (17.8072890439651 59.45234417653789)"
+		}
+	},
+	"Kn": {
+		"AdvertisedShortLocationName": "Knivsta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (656714 6624124)",
+			"WGS84": "POINT (17.78709920918859 59.725408895627695)"
+		}
+	},
+	"Ke": {
+		"AdvertisedShortLocationName": "Karlberg",
+		"Geometry": {
+			"SWEREF99TM": "POINT (672231 6581859)",
+			"WGS84": "POINT (18.028410943790742 59.34026923540147)"
+		}
+	},
+	"Kng": {
+		"AdvertisedShortLocationName": "Kvarnängen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (668503 6535864)",
+			"WGS84": "POINT (17.927513716982958 58.929263989097976)"
+		}
+	},
+	"Lm": {
+		"AdvertisedShortLocationName": "Liljeholmen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (672275 6578362)",
+			"WGS84": "POINT (18.026391864198825 59.30889139708874)"
+		}
+	},
+	"Kän": {
+		"AdvertisedShortLocationName": "Kungsängen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (655929 6596521)",
+			"WGS84": "POINT (17.752825186759477 59.47812275142195)"
+		}
+	},
+	"Lre": {
+		"AdvertisedShortLocationName": "Lästringe",
+		"Geometry": {
+			"SWEREF99TM": "POINT (634168 6528482)",
+			"WGS84": "POINT (17.32717274554208 58.87514083459249)"
+		}
+	},
+	"Mr": {
+		"AdvertisedShortLocationName": "Märsta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (661368 6613430)",
+			"WGS84": "POINT (17.861556068154965 59.627719092214846)"
+		}
+	},
+	"Nbt": {
+		"AdvertisedShortLocationName": "Norra bantorget",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673188 6581494)",
+			"WGS84": "POINT (18.044917606512314 59.33660445660729)"
+		}
+	},
+	"Nvk": {
+		"AdvertisedShortLocationName": "Norrviken",
+		"Geometry": {
+			"SWEREF99TM": "POINT (665733 6594848)",
+			"WGS84": "POINT (17.924356611552174 59.459362194827804)"
+		}
+	},
+	"Mö": {
+		"AdvertisedShortLocationName": "Mölnbo",
+		"Geometry": {
+			"SWEREF99TM": "POINT (638726 6547837)",
+			"WGS84": "POINT (17.418288054007117 59.04736118461918)"
+		}
+	},
+	"Nst": {
+		"AdvertisedShortLocationName": "Stockholms norra",
+		"Geometry": {
+			"SWEREF99TM": "POINT (672483 6582680)",
+			"WGS84": "POINT (18.033491804221473 59.34752869986927)"
+		}
+	},
+	"Ngd": {
+		"AdvertisedShortLocationName": "Nynäsgård",
+		"Geometry": {
+			"SWEREF99TM": "POINT (669443 6534174)",
+			"WGS84": "POINT (17.942529489313543 58.913736221868994)"
+		}
+	},
+	"Nkv": {
+		"AdvertisedShortLocationName": "Nykvarn",
+		"Geometry": {
+			"SWEREF99TM": "POINT (638984 6562488)",
+			"WGS84": "POINT (17.432080395575703 59.1787322753928)"
+		}
+	},
+	"Msj": {
+		"AdvertisedShortLocationName": "Malmsjö",
+		"Geometry": {
+			"SWEREF99TM": "POINT (657981 6560482)",
+			"WGS84": "POINT (17.762635393655522 59.15409762975881)"
+		}
+	},
+	"Nba": {
+		"AdvertisedShortLocationName": "Nyboda",
+		"Geometry": {
+			"SWEREF99TM": "POINT (672021 6577352)",
+			"WGS84": "POINT (18.021133062535558 59.299937470441385)"
+		}
+	},
+	"Myn": {
+		"AdvertisedShortLocationName": "Myrbacken",
+		"Geometry": {
+			"SWEREF99TM": "POINT (658020 6620679)",
+			"WGS84": "POINT (17.80770264584468 59.69401662762307)"
+		}
+	},
+	"Rs": {
+		"AdvertisedShortLocationName": "Rosersberg",
+		"Geometry": {
+			"SWEREF99TM": "POINT (662607 6608649)",
+			"WGS84": "POINT (17.879821813887027 59.58435991542243)"
+		}
+	},
+	"Nyc": {
+		"AdvertisedShortLocationName": "Nynäshamn",
+		"Geometry": {
+			"SWEREF99TM": "POINT (669920 6532689)",
+			"WGS84": "POINT (17.949664205892567 58.90022886342229)"
+		}
+	},
+	"R": {
+		"AdvertisedShortLocationName": "Rotebro",
+		"Geometry": {
+			"SWEREF99TM": "POINT (665141 6596623)",
+			"WGS84": "POINT (17.915298260190166 59.475514234039295)"
+		}
+	},
+	"Sci": {
+		"AdvertisedShortLocationName": "Stockholm City",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674343 6581075)",
+			"WGS84": "POINT (18.06485202220192 59.332371652020754)"
+		}
+	},
+	"Rön": {
+		"AdvertisedShortLocationName": "Rönninge",
+		"Geometry": {
+			"SWEREF99TM": "POINT (657205 6564844)",
+			"WGS84": "POINT (17.75222820335924 59.19351266247038)"
+		}
+	},
+	"Ryb": {
+		"AdvertisedShortLocationName": "Ryssjöbrink",
+		"Geometry": {
+			"SWEREF99TM": "POINT (633358 6565713)",
+			"WGS84": "POINT (17.335702926296598 59.20947392236341)"
+		}
+	},
+	"Skg": {
+		"AdvertisedShortLocationName": "Skogås",
+		"Geometry": {
+			"SWEREF99TM": "POINT (679983 6568735)",
+			"WGS84": "POINT (18.15357186741919 59.219356858542994)"
+		}
+	},
+	"Skby": {
+		"AdvertisedShortLocationName": "Skavstaby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (663677 6604933)",
+			"WGS84": "POINT (17.895877592113234 59.550615770046676)"
+		}
+	},
+	"Sta": {
+		"AdvertisedShortLocationName": "Stuvsta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (670885 6572252)",
+			"WGS84": "POINT (17.997188639671837 59.25466170156521)"
+		}
+	},
+	"So": {
+		"AdvertisedShortLocationName": "Solna",
+		"Geometry": {
+			"SWEREF99TM": "POINT (671076 6584623)",
+			"WGS84": "POINT (18.010330020813157 59.365525934131234)"
+		}
+	},
+	"Spå": {
+		"AdvertisedShortLocationName": "Spånga",
+		"Geometry": {
+			"SWEREF99TM": "POINT (664563 6586405)",
+			"WGS84": "POINT (17.897261239158393 59.384100766747025)"
+		}
+	},
+	"Sst": {
+		"AdvertisedShortLocationName": "Stockholms S",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674193 6578955)",
+			"WGS84": "POINT (18.060508539616663 59.313422739013326)"
+		}
+	},
+	"Sol": {
+		"AdvertisedShortLocationName": "Sollentuna",
+		"Geometry": {
+			"SWEREF99TM": "POINT (667190 6591572)",
+			"WGS84": "POINT (17.947466949712663 59.42940516998738)"
+		}
+	},
+	"Sod": {
+		"AdvertisedShortLocationName": "Sthlm Odenplan",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673161 6582367)",
+			"WGS84": "POINT (18.04514491266581 59.34444415196133)"
+		}
+	},
+	"Ssä": {
+		"AdvertisedShortLocationName": "Segersäng",
+		"Geometry": {
+			"SWEREF99TM": "POINT (667991 6547018)",
+			"WGS84": "POINT (17.927110595566532 59.029504897567406)"
+		}
+	},
+	"Söö": {
+		"AdvertisedShortLocationName": "Södertälje S",
+		"Geometry": {
+			"SWEREF99TM": "POINT (651385 6561240)",
+			"WGS84": "POINT (17.647961677699406 59.163297667082155)"
+		}
+	},
+	"Söc": {
+		"AdvertisedShortLocationName": "Södertälje C",
+		"Geometry": {
+			"SWEREF99TM": "POINT (650142 6564295)",
+			"WGS84": "POINT (17.628350245585395 59.19114492012457)"
+		}
+	},
+	"Södy": {
+		"AdvertisedShortLocationName": "Söderby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (659554 6565262)",
+			"WGS84": "POINT (17.793602828281763 59.196385520619955)"
+		}
+	},
+	"Söka": {
+		"AdvertisedShortLocationName": "Södertälje kanal",
+		"Geometry": {
+			"SWEREF99TM": "POINT (651057 6563613)",
+			"WGS84": "POINT (17.64387541309818 59.184702201969614)"
+		}
+	},
+	"Söu": {
+		"AdvertisedShortLocationName": "Södertälje Syd",
+		"Geometry": {
+			"SWEREF99TM": "POINT (651243 6561248)",
+			"WGS84": "POINT (17.645486487135074 59.163419995708246)"
+		}
+	},
+	"Tot": {
+		"AdvertisedShortLocationName": "Toresta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (645591 6602293)",
+			"WGS84": "POINT (17.574479262092098 59.53361652325665)"
+		}
+	},
+	"Tmö": {
+		"AdvertisedShortLocationName": "Tomteboda övre",
+		"Geometry": {
+			"SWEREF99TM": "POINT (671495 6583032)",
+			"WGS84": "POINT (18.016423862998142 59.351088102413044)"
+		}
+	},
+	"Sub": {
+		"AdvertisedShortLocationName": "Sundbyberg",
+		"Geometry": {
+			"SWEREF99TM": "POINT (668912 6584003)",
+			"WGS84": "POINT (17.971824561472314 59.360838317032425)"
+		}
+	},
+	"Säy": {
+		"AdvertisedShortLocationName": "Säby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (651496 6635465)",
+			"WGS84": "POINT (17.702637227405763 59.829068148399806)"
+		}
+	},
+	"Söd": {
+		"AdvertisedShortLocationName": "Södertälje hamn",
+		"Geometry": {
+			"SWEREF99TM": "POINT (651279 6562834)",
+			"WGS84": "POINT (17.64721545709819 59.17763490847209)"
+		}
+	},
+	"Tm": {
+		"AdvertisedShortLocationName": "Tomteboda bangård",
+		"Geometry": {
+			"SWEREF99TM": "POINT (671743 6582437)",
+			"WGS84": "POINT (18.020304631522645 59.3456514379661)"
+		}
+	},
+	"wAll": {
+		"AdvertisedShortLocationName": "Alléparken",
+		"Geometry": {
+			"SWEREF99TM": "POINT (669195 6580426)",
+			"WGS84": "POINT (17.973987618728962 59.32864612844465)"
+		}
+	},
+	"Tåd": {
+		"AdvertisedShortLocationName": "Trångsund",
+		"Geometry": {
+			"SWEREF99TM": "POINT (678632 6569613)",
+			"WGS84": "POINT (18.13066308690351 59.2278010926431)"
+		}
+	},
+	"Tu": {
+		"AdvertisedShortLocationName": "Tumba",
+		"Geometry": {
+			"SWEREF99TM": "POINT (662096 6565716)",
+			"WGS84": "POINT (17.83838552404354 59.199494369094495)"
+		}
+	},
+	"Upv": {
+		"AdvertisedShortLocationName": "Upplands Väsby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (664013 6601588)",
+			"WGS84": "POINT (17.899233873234227 59.52048495324485)"
+		}
+	},
+	"wKlv": {
+		"AdvertisedShortLocationName": "Klövervägen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (669208 6579986)",
+			"WGS84": "POINT (17.973870734398464 59.32469495893034)"
+		}
+	},
+	"Udl": {
+		"AdvertisedShortLocationName": "Ulriksdal",
+		"Geometry": {
+			"SWEREF99TM": "POINT (670491 6586185)",
+			"WGS84": "POINT (18.00129058481793 59.3797706297159)"
+		}
+	},
+	"wGåh": {
+		"AdvertisedShortLocationName": "Gåshaga",
+		"Geometry": {
+			"SWEREF99TM": "POINT (683482 6584223)",
+			"WGS84": "POINT (18.22790226296775 59.356723541320626)"
+		}
+	},
+	"U": {
+		"AdvertisedShortLocationName": "Uppsala",
+		"Geometry": {
+			"SWEREF99TM": "POINT (648345 6638550)",
+			"WGS84": "POINT (17.64869381436992 59.85788169781748)"
+		}
+	},
+	"Ts": {
+		"AdvertisedShortLocationName": "Tungelsta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674467 6555486)",
+			"WGS84": "POINT (18.046493774584693 59.10284954389717)"
+		}
+	},
+	"wGåb": {
+		"AdvertisedShortLocationName": "Gåshaga brygga",
+		"Geometry": {
+			"SWEREF99TM": "POINT (683822 6584256)",
+			"WGS84": "POINT (18.233900831405908 59.35687136347078)"
+		}
+	},
+	"wHöb": {
+		"AdvertisedShortLocationName": "Högberga",
+		"Geometry": {
+			"SWEREF99TM": "POINT (681615 6582752)",
+			"WGS84": "POINT (18.193876545373673 59.3443423712286)"
+		}
+	},
+	"Uts": {
+		"AdvertisedShortLocationName": "Utsikten",
+		"Geometry": {
+			"SWEREF99TM": "POINT (665389 6566261)",
+			"WGS84": "POINT (17.89637730060255 59.2031118281726)"
+		}
+	},
+	"wHlt": {
+		"AdvertisedShortLocationName": "Höglandstorget",
+		"Geometry": {
+			"SWEREF99TM": "POINT (667275 6579764)",
+			"WGS84": "POINT (17.939777900735383 59.323474134169345)"
+		}
+	},
+	"wBag": {
+		"AdvertisedShortLocationName": "Baggeby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (678141 6583980)",
+			"WGS84": "POINT (18.133905338031912 59.35683449080269)"
+		}
+	},
+	"wAga": {
+		"AdvertisedShortLocationName": "Aga",
+		"Geometry": {
+			"SWEREF99TM": "POINT (679479 6582868)",
+			"WGS84": "POINT (18.15647602526266 59.346296449912714)"
+		}
+	},
+	"Vhe": {
+		"AdvertisedShortLocationName": "Västerhaninge",
+		"Geometry": {
+			"SWEREF99TM": "POINT (677618 6557882)",
+			"WGS84": "POINT (18.103366450191004 59.12303313879594)"
+		}
+	},
+	"wBod": {
+		"AdvertisedShortLocationName": "Bodal",
+		"Geometry": {
+			"SWEREF99TM": "POINT (678416 6583643)",
+			"WGS84": "POINT (18.13845561184383 59.35369647573072)"
+		}
+	},
+	"Vga": {
+		"AdvertisedShortLocationName": "Vega",
+		"Geometry": {
+			"SWEREF99TM": "POINT (679142 6565064.8)",
+			"WGS84": "POINT (18.135840879679357 59.186802676715665)"
+		}
+	},
+	"Vhd": {
+		"AdvertisedShortLocationName": "Vagnhärad",
+		"Geometry": {
+			"SWEREF99TM": "POINT (643765 6536707)",
+			"WGS84": "POINT (17.49878397536677 58.94583470022704)"
+		}
+	},
+	"wAlv": {
+		"AdvertisedShortLocationName": "Alvik",
+		"Geometry": {
+			"SWEREF99TM": "POINT (669627 6580979)",
+			"WGS84": "POINT (17.982003937832268 59.33343210533686)"
+		}
+	},
+	"wKäp": {
+		"AdvertisedShortLocationName": "Käppala",
+		"Geometry": {
+			"SWEREF99TM": "POINT (682924 6583742)",
+			"WGS84": "POINT (18.217695117662636 59.35265328738359)"
+		}
+	},
+	"wBvi": {
+		"AdvertisedShortLocationName": "Brevik",
+		"Geometry": {
+			"SWEREF99TM": "POINT (682149 6583230)",
+			"WGS84": "POINT (18.20365448512078 59.34839800536344)"
+		}
+	},
+	"Tul": {
+		"AdvertisedShortLocationName": "Tullinge",
+		"Geometry": {
+			"SWEREF99TM": "POINT (665884 6566571)",
+			"WGS84": "POINT (17.90526941954288 59.20569892752887)"
+		}
+	},
+	"wKoa": {
+		"AdvertisedShortLocationName": "Kottla",
+		"Geometry": {
+			"SWEREF99TM": "POINT (680828 6582722)",
+			"WGS84": "POINT (18.1800359947369 59.34441137966856)"
+		}
+	},
+	"wSkr": {
+		"AdvertisedShortLocationName": "Skärsätra",
+		"Geometry": {
+			"SWEREF99TM": "POINT (680279 6582579)",
+			"WGS84": "POINT (18.170278855757868 59.343364096459055)"
+		}
+	},
+	"wTov": {
+		"AdvertisedShortLocationName": "Torsvik",
+		"Geometry": {
+			"SWEREF99TM": "POINT (677200 6584504)",
+			"WGS84": "POINT (18.117810788530836 59.36192953892423)"
+		}
+	},
+	"xAre": {
+		"AdvertisedShortLocationName": "Arninge",
+		"Geometry": {
+			"SWEREF99TM": "POINT (678018 6595323)",
+			"WGS84": "POINT (18.141155544890534 59.45859480621608)"
+		}
+	},
+	"xBäo": {
+		"AdvertisedShortLocationName": "Bläse kalkbrott",
+		"Geometry": {
+			"SWEREF99TM": "POINT (728588 6424493)",
+			"WGS84": "POINT (18.858116427933773 57.903523976068634)"
+		}
+	},
+	"xEsa": {
+		"AdvertisedShortLocationName": "Ensta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673661 6594390)",
+			"WGS84": "POINT (18.06364723830495 59.45205241880546)"
+		}
+	},
+	"xAlp": {
+		"AdvertisedShortLocationName": "Altorp",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674394 6589833)",
+			"WGS84": "POINT (18.07284721681037 59.410885681003634)"
+		}
+	},
+	"xEnb": {
+		"AdvertisedShortLocationName": "Enebyberg",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673083 6591446)",
+			"WGS84": "POINT (18.051087404118764 59.42589122358702)"
+		}
+	},
+	"xFb": {
+		"AdvertisedShortLocationName": "Funbo",
+		"Geometry": {
+			"SWEREF99TM": "POINT (660154 6638106)",
+			"WGS84": "POINT (17.858906554137764 59.84949391758602)"
+		}
+	},
+	"xDje": {
+		"AdvertisedShortLocationName": "Djursholms Ekeby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673517 6590027)",
+			"WGS84": "POINT (18.057576876345586 59.41298784568663)"
+		}
+	},
+	"xDjö": {
+		"AdvertisedShortLocationName": "Djursholms Ösby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673613 6588236)",
+			"WGS84": "POINT (18.057816910970494 59.39688784270378)"
+		}
+	},
+	"wLab": {
+		"AdvertisedShortLocationName": "Larsberg",
+		"Geometry": {
+			"SWEREF99TM": "POINT (678873 6583309)",
+			"WGS84": "POINT (18.146203151896497 59.350508075964285)"
+		}
+	},
+	"Vn": {
+		"AdvertisedShortLocationName": "Värtan",
+		"Geometry": {
+			"SWEREF99TM": "POINT (675956 6583235)",
+			"WGS84": "POINT (18.094923050232673 59.3510713152609)"
+		}
+	},
+	"wÅlG": {
+		"AdvertisedShortLocationName": "Ålstens Gård",
+		"Geometry": {
+			"SWEREF99TM": "POINT (667956 6579464)",
+			"WGS84": "POINT (17.951494334883026 59.320513351606344)"
+		}
+	},
+	"xEkn": {
+		"AdvertisedShortLocationName": "Eken",
+		"Geometry": {
+			"SWEREF99TM": "POINT (710902 6382969)",
+			"WGS84": "POINT (18.52388033765994 57.539956467976495)"
+		}
+	},
+	"wSms": {
+		"AdvertisedShortLocationName": "Smedslätten",
+		"Geometry": {
+			"SWEREF99TM": "POINT (668649 6579546)",
+			"WGS84": "POINT (17.963717645341116 59.32097258620574)"
+		}
+	},
+	"wNob": {
+		"AdvertisedShortLocationName": "Nockeby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (666042 6580298)",
+			"WGS84": "POINT (17.918552137083967 59.32874994453668)"
+		}
+	},
+	"wOll": {
+		"AdvertisedShortLocationName": "Olovslund",
+		"Geometry": {
+			"SWEREF99TM": "POINT (666977 6580253)",
+			"WGS84": "POINT (17.934927046911895 59.32797762248713)"
+		}
+	},
+	"wÅls": {
+		"AdvertisedShortLocationName": "Ålstensgatan",
+		"Geometry": {
+			"SWEREF99TM": "POINT (668187 6579789)",
+			"WGS84": "POINT (17.955800675611837 59.323336105347906)"
+		}
+	},
+	"xBvv": {
+		"AdvertisedShortLocationName": "Bråvallavägen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673718 6589201)",
+			"WGS84": "POINT (18.06044409048147 59.40549795979893)"
+		}
+	},
+	"xEkg": {
+		"AdvertisedShortLocationName": "Ekskogen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (681862 6615634)",
+			"WGS84": "POINT (18.226243736528897 59.639050979118394)"
+		}
+	},
+	"wRos": {
+		"AdvertisedShortLocationName": "Ropsten",
+		"Geometry": {
+			"SWEREF99TM": "POINT (676424 6584043)",
+			"WGS84": "POINT (18.10380268642855 59.35812116418682)"
+		}
+	},
+	"xBäu": {
+		"AdvertisedShortLocationName": "Bläse kalkbruk",
+		"Geometry": {
+			"SWEREF99TM": "POINT (727569 6423441)",
+			"WGS84": "POINT (18.839955072775176 57.89461650542081)"
+		}
+	},
+	"wNot": {
+		"AdvertisedShortLocationName": "Nockeby torg",
+		"Geometry": {
+			"SWEREF99TM": "POINT (666564 6580363)",
+			"WGS84": "POINT (17.927763741891816 59.32912728347937)"
+		}
+	},
+	"xB": {
+		"AdvertisedShortLocationName": "Bärby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (657686 6638852)",
+			"WGS84": "POINT (17.815478304564717 59.85713295711729)"
+		}
+	},
+	"xBäl": {
+		"AdvertisedShortLocationName": "Bällsta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673774 6602296)",
+			"WGS84": "POINT (18.072075530118497 59.52289946609442)"
+		}
+	},
+	"xEvb": {
+		"AdvertisedShortLocationName": "Erstaviksbadet",
+		"Geometry": {
+			"SWEREF99TM": "POINT (687190 6575060)",
+			"WGS84": "POINT (18.28506986875821 59.27294412122426)"
+		}
+	},
+	"xFl": {
+		"AdvertisedShortLocationName": "Fyrislund",
+		"Geometry": {
+			"SWEREF99TM": "POINT (650213 6638686)",
+			"WGS84": "POINT (17.68210280746533 59.85842702610516)"
+		}
+	},
+	"xHy": {
+		"AdvertisedShortLocationName": "Hesselby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (711315 6383494)",
+			"WGS84": "POINT (18.531221822673114 57.54447084498816)"
+		}
+	},
+	"xMus": {
+		"AdvertisedShortLocationName": "Munkebos",
+		"Geometry": {
+			"SWEREF99TM": "POINT (710679 6382510)",
+			"WGS84": "POINT (18.51976518301805 57.535945016647446)"
+		}
+	},
+	"xHed": {
+		"AdvertisedShortLocationName": "Henriksdal",
+		"Geometry": {
+			"SWEREF99TM": "POINT (676913 6578951)",
+			"WGS84": "POINT (18.108213766779954 59.3122566315866)"
+		}
+	},
+	"xRdb": {
+		"AdvertisedShortLocationName": "Rydbo",
+		"Geometry": {
+			"SWEREF99TM": "POINT (680453 6596199)",
+			"WGS84": "POINT (18.18478441087183 59.465410150469886)"
+		}
+	},
+	"xGpf": {
+		"AdvertisedShortLocationName": "Galoppfältet",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674866 6593862)",
+			"WGS84": "POINT (18.084438120209207 59.446818060645725)"
+		}
+	},
+	"xMöb": {
+		"AdvertisedShortLocationName": "Mörby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673034 6587677)",
+			"WGS84": "POINT (18.047185484418566 59.39211340077091)"
+		}
+	},
+	"xNbp": {
+		"AdvertisedShortLocationName": "Näsbypark",
+		"Geometry": {
+			"SWEREF99TM": "POINT (675574 6592038)",
+			"WGS84": "POINT (18.09540968647935 59.430167197571265)"
+		}
+	},
+	"xKår": {
+		"AdvertisedShortLocationName": "Kårsta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (684085 6617709)",
+			"WGS84": "POINT (18.267415831880122 59.65667839685008)"
+		}
+	},
+	"xLhl": {
+		"AdvertisedShortLocationName": "Lahäll",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674397 6591300)",
+			"WGS84": "POINT (18.074093088593884 59.42403923512258)"
+		}
+	},
+	"xNka": {
+		"AdvertisedShortLocationName": "Nacka",
+		"Geometry": {
+			"SWEREF99TM": "POINT (678192 6578377)",
+			"WGS84": "POINT (18.130172547252563 59.3065721897222)"
+		}
+	},
+	"xMnb": {
+		"AdvertisedShortLocationName": "Molnby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674338 6606172)",
+			"WGS84": "POINT (18.085207687052996 59.55742081910097)"
+		}
+	},
+	"xRa": {
+		"AdvertisedShortLocationName": "Roma",
+		"Geometry": {
+			"SWEREF99TM": "POINT (707075 6379204)",
+			"WGS84": "POINT (18.4568714513221 57.50796484394022)"
+		}
+	},
+	"xGa": {
+		"AdvertisedShortLocationName": "Gunsta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (658755 6638414)",
+			"WGS84": "POINT (17.834203816484763 59.852795645294066)"
+		}
+	},
+	"xKht": {
+		"AdvertisedShortLocationName": "Kambshagtorp",
+		"Geometry": {
+			"SWEREF99TM": "POINT (709713 6380699)",
+			"WGS84": "POINT (18.50210211731635 57.52015615471273)"
+		}
+	},
+	"xHgä": {
+		"AdvertisedShortLocationName": "Hägernäs",
+		"Geometry": {
+			"SWEREF99TM": "POINT (677133 6594427)",
+			"WGS84": "POINT (18.124824565553563 59.450934820674334)"
+		}
+	},
+	"xMl": {
+		"AdvertisedShortLocationName": "Marielund",
+		"Geometry": {
+			"SWEREF99TM": "POINT (661082 6637404)",
+			"WGS84": "POINT (17.8749046825506 59.842837837390014)"
+		}
+	},
+	"xNbe": {
+		"AdvertisedShortLocationName": "Näsbyallé",
+		"Geometry": {
+			"SWEREF99TM": "POINT (675008 6591696)",
+			"WGS84": "POINT (18.085168459974835 59.4273364078845)"
+		}
+	},
+	"xLh": {
+		"AdvertisedShortLocationName": "Lövstahagen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (661735 6637925)",
+			"WGS84": "POINT (17.886946736212263 59.847255404116495)"
+		}
+	},
+	"xOta": {
+		"AdvertisedShortLocationName": "Ormsta",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674070 6604910)",
+			"WGS84": "POINT (18.079438889749383 59.546216172473514)"
+		}
+	},
+	"xNeg": {
+		"AdvertisedShortLocationName": "Neglinge",
+		"Geometry": {
+			"SWEREF99TM": "POINT (687509 6576814)",
+			"WGS84": "POINT (18.29217669854955 59.288528260593466)"
+		}
+	},
+	"xKgl": {
+		"AdvertisedShortLocationName": "Kragstalund",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674046 6600904)",
+			"WGS84": "POINT (18.07573843340895 59.51030452529331)"
+		}
+	},
+	"xNys": {
+		"AdvertisedShortLocationName": "Nygårds Stall Dalhem",
+		"Geometry": {
+			"SWEREF99TM": "POINT (710312 6381764)",
+			"WGS84": "POINT (18.51300281495658 57.529427122763735)"
+		}
+	},
+	"xFsä": {
+		"AdvertisedShortLocationName": "Fisksätra",
+		"Geometry": {
+			"SWEREF99TM": "POINT (685420 6577335)",
+			"WGS84": "POINT (18.25601484493628 59.294120504032634)"
+		}
+	},
+	"xIgb": {
+		"AdvertisedShortLocationName": "Igelboda",
+		"Geometry": {
+			"SWEREF99TM": "POINT (686548 6576923)",
+			"WGS84": "POINT (18.275430036381575 59.28993051375122)"
+		}
+	},
+	"xLdm": {
+		"AdvertisedShortLocationName": "Lindholmen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (675562 6609224)",
+			"WGS84": "POINT (18.109357019599226 59.584275202441916)"
+		}
+	},
+	"xLiä": {
+		"AdvertisedShortLocationName": "Lillängen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (679979 6578300)",
+			"WGS84": "POINT (18.161444242312808 59.30512448060616)"
+		}
+	},
+	"xFsu": {
+		"AdvertisedShortLocationName": "Frösunda",
+		"Geometry": {
+			"SWEREF99TM": "POINT (678790 6613818)",
+			"WGS84": "POINT (18.170307313549305 59.624097014229065)"
+		}
+	},
+	"xSjl": {
+		"AdvertisedShortLocationName": "Saltsjö-Järla",
+		"Geometry": {
+			"SWEREF99TM": "POINT (679299 6578465)",
+			"WGS84": "POINT (18.14965748537283 59.30689302385171)"
+		}
+	},
+	"xUö": {
+		"AdvertisedShortLocationName": "Uppsala Östra",
+		"Geometry": {
+			"SWEREF99TM": "POINT (648388 6638550)",
+			"WGS84": "POINT (17.64946062121286 59.857866265083686)"
+		}
+	},
+	"xTe": {
+		"AdvertisedShortLocationName": "Tule",
+		"Geometry": {
+			"SWEREF99TM": "POINT (709970 6381060)",
+			"WGS84": "POINT (18.506695704416128 57.523273815042735)"
+		}
+	},
+	"xRok": {
+		"AdvertisedShortLocationName": "Roma kungsgård",
+		"Geometry": {
+			"SWEREF99TM": "POINT (707746 6379766)",
+			"WGS84": "POINT (18.468528270418187 57.51269685859589)"
+		}
+	},
+	"xSik": {
+		"AdvertisedShortLocationName": "Sickla",
+		"Geometry": {
+			"SWEREF99TM": "POINT (677678 6578384)",
+			"WGS84": "POINT (18.121164786583147 59.306851383599756)"
+		}
+	},
+	"xSlä": {
+		"AdvertisedShortLocationName": "Selknä",
+		"Geometry": {
+			"SWEREF99TM": "POINT (662917 6638896)",
+			"WGS84": "POINT (17.908774109095056 59.85549931353879)"
+		}
+	},
+	"xTeg": {
+		"AdvertisedShortLocationName": "Tule grusgrop",
+		"Geometry": {
+			"SWEREF99TM": "POINT (710110 6381350)",
+			"WGS84": "POINT (18.509278865173027 57.52580900849313)"
+		}
+	},
+	"xUnv": {
+		"AdvertisedShortLocationName": "Universitetet",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673411 6584650)",
+			"WGS84": "POINT (18.05137233663527 59.36481410690195)"
+		}
+	},
+	"xTäc": {
+		"AdvertisedShortLocationName": "Täby Centrum",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674332 6593560)",
+			"WGS84": "POINT (18.074788735664004 59.44433186169102)"
+		}
+	},
+	"xTäl": {
+		"AdvertisedShortLocationName": "Täljö",
+		"Geometry": {
+			"SWEREF99TM": "POINT (683274 6597202)",
+			"WGS84": "POINT (18.23534063178873 59.47318107172185)"
+		}
+	},
+	"xSln": {
+		"AdvertisedShortLocationName": "Solsidan",
+		"Geometry": {
+			"SWEREF99TM": "POINT (687828 6574862)",
+			"WGS84": "POINT (18.29607324729065 59.27088626666877)"
+		}
+	},
+	"xVis": {
+		"AdvertisedShortLocationName": "Visinge",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673574 6595559)",
+			"WGS84": "POINT (18.063063842676154 59.462571000760754)"
+		}
+	},
+	"xVlt": {
+		"AdvertisedShortLocationName": "Vallentuna",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674166 6603570)",
+			"WGS84": "POINT (18.080036678438514 59.53416057661871)"
+		}
+	},
+	"xÖst": {
+		"AdvertisedShortLocationName": "Stockholms östra",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674581 6582676)",
+			"WGS84": "POINT (18.07032540786386 59.34662991319712)"
+		}
+	},
+	"xÖsv": {
+		"AdvertisedShortLocationName": "Östervik",
+		"Geometry": {
+			"SWEREF99TM": "POINT (684249 6577390)",
+			"WGS84": "POINT (18.235536826198125 59.29512555145722)"
+		}
+	},
+	"xRvä": {
+		"AdvertisedShortLocationName": "Ringvägen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (688109 6576244)",
+			"WGS84": "POINT (18.30219542991483 59.28315156796585)"
+		}
+	},
+	"xÖsk": {
+		"AdvertisedShortLocationName": "Österskär",
+		"Geometry": {
+			"SWEREF99TM": "POINT (687626 6596095)",
+			"WGS84": "POINT (18.311047418607 59.46133444391295)"
+		}
+	},
+	"xSsu": {
+		"AdvertisedShortLocationName": "Stocksund",
+		"Geometry": {
+			"SWEREF99TM": "POINT (672877 6586866)",
+			"WGS84": "POINT (18.043772668457464 59.3849052920553)"
+		}
+	},
+	"xTbl": {
+		"AdvertisedShortLocationName": "Tibble",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673655 6593296)",
+			"WGS84": "POINT (18.062653782067116 59.44224479479556)"
+		}
+	},
+	"xTip": {
+		"AdvertisedShortLocationName": "Tippen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (686682 6576280)",
+			"WGS84": "POINT (18.277223624061218 59.28410653085103)"
+		}
+	},
+	"xVev": {
+		"AdvertisedShortLocationName": "Vendevägen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674158 6588591)",
+			"WGS84": "POINT (18.067687906277655 59.3998461453414)"
+		}
+	},
+	"xÅru": {
+		"AdvertisedShortLocationName": "Åkers Runö",
+		"Geometry": {
+			"SWEREF99TM": "POINT (685210 6598130)",
+			"WGS84": "POINT (18.27025740560182 59.480651297017744)"
+		}
+	},
+	"xÖga": {
+		"AdvertisedShortLocationName": "Östberga",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674491 6589068)",
+			"WGS84": "POINT (18.073931444756095 59.403985604310876)"
+		}
+	},
+	"xRnb": {
+		"AdvertisedShortLocationName": "Roslags Näsby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673421 6592556)",
+			"WGS84": "POINT (18.057934324630494 59.43570564946557)"
+		}
+	},
+	"xSdn": {
+		"AdvertisedShortLocationName": "Saltsjö-Duvnäs",
+		"Geometry": {
+			"SWEREF99TM": "POINT (682120 6577896)",
+			"WGS84": "POINT (18.19864428848485 59.300584934518255)"
+		}
+	},
+	"xSlu": {
+		"AdvertisedShortLocationName": "Slussen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (674890 6579692)",
+			"WGS84": "POINT (18.07333110181467 59.31974366786051)"
+		}
+	},
+	"xTab": {
+		"AdvertisedShortLocationName": "Tattby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (686976 6575730)",
+			"WGS84": "POINT (18.281899946391484 59.279045636673196)"
+		}
+	},
+	"xTug": {
+		"AdvertisedShortLocationName": "Tunagård",
+		"Geometry": {
+			"SWEREF99TM": "POINT (687375 6596904)",
+			"WGS84": "POINT (18.307335802628376 59.46869920972795)"
+		}
+	},
+	"xVbm": {
+		"AdvertisedShortLocationName": "Viggbyholm",
+		"Geometry": {
+			"SWEREF99TM": "POINT (675971 6594189)",
+			"WGS84": "POINT (18.104164877840077 59.44928897289631)"
+		}
+	},
+	"xSbn": {
+		"AdvertisedShortLocationName": "Saltsjöbaden",
+		"Geometry": {
+			"SWEREF99TM": "POINT (688749 6575814)",
+			"WGS84": "POINT (18.313033766495227 59.27901141961996)"
+		}
+	},
+	"xTäb": {
+		"AdvertisedShortLocationName": "Täby kyrkby",
+		"Geometry": {
+			"SWEREF99TM": "POINT (673601 6598947)",
+			"WGS84": "POINT (18.066293874857447 59.492940479861694)"
+		}
+	},
+	"xÅbg": {
+		"AdvertisedShortLocationName": "Åkersberga",
+		"Geometry": {
+			"SWEREF99TM": "POINT (686854 6598035)",
+			"WGS84": "POINT (18.299146775379395 59.47907091032556)"
+		}
+	},
+	"xStä": {
+		"AdvertisedShortLocationName": "Storängen",
+		"Geometry": {
+			"SWEREF99TM": "POINT (680916 6578396)",
+			"WGS84": "POINT (18.17795432262495 59.30558518054642)"
+		}
+	},
+	"Äsg": {
+		"AdvertisedShortLocationName": "Älvsjö godsbangård",
+		"Geometry": {
+			"SWEREF99TM": "POINT (672044 6576364)",
+			"WGS84": "POINT (18.020750312361056 59.2910679753198)"
+		}
+	},
+	"Öso": {
+		"AdvertisedShortLocationName": "Ösmo",
+		"Geometry": {
+			"SWEREF99TM": "POINT (666805 6541950)",
+			"WGS84": "POINT (17.902643771807412 58.98451424987104)"
+		}
+	},
+	"Öte": {
+		"AdvertisedShortLocationName": "Östertälje",
+		"Geometry": {
+			"SWEREF99TM": "POINT (651885 6563678)",
+			"WGS84": "POINT (17.658394772630633 59.184989919946844)"
+		}
+	},
+	"Äs": {
+		"AdvertisedShortLocationName": "Älvsjö",
+		"Geometry": {
+			"SWEREF99TM": "POINT (671567 6574951)",
+			"WGS84": "POINT (18.01126835235629 59.27859023113897)"
+		}
+	},
+	"Åbe": {
+		"AdvertisedShortLocationName": "Årstaberg",
+		"Geometry": {
+			"SWEREF99TM": "POINT (672397 6577311)",
+			"WGS84": "POINT (18.027693219158454 59.2994166097003)"
+		}
+	},
+	"xVdl": {
+		"AdvertisedShortLocationName": "Vedalund",
+		"Geometry": {
+			"SWEREF99TM": "POINT (675032 6607414)",
+			"WGS84": "POINT (18.09849244082728 59.568267756760406)"
+		}
+	},
+	"Hrv": {
+		"AdvertisedShortLocationName": "Herrljunga västra",
+		"Geometry": { "WGS84": "POINT (61.802289415584205 2.3661584722931295)" }
+	}
+}

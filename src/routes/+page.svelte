@@ -7,7 +7,7 @@
 <a href="https://text-vite.netlify.app/">
     <img src="text.png" width="120" alt="text" />
 </a>
-<a href="https://sheet-react.netlify.app/">
+<a href="sheet">
     <img src="sheet.png" width="120" alt="sheet" />
 </a>
 <a href="text">

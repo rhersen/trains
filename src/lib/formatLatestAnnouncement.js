@@ -39,7 +39,7 @@ function precision(a) {
 		parseISO(a.AdvertisedTimeAtLocation)
 	);
 
-	if (delay > 120) return `${Math.trunc(delay / 60)} minuter sent`;
+	if (delay > 120) return `${Math.trunc(delay / 60)} min sent`;
 	if (delay > 30) return `${delay}s sent`;
 	if (delay < -60) return 'i god tid';
 	return 'i tid';

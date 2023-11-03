@@ -22,8 +22,7 @@
 <!--suppress CssUnusedSymbol -->
 <style>
 	.branch {
-		font-family: 'Avenir Next Condensed', 'Helvetica Neue Condensed', 'PT Sans Narrow',
-			'Arial Narrow', Arial, sans-serif;
+		font-family: 'Helvetica Neue Condensed', 'PT Sans Narrow', 'Arial Narrow', Arial, sans-serif;
 		font-size: 14px;
 		background: #222222;
 		border: 0.3px solid lightcyan;

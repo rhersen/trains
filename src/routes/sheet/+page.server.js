@@ -33,19 +33,19 @@ async function fetchAnnouncements() {
 
 function getBody() {
 	const now = Date.now();
-	const since = formatISO(sub(now, { minutes: 10 }));
-	const until = formatISO(add(now, { minutes: 10 }));
+	const since = formatISO(sub(now, { minutes: 48 }));
+	const until = formatISO(add(now, { minutes: 48 }));
 	return `
         <REQUEST>
             <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}'/>
             <QUERY sseurl='false' objecttype='TrainAnnouncement' orderby='TimeAtLocationWithSeconds' schemaversion='1.6'>
                 <FILTER>
                     <IN name='LocationSignature' value='Öte,Dån,Rön,Gau,Södy,Tu,Uts,Tul,Flb,Hu,Sta,Äs,Åbe,Sst,Sci,Sod,Tmö,So,Udl,Hel,Sol,Hgv,Nvk,R,Upv,Skby'/>
+                    <EQ name='ActivityType' value='Avgang' />
                     <AND>
                         <GT name='AdvertisedTimeAtLocation' value='${since}'/>
                         <LT name='AdvertisedTimeAtLocation' value='${until}'/>
                     </AND>
-                    <EXISTS name='ToLocation' value='true'/>
                 </FILTER>
                 <INCLUDE>ActivityType</INCLUDE>
                 <INCLUDE>AdvertisedTrainIdent</INCLUDE>

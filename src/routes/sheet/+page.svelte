@@ -10,6 +10,10 @@
 			announcements.some(({ TimeAtLocationWithSeconds }) => !!TimeAtLocationWithSeconds)
 	);
 
+	let stations =
+		'Öte,Dån,Rön,Gau,Södy,Tu,Uts,Tul,Flb,Hu,Sta,Äs,Åbe,Sst,Sci,Sod,Tmö,So,Udl,Hel,Sol,Hgv,Nvk,R,Upv,Skby'
+			.split(',')
+			.toReversed();
 	let eventSource;
 
 	onMount(() => {
@@ -26,28 +30,31 @@
 	onDestroy(() => {
 		if (eventSource) eventSource.close();
 	});
+
+	function td(announcements, station) {
+		const found = announcements.find((announcement) => announcement.LocationSignature === station);
+		if (!found) return '';
+		if (found.TimeAtLocationWithSeconds) return found.TimeAtLocationWithSeconds.substring(11, 19);
+		return found.AdvertisedTimeAtLocation.substring(11, 16);
+	}
 </script>
 
-<ul>
-	{#each Object.entries(trains) as [id, announcements]}
-		<li>
-			{id}
-			<ul>
-				{#each announcements as announcement}
-					<li>
-						{announcement.ProductInformation.map(({ Description }) => Description)}
-						{announcement.AdvertisedTrainIdent}
-						{announcement.ToLocation.map(({ LocationName }) => LocationName)}
-						{announcement.ActivityType}
-						{announcement.LocationSignature}
-						{announcement.AdvertisedTimeAtLocation.substring(11, 16)}
-						{announcement.TimeAtLocationWithSeconds}
-					</li>
-				{/each}
-			</ul>
-		</li>
+<table>
+	<tr>
+		<td>s\t</td>
+		{#each Object.keys(trains) as key}
+			<th>{key}</th>
+		{/each}
+	</tr>
+	{#each stations as station}
+		<tr>
+			<th>{station}</th>
+			{#each Object.values(trains) as announcements}
+				<td>{td(announcements, station)}</td>
+			{/each}
+		</tr>
 	{/each}
-</ul>
+</table>
 
 <style>
 </style>

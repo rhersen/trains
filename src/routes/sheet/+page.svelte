@@ -1,6 +1,7 @@
 <script>
 	import _ from 'lodash';
 	import { onDestroy, onMount } from 'svelte';
+	import * as sheetCell from '$lib/sheetCell.js';
 
 	export let data;
 	let trains = _.pickBy(
@@ -11,7 +12,7 @@
 	);
 
 	let stations =
-		'Öte,Dån,Rön,Gau,Södy,Tu,Uts,Tul,Flb,Hu,Sta,Äs,Åbe,Sst,Sci,Sod,Tmö,So,Udl,Hel,Sol,Hgv,Nvk,R,Upv,Skby'
+		'Söd,Öte,Dån,Rön,Gau,Södy,Tu,Uts,Tul,Flb,Hu,Sta,Äs,Åbe,Sst,Sci,Sod,Tmö,So,Udl,Hel,Sol,Hgv,Nvk,R,Upv,Skby,Rs,Bra,Mr'
 			.split(',')
 			.toReversed();
 	let eventSource;
@@ -30,18 +31,9 @@
 	onDestroy(() => {
 		if (eventSource) eventSource.close();
 	});
-
-	function td(announcements, station) {
-		return announcements
-			.filter(({ LocationSignature }) => LocationSignature === station)
-			.map(({ ActivityType, AdvertisedTimeAtLocation, TimeAtLocationWithSeconds }) => {
-				if (TimeAtLocationWithSeconds)
-					return ActivityType.substring(0, 3) + TimeAtLocationWithSeconds.substring(11, 19);
-				return AdvertisedTimeAtLocation.substring(11, 16);
-			})
-			.join(' ');
-	}
 </script>
+
+<h1>{Object.keys(trains).length} tåg</h1>
 
 <table>
 	<tr>
@@ -54,7 +46,15 @@
 		<tr>
 			<th>{station}</th>
 			{#each Object.values(trains) as announcements}
-				<td>{td(announcements, station)}</td>
+				<td
+					style="background-color: {sheetCell.color(
+						announcements.filter(({ LocationSignature }) => LocationSignature === station)
+					)}"
+				>
+					{sheetCell.text(
+						announcements.filter(({ LocationSignature }) => LocationSignature === station)
+					)}
+				</td>
 			{/each}
 		</tr>
 	{/each}

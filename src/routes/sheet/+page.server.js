@@ -33,14 +33,14 @@ async function fetchAnnouncements() {
 
 function getBody() {
 	const now = Date.now();
-	const since = formatISO(sub(now, { minutes: 48 }));
-	const until = formatISO(add(now, { minutes: 48 }));
+	const since = formatISO(sub(now, { minutes: 100 }));
+	const until = formatISO(add(now, { minutes: 100 }));
 	return `
         <REQUEST>
             <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}'/>
             <QUERY sseurl='false' objecttype='TrainAnnouncement' orderby='TimeAtLocationWithSeconds' schemaversion='1.6'>
                 <FILTER>
-                    <IN name='LocationSignature' value='Öte,Dån,Rön,Gau,Södy,Tu,Uts,Tul,Flb,Hu,Sta,Äs,Åbe,Sst,Sci,Sod,Tmö,So,Udl,Hel,Sol,Hgv,Nvk,R,Upv,Skby'/>
+                    <IN name='LocationSignature' value='Söd,Öte,Dån,Rön,Gau,Södy,Tu,Uts,Tul,Flb,Hu,Sta,Äs,Åbe,Sst,Sci,Sod,Tmö,So,Udl,Hel,Sol,Hgv,Nvk,R,Upv,Skby,Rs,Bra,Mr'/>
                     <AND>
                         <GT name='AdvertisedTimeAtLocation' value='${since}'/>
                         <LT name='AdvertisedTimeAtLocation' value='${until}'/>

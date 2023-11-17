@@ -41,7 +41,6 @@ function getBody() {
             <QUERY sseurl='false' objecttype='TrainAnnouncement' orderby='TimeAtLocationWithSeconds' schemaversion='1.6'>
                 <FILTER>
                     <IN name='LocationSignature' value='Öte,Dån,Rön,Gau,Södy,Tu,Uts,Tul,Flb,Hu,Sta,Äs,Åbe,Sst,Sci,Sod,Tmö,So,Udl,Hel,Sol,Hgv,Nvk,R,Upv,Skby'/>
-                    <EQ name='ActivityType' value='Avgang' />
                     <AND>
                         <GT name='AdvertisedTimeAtLocation' value='${since}'/>
                         <LT name='AdvertisedTimeAtLocation' value='${until}'/>

@@ -32,10 +32,14 @@
 	});
 
 	function td(announcements, station) {
-		const found = announcements.find((announcement) => announcement.LocationSignature === station);
-		if (!found) return '';
-		if (found.TimeAtLocationWithSeconds) return found.TimeAtLocationWithSeconds.substring(11, 19);
-		return found.AdvertisedTimeAtLocation.substring(11, 16);
+		return announcements
+			.filter(({ LocationSignature }) => LocationSignature === station)
+			.map(({ ActivityType, AdvertisedTimeAtLocation, TimeAtLocationWithSeconds }) => {
+				if (TimeAtLocationWithSeconds)
+					return ActivityType.substring(0, 3) + TimeAtLocationWithSeconds.substring(11, 19);
+				return AdvertisedTimeAtLocation.substring(11, 16);
+			})
+			.join(' ');
 	}
 </script>
 
@@ -57,4 +61,13 @@
 </table>
 
 <style>
+	table {
+		border-collapse: collapse;
+	}
+
+	th,
+	td {
+		border-style: solid;
+		border-width: 1px;
+	}
 </style>

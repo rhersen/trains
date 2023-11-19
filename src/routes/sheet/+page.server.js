@@ -40,7 +40,7 @@ function getBody() {
             <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}'/>
             <QUERY sseurl='false' objecttype='TrainAnnouncement' orderby='TimeAtLocationWithSeconds' schemaversion='1.6'>
                 <FILTER>
-                    <IN name='LocationSignature' value='Söd,Öte,Dån,Rön,Gau,Södy,Tu,Uts,Tul,Flb,Hu,Sta,Äs,Åbe,Sst,Sci,Sod,Tmö,So,Udl,Hel,Sol,Hgv,Nvk,R,Upv,Skby,Rs,Bra,Mr'/>
+                    <IN name='LocationSignature' value='Mr,Bra,Rs,Skby,Upv,R,Nvk,Hgv,Sol,Hel,Udl,So,Tmö,Sod,Sci,Sst,Åbe,Äs,Sta,Hu,Flb,Tul,Uts,Tu,Södy,Gau,Rön,Dån,Öte,Söd'/>
                     <AND>
                         <GT name='AdvertisedTimeAtLocation' value='${since}'/>
                         <LT name='AdvertisedTimeAtLocation' value='${until}'/>

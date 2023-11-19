@@ -12,9 +12,10 @@
 	);
 
 	let stations =
-		'Söd,Öte,Dån,Rön,Gau,Södy,Tu,Uts,Tul,Flb,Hu,Sta,Äs,Åbe,Sst,Sci,Sod,Tmö,So,Udl,Hel,Sol,Hgv,Nvk,R,Upv,Skby,Rs,Bra,Mr'
-			.split(',')
-			.toReversed();
+		'Mr,Bra,Rs,Skby,Upv,R,Nvk,Hgv,Sol,Hel,Udl,So,Tmö,Sod,Sci,Sst,Åbe,Äs,Sta,Hu,Flb,Tul,Uts,Tu,Södy,Gau,Rön,Dån,Öte,Söd'.split(
+			','
+		);
+
 	let eventSource;
 
 	onMount(() => {

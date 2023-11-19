@@ -11,11 +11,6 @@
 			announcements.some(({ TimeAtLocationWithSeconds }) => !!TimeAtLocationWithSeconds)
 	);
 
-	let stations =
-		'Mr,Bra,Rs,Skby,Upv,R,Nvk,Hgv,Sol,Hel,Udl,So,Tmö,Sod,Sci,Sst,Åbe,Äs,Sta,Hu,Flb,Tul,Uts,Tu,Södy,Gau,Rön,Dån,Öte,Söd'.split(
-			','
-		);
-
 	let eventSource;
 
 	onMount(() => {
@@ -43,7 +38,7 @@
 			<th>{key}</th>
 		{/each}
 	</tr>
-	{#each stations as station}
+	{#each data.stations as station}
 		<tr>
 			<th>{station}</th>
 			{#each Object.values(trains) as announcements}
@@ -68,6 +63,7 @@
 
 	th,
 	td {
+		font-family: sans-serif;
 		border-style: solid;
 		border-width: 1px;
 	}

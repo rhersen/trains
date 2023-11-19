@@ -1,12 +1,12 @@
 import { error } from '@sveltejs/kit';
 import { add, formatISO, sub } from 'date-fns';
 
-// noinspection JSUnusedGlobalSymbols
 export const load = async ({ params }) => {
 	const { TrainAnnouncement, INFO } = await fetchAnnouncements(params);
 	return {
+		TrainAnnouncement,
 		sseUrl: INFO?.SSEURL,
-		TrainAnnouncement
+		stations: stations()
 	};
 };
 
@@ -40,7 +40,7 @@ function getBody() {
             <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}'/>
             <QUERY sseurl='false' objecttype='TrainAnnouncement' orderby='TimeAtLocationWithSeconds' schemaversion='1.6'>
                 <FILTER>
-                    <IN name='LocationSignature' value='Mr,Bra,Rs,Skby,Upv,R,Nvk,Hgv,Sol,Hel,Udl,So,Tmö,Sod,Sci,Sst,Åbe,Äs,Sta,Hu,Flb,Tul,Uts,Tu,Södy,Gau,Rön,Dån,Öte,Söd'/>
+                    <IN name='LocationSignature' value='${stations()}'/>
                     <AND>
                         <GT name='AdvertisedTimeAtLocation' value='${since}'/>
                         <LT name='AdvertisedTimeAtLocation' value='${until}'/>
@@ -56,4 +56,39 @@ function getBody() {
                 <INCLUDE>ToLocation</INCLUDE>
             </QUERY>
         </REQUEST>`;
+}
+
+function stations() {
+	return [
+		'Mr',
+		'Bra',
+		'Rs',
+		'Skby',
+		'Upv',
+		'R',
+		'Nvk',
+		'Hgv',
+		'Sol',
+		'Hel',
+		'Udl',
+		'So',
+		'Tmö',
+		'Sod',
+		'Sci',
+		'Sst',
+		'Åbe',
+		'Äs',
+		'Sta',
+		'Hu',
+		'Flb',
+		'Tul',
+		'Uts',
+		'Tu',
+		'Södy',
+		'Gau',
+		'Rön',
+		'Dån',
+		'Öte',
+		'Söd'
+	];
 }

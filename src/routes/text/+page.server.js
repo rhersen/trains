@@ -53,7 +53,7 @@ function getBody() {
                             <IN name='LocationSignature' value='${signatures}'/>
                             <EQ name='ProductInformation.Code' value='PNA054'/>
                         </AND>
-                        <IN name='LocationSignature' value='Tmö,Kmy,Skby,Bra,Gau,Södy,Uts,Kng,Hön,Huv,Duo'/>
+                        <IN name='LocationSignature' value='Tmö,Kmy,Skby,Bvr,Bra,Gau,Södy,Uts,Kng,Hön,Huv,Duo'/>
                     </OR>
                     <GT name='TimeAtLocation' value='${since}'/>
                 </FILTER>

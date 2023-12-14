@@ -54,6 +54,7 @@ function currentTrains(announcement) {
 		if (!latest) return false;
 		if (latest.LocationSignature === 'Söd') return true;
 		if (latest.LocationSignature === 'Mr') return true;
+		if (latest.LocationSignature === 'Bvr') return true;
 		if (latest.LocationSignature === 'Khä') return true;
 		if (latest.LocationSignature === 'Vhe') return true;
 		if (latest.ActivityType !== 'Ankomst') return false;

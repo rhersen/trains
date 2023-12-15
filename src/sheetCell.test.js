@@ -8,7 +8,22 @@ describe('sheetCell', () => {
 			expect(color([])).toBe('black');
 		});
 
-		test('advertised avgang and ankomst', () => {
+		test('advertised avgang and ankomst with same time', () => {
+			const announcements = [
+				{
+					ActivityType: 'Ankomst',
+					AdvertisedTimeAtLocation: '2222-11-11T17:08:00'
+				},
+				{
+					ActivityType: 'Avgang',
+					AdvertisedTimeAtLocation: '2222-11-11T17:08:00'
+				}
+			];
+			expect(text(announcements)).toBe('17:08');
+			expect(color(announcements)).toBe('gray');
+		});
+
+		test('advertised avgang and ankomst with different times', () => {
 			const announcements = [
 				{
 					ActivityType: 'Ankomst',
@@ -19,7 +34,7 @@ describe('sheetCell', () => {
 					AdvertisedTimeAtLocation: '2222-11-11T17:08:00'
 				}
 			];
-			expect(text(announcements)).toBe('Ank17:07 Avg17:08');
+			expect(text(announcements)).toBe('17:07/08');
 			expect(color(announcements)).toBe('gray');
 		});
 
@@ -36,7 +51,7 @@ describe('sheetCell', () => {
 					TimeAtLocationWithSeconds: '2222-11-11T15:54:04'
 				}
 			];
-			expect(text(announcements)).toBe('Ank15:52:51 Avg15:54:04');
+			expect(text(announcements)).toBe('15:54:04');
 			expect(color(announcements)).toBe('green');
 		});
 
@@ -52,7 +67,7 @@ describe('sheetCell', () => {
 					TimeAtLocationWithSeconds: '2222-11-11T16:50:01'
 				}
 			];
-			expect(text(announcements)).toBe('Avg16:51 Ank16:50:01');
+			expect(text(announcements)).toBe('Avg16:51 16:50:01');
 			expect(color(announcements)).toBe('orange');
 		});
 
@@ -64,7 +79,7 @@ describe('sheetCell', () => {
 					TimeAtLocationWithSeconds: '2222-11-11T16:46:23'
 				}
 			];
-			expect(text(announcements)).toBe('Avg16:46:23');
+			expect(text(announcements)).toBe('16:46:23');
 			expect(color(announcements)).toBe('lightgreen');
 		});
 

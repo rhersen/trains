@@ -4,11 +4,17 @@
 	import * as sheetCell from '$lib/sheetCell.js';
 
 	export let data;
-	let trains = _.pickBy(
-		_.groupBy(data.TrainAnnouncement, 'AdvertisedTrainIdent'),
-		(announcements) =>
-			announcements.some(({ TimeAtLocationWithSeconds }) => !TimeAtLocationWithSeconds) &&
-			announcements.some(({ TimeAtLocationWithSeconds }) => !!TimeAtLocationWithSeconds)
+	let trains = _.sortBy(
+		_.values(
+			_.pickBy(
+				_.groupBy(data.TrainAnnouncement, 'AdvertisedTrainIdent'),
+				(announcements) =>
+					announcements.some(({ TimeAtLocationWithSeconds }) => !TimeAtLocationWithSeconds) &&
+					announcements.some(({ TimeAtLocationWithSeconds }) => !!TimeAtLocationWithSeconds) &&
+					announcements.some(({ LocationSignature }) => LocationSignature === 'Sci')
+			)
+		),
+		(a) => _.find(a, { LocationSignature: 'Sci' })?.AdvertisedTimeAtLocation
 	);
 
 	let eventSource;
@@ -29,19 +35,19 @@
 	});
 </script>
 
-<h1>{Object.keys(trains).length} tåg</h1>
-
 <table>
 	<tr>
-		<td>s\t</td>
-		{#each Object.keys(trains) as key}
-			<th>{key}</th>
+		<td />
+		{#each trains as [train]}
+			<th>
+				{train.ToLocation[0].LocationName}
+			</th>
 		{/each}
 	</tr>
 	{#each data.stations as station}
 		<tr>
 			<th>{station}</th>
-			{#each Object.values(trains) as announcements}
+			{#each trains as announcements}
 				<td
 					style="background-color: {sheetCell.color(
 						announcements.filter(({ LocationSignature }) => LocationSignature === station)

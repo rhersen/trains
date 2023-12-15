@@ -1,24 +1,53 @@
-export function text(announcements) {
-	return announcements
-		.map(({ ActivityType, AdvertisedTimeAtLocation, TimeAtLocationWithSeconds }) => {
-			if (TimeAtLocationWithSeconds) {
-				return ActivityType.substring(0, 3) + TimeAtLocationWithSeconds.substring(11, 19);
-			} else {
-				return ActivityType.substring(0, 3) + AdvertisedTimeAtLocation.substring(11, 16);
-			}
-		})
+export function text(as) {
+	if (as.length === 2) {
+		if (as.every(seconds))
+			return as
+				.filter((a) => activity(a) === 'Avgang')
+				.map((a) => `${seconds(a).substring(11, 19)}`)
+				.join();
+
+		if (!as.some(seconds)) {
+			if (time(as[0]) === time(as[1])) return time(as[0]).substring(11, 16);
+			else return time(as[0]).substring(11, 16) + '/' + time(as[1]).substring(14, 16);
+		}
+
+		return (
+			activity(as[0]).substring(0, 3) +
+			(seconds(as[0]) ? seconds(as[0]).substring(11, 19) : time(as[0]).substring(11, 16)) +
+			' ' +
+			(seconds(as[1]) ? seconds(as[1]).substring(11, 19) : time(as[1]).substring(11, 16))
+		);
+	}
+
+	if (as.length === 1 && activity(as[0]) === 'Avgang' && seconds(as[0]))
+		return seconds(as[0]).substring(11, 19);
+
+	return as
+		.map(
+			(a) =>
+				activity(a).substring(0, 3) +
+				(seconds(a) ? seconds(a).substring(11, 19) : time(a).substring(11, 16))
+		)
 		.join(' ');
 }
 
-export function color(announcements) {
-	if (!announcements[0]) return 'black';
-	if (announcements.length === 1) {
-		if (announcements[0].ActivityType === 'Ankomst') return 'yellow';
-		if (announcements[0].ActivityType === 'Avgang') return 'lightgreen';
-	}
-	if (announcements[0].TimeAtLocationWithSeconds && announcements[1].TimeAtLocationWithSeconds)
-		return 'green';
-	if (!announcements[0].TimeAtLocationWithSeconds && !announcements[1].TimeAtLocationWithSeconds)
-		return 'gray';
+export function color([a0, a1]) {
+	if (!a0) return 'black';
+	if (!a1) return activity(a0) === 'Ankomst' ? 'yellow' : 'lightgreen';
+	if (seconds(a0) && seconds(a1)) return 'green';
+	if (!seconds(a0) && !seconds(a1)) return 'gray';
+
 	return 'orange';
+}
+
+function time({ AdvertisedTimeAtLocation }) {
+	return AdvertisedTimeAtLocation;
+}
+
+function seconds({ TimeAtLocationWithSeconds }) {
+	return TimeAtLocationWithSeconds;
+}
+
+function activity({ ActivityType }) {
+	return ActivityType;
 }

@@ -35,8 +35,8 @@ const locationSignature = [
 	'Söd,Öte,Rön,Tu,Tul,Flb,Hu,Sta',
 	'Äs,Åbe,Sst,Sci,Sod',
 	'So,Udl,Hel,Sol,Hgv,Nvk,R,Upv,Rs,Mr',
-	'Vhe,Jbo,Hnd,Vga,Skg,Tåd,Fas',
-	'Sub,Spå,Bkb,Jkb,Khä'
+	'Nyc,Ngd,Gdv,Öso,Ssä,Hfa,Ts,Kda,Vhe,Jbo,Hnd,Vga,Skg,Tåd,Fas',
+	'Sub,Spå,Bkb,Jkb,Khä,Kän,Bro,Bål'
 ];
 const signatures = locationSignature.join(',');
 
@@ -53,7 +53,7 @@ function getBody() {
                             <IN name='LocationSignature' value='${signatures}'/>
                             <EQ name='ProductInformation.Code' value='PNA054'/>
                         </AND>
-                        <IN name='LocationSignature' value='Tmö,Kmy,Skby,Bvr,Bra,Gau,Södy,Uts,Kng,Hön,Huv,Duo'/>
+                        <IN name='LocationSignature' value='Tmö,Kmy,Skby,Bvr,Bra,Gau,Södy,Uts,Kng,Hön,Huv,Duo,Brny,Tot'/>
                     </OR>
                     <GT name='TimeAtLocation' value='${since}'/>
                 </FILTER>

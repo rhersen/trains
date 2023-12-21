@@ -21,7 +21,7 @@
 	);
 </script>
 
-<tr style={h && `background-color: hsl(${h}deg, 100%, 70%)`}>
+<tr style="background-color: hsl({h}deg, 100%, 70%)">
 	<TrackCell {announcement} />
 	<ShortCell {announcement} />
 	<LocationCell {announcement} />

@@ -4,17 +4,20 @@
 	import * as sheetCell from '$lib/sheetCell.js';
 
 	export let data;
-	let trains = _.sortBy(
-		_.values(
-			_.pickBy(
-				_.groupBy(data.TrainAnnouncement, 'AdvertisedTrainIdent'),
-				(announcements) =>
-					announcements.some(({ TimeAtLocationWithSeconds }) => !TimeAtLocationWithSeconds) &&
-					announcements.some(({ TimeAtLocationWithSeconds }) => !!TimeAtLocationWithSeconds) &&
-					announcements.some(({ LocationSignature }) => LocationSignature === 'Sci')
-			)
+	let trains = _.filter(
+		_.sortBy(
+			_.values(
+				_.pickBy(
+					_.groupBy(data.TrainAnnouncement, 'AdvertisedTrainIdent'),
+					(announcements) =>
+						announcements.some(({ TimeAtLocationWithSeconds }) => !TimeAtLocationWithSeconds) &&
+						announcements.some(({ TimeAtLocationWithSeconds }) => !!TimeAtLocationWithSeconds) &&
+						announcements.some(({ LocationSignature }) => LocationSignature === 'Sci')
+				)
+			),
+			(a) => _.find(a, { LocationSignature: 'Sci' })?.AdvertisedTimeAtLocation
 		),
-		(a) => _.find(a, { LocationSignature: 'Sci' })?.AdvertisedTimeAtLocation
+		(train) => train.length > 12
 	);
 
 	let eventSource;
@@ -40,6 +43,7 @@
 		<td />
 		{#each trains as [train]}
 			<th>
+				{train.AdvertisedTrainIdent}
 				{train.ToLocation[0].LocationName}
 			</th>
 		{/each}

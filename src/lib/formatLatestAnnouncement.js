@@ -5,9 +5,12 @@ import locations from '$lib/filtered.json';
 export function line(a) {
 	if (!a) return 'Aktuell information saknas';
 
-	return `${_.map(_.map(a.ToLocation, 'LocationName'), (loc) => stationName(loc))} ${activity(
+	return `${_.map(_.map(a.ToLocation, 'LocationName'), (loc) => stationName1(loc))}${activity1(
 		a
-	)} ${location(a)} ${precision(a)} kl ${a.TimeAtLocationWithSeconds.substring(11, 19)}`;
+	)}${stationName1(a.LocationSignature)} ${precision1(a)} ${a.TimeAtLocationWithSeconds.substring(
+		11,
+		19
+	)}`;
 }
 
 export function line1(a) {
@@ -41,6 +44,17 @@ function stationName(locationSignature) {
 	return locations[locationSignature]?.AdvertisedShortLocationName ?? locationSignature;
 }
 
+function stationName1(locationSignature) {
+	const name = locations[locationSignature]?.AdvertisedShortLocationName ?? locationSignature;
+	return name
+		.replace(/^St(ock)?ho?lms? /g, '')
+		.replace(/^S$/g, 'Södra')
+		.replace(/^Upplands /g, '')
+		.replace(/^Bro /g, '')
+		.replace(/ C$/g, '')
+		.replace(/ strand$/g, '');
+}
+
 function precision(a) {
 	const delay = differenceInSeconds(
 		parseISO(a.TimeAtLocationWithSeconds),
@@ -53,6 +67,20 @@ function precision(a) {
 	return 'i tid';
 }
 
+function precision1(a) {
+	const delay = differenceInSeconds(
+		parseISO(a.TimeAtLocationWithSeconds),
+		parseISO(a.AdvertisedTimeAtLocation)
+	);
+
+	if (delay > 120) return `${Math.trunc(delay / 60)}min`;
+	return '';
+}
+
 function activity(a) {
 	return a.ActivityType === 'Ankomst' ? 'ank' : 'avg';
+}
+
+function activity1(a) {
+	return a.ActivityType === 'Ankomst' ? '@' : '←';
 }

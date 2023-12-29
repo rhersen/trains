@@ -52,7 +52,8 @@ function stationName1(locationSignature) {
 		.replace(/^Upplands /g, '')
 		.replace(/^Bro /g, '')
 		.replace(/ C$/g, '')
-		.replace(/ strand$/g, '');
+		.replace(/ strand$/g, '')
+		.replace(/ övre$/g, '');
 }
 
 function precision(a) {

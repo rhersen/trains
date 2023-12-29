@@ -1,6 +1,6 @@
 <script>
 	import { line1, line2 } from '$lib/formatLatestAnnouncement';
-	import getColor from '$lib/color';
+	import { delay } from '$lib/color';
 
 	export let trains;
 	export let div;
@@ -9,10 +9,10 @@
 <div class="branch div{div}">
 	{#each trains as train}
 		<div class="train">
-			<div style="color: {getColor(train.latestDeparture || train.latest)}">
+			<div class={delay(train.latestDeparture || train.latest)}>
 				{line1(train.latest)}
 			</div>
-			<div style="color: {getColor(train.latestDeparture || train.latest)}">
+			<div class={delay(train.latestDeparture || train.latest)}>
 				{line2(train.latest)}
 			</div>
 		</div>
@@ -27,6 +27,25 @@
 		background: #222222;
 		border: 0.3px solid lightcyan;
 		white-space: nowrap;
+	}
+
+	.delay-0 {
+		color: lime;
+	}
+	.delay-1-min {
+		color: white;
+	}
+	.delay-3-min {
+		color: yellow;
+	}
+	.delay-5-min {
+		color: darkorange;
+	}
+	.delay-10-min {
+		color: orangered;
+	}
+	.delay-15-min {
+		color: red;
 	}
 
 	.div1 {

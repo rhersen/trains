@@ -1,14 +1,14 @@
 import { differenceInSeconds, parseISO } from 'date-fns';
 
-export default function color(a) {
+export function delay(a) {
 	const delay = seconds();
 
-	if (delay < 30) return 'lime';
-	if (delay < 120) return 'white';
-	if (delay < 240) return 'yellow';
-	if (delay < 480) return 'darkorange';
-	if (delay < 800) return 'orangered';
-	return 'red';
+	if (delay < 30) return 'delay-0';
+	if (delay < 120) return 'delay-1-min';
+	if (delay < 240) return 'delay-3-min';
+	if (delay < 480) return 'delay-5-min';
+	if (delay < 800) return 'delay-10-min';
+	return 'delay-15-min';
 
 	function seconds() {
 		return differenceInSeconds(

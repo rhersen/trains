@@ -11,15 +11,15 @@
 	{#each trains as train}
 		<div class="train">
 			{#if lines === 1}
-				<div class={delay(train.latestDeparture || train.latest)}>
+				<div class={delay(train.latest)}>
 					{line(train.latest)}
 				</div>
 			{/if}
 			{#if lines === 2}
-				<div class={delay(train.latestDeparture || train.latest)}>
+				<div class={delay(train.latest)}>
 					{line1(train.latest)}
 				</div>
-				<div class={delay(train.latestDeparture || train.latest)}>
+				<div class={delay(train.latest)}>
 					{line2(train.latest)}
 				</div>
 			{/if}
@@ -35,6 +35,10 @@
 		background: #222222;
 		border: 0.3px solid lightcyan;
 		white-space: nowrap;
+	}
+
+	.inactive {
+		color: magenta;
 	}
 
 	.delay-0 {

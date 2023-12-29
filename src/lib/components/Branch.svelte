@@ -1,20 +1,28 @@
 <script>
-	import { line1, line2 } from '$lib/formatLatestAnnouncement';
+	import { line, line1, line2 } from '$lib/formatLatestAnnouncement';
 	import { delay } from '$lib/color';
 
 	export let trains;
 	export let div;
+	export let lines;
 </script>
 
 <div class="branch div{div}">
 	{#each trains as train}
 		<div class="train">
-			<div class={delay(train.latestDeparture || train.latest)}>
-				{line1(train.latest)}
-			</div>
-			<div class={delay(train.latestDeparture || train.latest)}>
-				{line2(train.latest)}
-			</div>
+			{#if lines === 1}
+				<div class={delay(train.latestDeparture || train.latest)}>
+					{line(train.latest)}
+				</div>
+			{/if}
+			{#if lines === 2}
+				<div class={delay(train.latestDeparture || train.latest)}>
+					{line1(train.latest)}
+				</div>
+				<div class={delay(train.latestDeparture || train.latest)}>
+					{line2(train.latest)}
+				</div>
+			{/if}
 		</div>
 	{/each}
 </div>

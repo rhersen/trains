@@ -2,6 +2,14 @@ import _ from 'lodash';
 import { differenceInSeconds, parseISO } from 'date-fns';
 import locations from '$lib/filtered.json';
 
+export function line(a) {
+	if (!a) return 'Aktuell information saknas';
+
+	return `${_.map(_.map(a.ToLocation, 'LocationName'), (loc) => stationName(loc))} ${activity(
+		a
+	)} ${location(a)} ${precision(a)} kl ${a.TimeAtLocationWithSeconds.substring(11, 19)}`;
+}
+
 export function line1(a) {
 	if (!a) return 'Aktuell information saknas';
 
@@ -14,10 +22,10 @@ export function line2(a) {
 	if (!a) return 'line2';
 
 	return `${activity(a)} ${location(a)} kl ${a.TimeAtLocationWithSeconds.substring(11, 19)}`;
+}
 
-	function location(announcement) {
-		return stationName(announcement.LocationSignature);
-	}
+function location(announcement) {
+	return stationName(announcement.LocationSignature);
 }
 
 export function classNew(a) {

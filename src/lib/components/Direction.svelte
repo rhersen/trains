@@ -2,14 +2,15 @@
 	import Branch from '$lib/components/Branch.svelte';
 
 	export let branches;
+	export let lines;
 </script>
 
 <div class="parent">
-	<Branch trains={branches.nw ?? []} div="1" />
-	<Branch trains={branches.ne ?? []} div="2" />
-	<Branch trains={branches.c ?? []} div="3" />
-	<Branch trains={branches.sw ?? []} div="4" />
-	<Branch trains={branches.se ?? []} div="5" />
+	<Branch trains={branches.nw ?? []} div="1" {lines} />
+	<Branch trains={branches.ne ?? []} div="2" {lines} />
+	<Branch trains={branches.c ?? []} div="3" {lines} />
+	<Branch trains={branches.sw ?? []} div="4" {lines} />
+	<Branch trains={branches.se ?? []} div="5" {lines} />
 </div>
 
 <style>

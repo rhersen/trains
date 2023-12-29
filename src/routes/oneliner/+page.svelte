@@ -48,10 +48,10 @@
 </script>
 
 <div>Norrgående</div>
-<Direction branches={north} lines={2} />
+<Direction branches={north} lines={1} />
 
 <div>Södergående</div>
-<Direction branches={south} lines={2} />
+<Direction branches={south} lines={1} />
 
 <style>
 	div {

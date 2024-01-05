@@ -31,7 +31,7 @@
 <style>
 	.branch {
 		font-family: 'Avenir Next Condensed Medium', sans-serif;
-		font-size: 14px;
+		font-size: 16px;
 		background: #222222;
 		border: 0.3px solid lightcyan;
 		white-space: nowrap;

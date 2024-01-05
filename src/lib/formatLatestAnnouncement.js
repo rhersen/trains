@@ -74,7 +74,7 @@ function precision1(a) {
 		parseISO(a.AdvertisedTimeAtLocation)
 	);
 
-	if (delay > 120) return `${Math.trunc(delay / 60)}min`;
+	if (delay > 120) return `${Math.trunc(delay / 60)}m`;
 	return '';
 }
 

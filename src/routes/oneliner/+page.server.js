@@ -42,7 +42,7 @@ const signatures = locationSignature.join(',');
 
 function getBody() {
 	const now = Date.now();
-	const since = formatISO(sub(now, { minutes: 16 }));
+	const since = formatISO(sub(now, { minutes: 24 }));
 	return `
         <REQUEST>
             <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}'/>

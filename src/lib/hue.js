@@ -1,4 +1,8 @@
-export default (delay) => {
+import { differenceInSeconds, parseISO } from 'date-fns';
+
+export default (advertised, actual) => {
+	const delay = actual && differenceInSeconds(parseISO(actual), parseISO(advertised));
+
 	if (delay === undefined) return;
 	if (delay < -120) return 180;
 	if (delay < 120) return (240 - delay) / 2;

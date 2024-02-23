@@ -1,5 +1,4 @@
 <script>
-	import { differenceInSeconds, parseISO } from 'date-fns';
 	import AdvertisedTimeCell from '$lib/components/AdvertisedTimeCell.svelte';
 	import TrackCell from '$lib/components/TrackCell.svelte';
 	import ShortCell from '$lib/components/ShortCell.svelte';
@@ -12,13 +11,9 @@
 
 	export let announcement;
 
-	$: h = hue(
-		announcement?.TimeAtLocationWithSeconds &&
-			differenceInSeconds(
-				parseISO(announcement.TimeAtLocationWithSeconds),
-				parseISO(announcement.AdvertisedTimeAtLocation)
-			)
-	);
+	$: h =
+		announcement &&
+		hue(announcement.AdvertisedTimeAtLocation, announcement.TimeAtLocationWithSeconds);
 </script>
 
 <tr style="background-color: hsl({h}deg, 100%, 70%)">

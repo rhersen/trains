@@ -36,7 +36,8 @@ export const load = async ({ params }) => {
 	return {
 		id: params.id,
 		advertised: yesterdayJson.RESPONSE.RESULT[0].TrainAnnouncement,
-		actual: todayJson.RESPONSE.RESULT[0].TrainAnnouncement
+		actual: todayJson.RESPONSE.RESULT[0].TrainAnnouncement,
+		sseUrl: todayJson.RESPONSE.RESULT[0].INFO?.SSEURL
 	};
 };
 
@@ -48,7 +49,8 @@ function getBody({ id, since, until, sse }) {
       <FILTER>
          <AND>
             <NE name='Canceled' value='true' />
-        		<EQ name='AdvertisedTrainIdent' value='${id}' />
+            <EQ name='ActivityType' value='Avgang' />
+        	<EQ name='AdvertisedTrainIdent' value='${id}' />
             <OR>
                <GT name='AdvertisedTimeAtLocation' value='${since}' />
                <GT name='EstimatedTimeAtLocation' value='${since}' />
@@ -56,6 +58,7 @@ function getBody({ id, since, until, sse }) {
             <LT name='AdvertisedTimeAtLocation' value='${until}' />
          </AND>
       </FILTER>
+      <INCLUDE>ActivityType</INCLUDE>
       <INCLUDE>AdvertisedTimeAtLocation</INCLUDE>
       <INCLUDE>LocationSignature</INCLUDE>
       <INCLUDE>TimeAtLocationWithSeconds</INCLUDE>

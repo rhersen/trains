@@ -1,7 +1,8 @@
 <script>
-	import locations from '$lib/short.json';
 	import _ from 'lodash';
+	import { differenceInSeconds, parseISO } from 'date-fns';
 	import { onDestroy, onMount } from 'svelte';
+	import locations from '$lib/short.json';
 	export let data;
 	let eventSource;
 
@@ -26,22 +27,52 @@
 		if (eventSource) eventSource.close();
 	});
 
-	function f(location) {
+	function actual(location) {
 		const found = _.find(data.actual, { LocationSignature: location });
 		if (!found) return '';
 		const time = found.TimeAtLocationWithSeconds;
 		if (time) return time.substring(11, 19);
 		return 'stannar';
 	}
+
+	function getCountdown() {
+		return Date.now() - 24 * 60 * 60 * 1000;
+	}
+
+	function advertisedDiff(time, now, location) {
+		const found = _.find(data.actual, { LocationSignature: location });
+		if (found) return '';
+		const number = differenceInSeconds(parseISO(time), now);
+		if (number < 1000) return number;
+		return '';
+	}
+
+	function actualDiff(location) {
+		const found = _.find(data.actual, { LocationSignature: location });
+		if (!found?.AdvertisedTimeAtLocation) return '';
+		if (found.TimeAtLocationWithSeconds) {
+			return differenceInSeconds(
+				parseISO(found.AdvertisedTimeAtLocation),
+				parseISO(found.TimeAtLocationWithSeconds)
+			);
+		}
+		return '';
+	}
+
+	let countdown = getCountdown();
+	const interval = setInterval(() => (countdown = getCountdown()), 1000);
+	onDestroy(() => clearInterval(interval));
 </script>
 
 <h1>{data.id}</h1>
 
 {#each data.advertised as { AdvertisedTimeAtLocation, LocationSignature }}
 	<tr>
-		<td>{AdvertisedTimeAtLocation.substring(11, 16)}</td>
-		<td>{f(LocationSignature)}</td>
 		<td>{locations[LocationSignature]}</td>
+		<td>{AdvertisedTimeAtLocation.substring(11, 16)}</td>
+		<td>{advertisedDiff(AdvertisedTimeAtLocation, countdown, LocationSignature)}</td>
+		<td>{actual(LocationSignature)}</td>
+		<td>{actualDiff(LocationSignature)}</td>
 	</tr>
 {/each}
 
@@ -49,5 +80,6 @@
 	h1,
 	td {
 		font-family: sans-serif;
+		text-align: right;
 	}
 </style>

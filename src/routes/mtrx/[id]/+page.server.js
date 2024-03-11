@@ -12,8 +12,8 @@ export const load = async ({ params }) => {
 		headers,
 		body: getBody({
 			id: params.id,
-			since: new Date(now - 60 * 60 * 6e4).toISOString(),
-			until: new Date(now - 36 * 60 * 6e4).toISOString(),
+			since: new Date(now - 36 * 60 * 6e4).toISOString(),
+			until: new Date(now - 12 * 60 * 6e4).toISOString(),
 			sse: 'false'
 		})
 	});

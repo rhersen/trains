@@ -4,7 +4,7 @@
 	export let data;
 
 	function f(location) {
-		const found = _.keyBy(data.actual, 'LocationSignature')[location];
+		const found = _.find(data.actual, { LocationSignature: location });
 		if (!found) return '-';
 		const time = found.TimeAtLocationWithSeconds;
 		if (time) return time.substring(11, 19);

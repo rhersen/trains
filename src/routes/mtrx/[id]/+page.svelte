@@ -1,9 +1,10 @@
 <script>
 	import locations from '$lib/short.json';
+	import _ from 'lodash';
 	export let data;
 
 	function f(location) {
-		const found = data.actual[location];
+		const found = _.keyBy(data.actual, 'LocationSignature')[location];
 		if (!found) return '-';
 		const time = found.TimeAtLocationWithSeconds;
 		if (time) return time.substring(11, 19);

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { error } from '@sveltejs/kit';
 
 export const load = async ({ params }) => {
@@ -13,8 +12,9 @@ export const load = async ({ params }) => {
 		headers,
 		body: getBody({
 			id: params.id,
-			since: new Date(now - 36 * 60 * 6e4).toISOString(),
-			until: new Date(now - 12 * 60 * 6e4).toISOString()
+			since: new Date(now - 60 * 60 * 6e4).toISOString(),
+			until: new Date(now - 36 * 60 * 6e4).toISOString(),
+			sse: 'false'
 		})
 	});
 	const todayPromise = fetch('https://api.trafikinfo.trafikverket.se/v2/data.json', {
@@ -23,7 +23,8 @@ export const load = async ({ params }) => {
 		body: getBody({
 			id: params.id,
 			since: new Date(now - 12 * 60 * 6e4).toISOString(),
-			until: new Date(now + 12 * 60 * 6e4).toISOString()
+			until: new Date(now + 12 * 60 * 6e4).toISOString(),
+			sse: 'true'
 		})
 	});
 	const [yesterdayResponse, todayResponse] = await Promise.all([yesterdayPromise, todayPromise]);
@@ -35,15 +36,15 @@ export const load = async ({ params }) => {
 	return {
 		id: params.id,
 		advertised: yesterdayJson.RESPONSE.RESULT[0].TrainAnnouncement,
-		actual: _.keyBy(todayJson.RESPONSE.RESULT[0].TrainAnnouncement, 'LocationSignature')
+		actual: todayJson.RESPONSE.RESULT[0].TrainAnnouncement
 	};
 };
 
-function getBody({ id, since, until }) {
+function getBody({ id, since, until, sse }) {
 	return `
 <REQUEST>
   <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}' />
-     <QUERY objecttype='TrainAnnouncement' orderby='AdvertisedTimeAtLocation' sseurl='true' schemaversion='1.6'>
+     <QUERY objecttype='TrainAnnouncement' orderby='AdvertisedTimeAtLocation' sseurl='${sse}' schemaversion='1.6'>
       <FILTER>
          <AND>
             <NE name='Canceled' value='true' />

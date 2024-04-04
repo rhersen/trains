@@ -21,8 +21,6 @@ export const load = async ({ params }) => {
 
 	const positionJson = await positionResponse.json();
 
-	console.log(positionJson.RESPONSE.RESULT[0].TrainPosition[0]);
-
 	return {
 		positions: positionJson.RESPONSE.RESULT[0].TrainPosition,
 		sseUrl: positionJson.RESPONSE.RESULT[0].INFO?.SSEURL
@@ -30,15 +28,12 @@ export const load = async ({ params }) => {
 };
 
 function positionQuery() {
-	const now = Date.now();
-	const since = new Date(now - 5 * 6e4).toISOString();
 	return `
 <REQUEST>
   <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}' />
-    <QUERY objecttype='TrainPosition' namespace='järnväg.trafikinfo' sseurl='false' schemaversion='1.1'>
+    <QUERY objecttype='TrainPosition' namespace='järnväg.trafikinfo' sseurl='true' schemaversion='1.1'>
     <FILTER>
-        <GT name='Speed' value='99' />
-        <GT name='TimeStamp' value='${since}'/>
+        <GT name='Speed' value='160' />
     </FILTER>
     <INCLUDE>Bearing</INCLUDE>
     <INCLUDE>Position</INCLUDE>

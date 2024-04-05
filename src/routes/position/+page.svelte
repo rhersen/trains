@@ -43,6 +43,10 @@
 		};
 	}
 
+	function points(ps) {
+		return ps.map((p) => `${x(p.Position.SWEREF99TM)},${y(p.Position.SWEREF99TM)}`).join(' ');
+	}
+
 	onMount(() => {
 		if (!data?.sseUrl) return;
 
@@ -77,18 +81,11 @@
 			>
 		{/each}
 		{#each Object.values(data.positions) as ps}
-			{#each ps as p}
-				<circle
-					cx={x(p.Position.SWEREF99TM)}
-					cy={y(p.Position.SWEREF99TM)}
-					r="1"
-					fill="hsl({ps[0].Bearing}, 100%, 27.5%)"
-				/>
-			{/each}
+			<polyline points={points(ps)} stroke="hsl({ps[0].Bearing}, 100%, 27.5%)" fill="none" />
 			<circle
 				cx={x(ps[0].Position.SWEREF99TM)}
 				cy={y(ps[0].Position.SWEREF99TM)}
-				r="1.5"
+				r="1"
 				fill="black"
 			/>
 			<circle
@@ -96,7 +93,7 @@
 				tabindex="0"
 				cx={x(ps[0].Position.SWEREF99TM)}
 				cy={y(ps[0].Position.SWEREF99TM)}
-				r="1"
+				r="0.8"
 				fill="hsl({ps[0].Bearing}, 100%, 27.5%)"
 				on:click={onClick(ps)}
 				on:keydown={onClick(ps)}
@@ -117,5 +114,8 @@
 	svg {
 		font-family: sans-serif;
 		font-size: 2px;
+	}
+	polyline {
+		stroke-width: 1;
 	}
 </style>

@@ -2,6 +2,7 @@
 	import places from '$lib/sweref99tm.json';
 	import { onDestroy, onMount } from 'svelte';
 	export let data;
+	let selected = '';
 
 	const scale = 0b100110000000;
 	let eventSource;
@@ -23,7 +24,23 @@
 	}
 
 	function onClick(ps) {
-		return () => console.log(ps[0].Train.AdvertisedTrainNumber, ps[0].Speed, ps.length);
+		return async () => {
+			console.log(ps[0].Train.AdvertisedTrainNumber, ps[0].Speed);
+			const response = await fetch('position/train?id=' + ps[0].Train.AdvertisedTrainNumber);
+			if (response.ok) {
+				const train = await response.json();
+				console.log(train);
+				selected = `${train.ProductInformation.map((p) => p.Description)} ${
+					train.AdvertisedTrainIdent
+				} från ${train.FromLocation.map(locationName)} till ${train.ToLocation.map(locationName)} ${
+					ps[0].Speed ? ` i ${ps[0].Speed} km/h` : ''
+				}`;
+			}
+
+			function locationName(location) {
+				return location.LocationName;
+			}
+		};
 	}
 
 	onMount(() => {
@@ -47,7 +64,8 @@
 	});
 </script>
 
-<div>
+<div class="page">
+	<span class="sticky">{selected}</span>
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640">
 		<rect x="0" y="0" width="360" height="640" fill="white" />
 		{#each Object.keys(places) as place}
@@ -88,15 +106,16 @@
 </div>
 
 <style>
-	div {
+	.page {
 		background-color: antiquewhite;
 	}
+	.sticky {
+		position: sticky;
+		top: 0;
+		z-index: 100;
+	}
 	svg {
-		width: 100vw;
 		font-family: sans-serif;
 		font-size: 2px;
-	}
-	circle:focus {
-		outline: none;
 	}
 </style>

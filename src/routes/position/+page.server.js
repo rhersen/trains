@@ -41,9 +41,7 @@ function positionQuery() {
     <QUERY objecttype='TrainPosition' namespace='järnväg.trafikinfo' sseurl='true' schemaversion='1.1'>
     <FILTER>
         <GT name='TimeStamp' value='${since}'/>
-        <LIKE name='Train.AdvertisedTrainNumber' value='/^...$/'/>
-        <GTE name='Train.AdvertisedTrainNumber' value='400'/>
-        <LT name='Train.AdvertisedTrainNumber' value='700'/>
+        <LIKE name='Train.AdvertisedTrainNumber' value='/^[4-7]..$/'/>
     </FILTER>
     <INCLUDE>Bearing</INCLUDE>
     <INCLUDE>Position</INCLUDE>

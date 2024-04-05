@@ -1,6 +1,5 @@
 <script>
 	import places from '$lib/sweref99tm.json';
-	import * as positions from '$lib/positions.js';
 	import { onDestroy, onMount } from 'svelte';
 	export let data;
 
@@ -23,15 +22,23 @@
 		return (7600000 - number) / scale;
 	}
 
+	function onClick(ps) {
+		return () => console.log(ps[0].Train.AdvertisedTrainNumber, ps[0].Speed, ps.length);
+	}
+
 	onMount(() => {
 		if (!data?.sseUrl) return;
 
 		eventSource = new EventSource(data.sseUrl);
 		eventSource.onmessage = ({ data: s }) => {
-			const parsed = JSON.parse(s);
-			const newPositions = parsed.RESPONSE.RESULT[0].TrainPosition;
-			console.log(newPositions);
-			data.positions = positions.concat(data.positions, newPositions);
+			const updated = { ...data.positions };
+			JSON.parse(s).RESPONSE.RESULT[0].TrainPosition.forEach((p) => {
+				const key = `id${p.Train.AdvertisedTrainNumber}`;
+				const found = updated[key];
+				if (!found) updated[key] = [p];
+				else found.unshift(p);
+			});
+			data.positions = updated;
 		};
 	});
 
@@ -51,13 +58,31 @@
 				style="fill: gray;">{place}</text
 			>
 		{/each}
-		{#each data.positions as position}
-			<text
-				x={x(position.Position.SWEREF99TM)}
-				y={y(position.Position.SWEREF99TM)}
-				text-anchor="middle"
-				style="fill: hsl({position.Bearing}, 100%, 27.5%); font-size: 8px">{position.Speed}</text
-			>
+		{#each Object.values(data.positions) as ps}
+			{#each ps as p}
+				<circle
+					cx={x(p.Position.SWEREF99TM)}
+					cy={y(p.Position.SWEREF99TM)}
+					r="1"
+					fill="hsl({ps[0].Bearing}, 100%, 27.5%)"
+				/>
+			{/each}
+			<circle
+				cx={x(ps[0].Position.SWEREF99TM)}
+				cy={y(ps[0].Position.SWEREF99TM)}
+				r="1.5"
+				fill="black"
+			/>
+			<circle
+				role="button"
+				tabindex="0"
+				cx={x(ps[0].Position.SWEREF99TM)}
+				cy={y(ps[0].Position.SWEREF99TM)}
+				r="1"
+				fill="hsl({ps[0].Bearing}, 100%, 27.5%)"
+				on:click={onClick(ps)}
+				on:keydown={onClick(ps)}
+			/>
 		{/each}
 	</svg>
 </div>
@@ -67,8 +92,11 @@
 		background-color: antiquewhite;
 	}
 	svg {
-		height: 100vh;
+		width: 100vw;
 		font-family: sans-serif;
-		font-size: 4px;
+		font-size: 2px;
+	}
+	circle:focus {
+		outline: none;
 	}
 </style>

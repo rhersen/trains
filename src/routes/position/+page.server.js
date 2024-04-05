@@ -1,4 +1,5 @@
 import { error } from '@sveltejs/kit';
+import _ from 'lodash';
 
 export const load = async ({ params }) => {
 	const { id } = params;
@@ -22,18 +23,27 @@ export const load = async ({ params }) => {
 	const positionJson = await positionResponse.json();
 
 	return {
-		positions: positionJson.RESPONSE.RESULT[0].TrainPosition,
+		positions: _.groupBy(
+			positionJson.RESPONSE.RESULT[0].TrainPosition,
+			(trainPosition) => `id${trainPosition.Train.AdvertisedTrainNumber}`
+		),
 		sseUrl: positionJson.RESPONSE.RESULT[0].INFO?.SSEURL
 	};
 };
 
+const minutes = 6e4;
+
 function positionQuery() {
+	const since = new Date(Date.now() - 5 * minutes).toISOString();
 	return `
 <REQUEST>
   <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}' />
     <QUERY objecttype='TrainPosition' namespace='järnväg.trafikinfo' sseurl='true' schemaversion='1.1'>
     <FILTER>
-        <GT name='Speed' value='160' />
+        <GT name='TimeStamp' value='${since}'/>
+        <LIKE name='Train.AdvertisedTrainNumber' value='/^...$/'/>
+        <GTE name='Train.AdvertisedTrainNumber' value='400'/>
+        <LT name='Train.AdvertisedTrainNumber' value='700'/>
     </FILTER>
     <INCLUDE>Bearing</INCLUDE>
     <INCLUDE>Position</INCLUDE>

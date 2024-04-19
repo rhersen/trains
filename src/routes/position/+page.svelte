@@ -65,8 +65,8 @@
 
 <div class="page">
 	<span class="sticky">{selected}</span>
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640">
-		<rect x="0" y="0" width="360" height="640" fill="white" />
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 640">
+		<rect x="0" y="0" width="480" height="640" fill="white" />
 		{#each Object.keys(places) as place}
 			<text
 				x={x(places[place].sweref99tm)}
@@ -80,7 +80,7 @@
 			<circle
 				cx={x(ps[0].Position.SWEREF99TM)}
 				cy={y(ps[0].Position.SWEREF99TM)}
-				r="1"
+				r="3"
 				fill="black"
 			/>
 			<circle
@@ -88,7 +88,7 @@
 				tabindex="0"
 				cx={x(ps[0].Position.SWEREF99TM)}
 				cy={y(ps[0].Position.SWEREF99TM)}
-				r="0.8"
+				r="2"
 				fill="hsl({ps[0].Bearing}, 100%, 27.5%)"
 				on:click={onClick(ps)}
 				on:keydown={onClick(ps)}
@@ -108,7 +108,7 @@
 	}
 	svg {
 		font-family: sans-serif;
-		font-size: 2px;
+		font-size: 4px;
 	}
 	polyline {
 		stroke-width: 1;

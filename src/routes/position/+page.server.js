@@ -25,7 +25,7 @@ export const load = async ({ params }) => {
 	return {
 		positions: _.groupBy(
 			positionJson.RESPONSE.RESULT[0].TrainPosition,
-			(trainPosition) => `id${trainPosition.Train.AdvertisedTrainNumber}`
+			(trainPosition) => trainPosition.Train.AdvertisedTrainNumber
 		),
 		sseUrl: positionJson.RESPONSE.RESULT[0].INFO?.SSEURL
 	};

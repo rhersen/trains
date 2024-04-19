@@ -1,6 +1,8 @@
 <script>
-	import places from '$lib/sweref99tm.json';
+	import _ from 'lodash';
+	import { differenceInSeconds, parseISO } from 'date-fns';
 	import { onDestroy, onMount } from 'svelte';
+	import places from '$lib/sweref99tm.json';
 	export let data;
 	let selected = '';
 
@@ -54,12 +56,21 @@
 		eventSource.onmessage = ({ data: s }) => {
 			const updated = { ...data.positions };
 			JSON.parse(s).RESPONSE.RESULT[0].TrainPosition.forEach((p) => {
-				const key = `id${p.Train.AdvertisedTrainNumber}`;
+				const key = p.Train.AdvertisedTrainNumber;
 				const found = updated[key];
 				if (!found) updated[key] = [p];
 				else found.unshift(p);
 			});
-			data.positions = updated;
+
+			const filtered = _.mapValues(updated, (value) =>
+				_.reject(value, (p) => {
+					const seconds = differenceInSeconds(new Date(), parseISO(p.TimeStamp));
+					const reject = seconds > 120;
+					if (reject) console.log(seconds);
+					return reject;
+				})
+			);
+			data.positions = _.omitBy(filtered, _.isEmpty);
 		};
 	});
 

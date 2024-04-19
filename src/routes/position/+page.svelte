@@ -3,27 +3,11 @@
 	import { differenceInSeconds, parseISO } from 'date-fns';
 	import { onDestroy, onMount } from 'svelte';
 	import places from '$lib/sweref99tm.json';
+	import { x, y } from '$lib/coordinateMapping';
 	export let data;
 	let selected = '';
 
-	const scale = 0b100110000000;
 	let eventSource;
-
-	function x(s) {
-		const number = s
-			.substring(7, s.length - 1)
-			.split(' ')
-			.map(Number)[0];
-		return (number - 100000) / scale;
-	}
-
-	function y(s) {
-		const number = s
-			.substring(7, s.length - 1)
-			.split(' ')
-			.map(Number)[1];
-		return (7600000 - number) / scale;
-	}
 
 	function onClick(ps) {
 		return async () => {

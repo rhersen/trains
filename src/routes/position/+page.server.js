@@ -33,6 +33,13 @@ export const load = async ({ params }) => {
 
 const minutes = 6e4;
 
+const trainGroups = {
+	x2000: '/^[4-6]..$/',
+	sl: '/2[2-9]..$/',
+	sln: '/2[2-9].[02468]$/',
+	sls: '/2[2-9].[13579]$/'
+};
+
 function positionQuery() {
 	const since = new Date(Date.now() - 5 * minutes).toISOString();
 	return `
@@ -41,7 +48,7 @@ function positionQuery() {
     <QUERY objecttype='TrainPosition' namespace='järnväg.trafikinfo' sseurl='true' schemaversion='1.1'>
     <FILTER>
         <GT name='TimeStamp' value='${since}'/>
-        <LIKE name='Train.AdvertisedTrainNumber' value='/^[4-7]..$/'/>
+        <LIKE name='Train.AdvertisedTrainNumber' value='${trainGroups.x2000}'/>
     </FILTER>
     <INCLUDE>Bearing</INCLUDE>
     <INCLUDE>Position</INCLUDE>

@@ -3,29 +3,30 @@
 	import { differenceInSeconds, parseISO } from 'date-fns';
 	import { onDestroy, onMount } from 'svelte';
 	import places from '$lib/sweref99tm.json';
-	import { x, y } from '$lib/coordinateMapping';
 	export let data;
-	let selected = '';
 
 	let eventSource;
 
-	function onClick(ps) {
-		return async () => {
-			console.log(ps[0].Train.AdvertisedTrainNumber, ps[0].Speed);
-			const response = await fetch('position/train?id=' + ps[0].Train.AdvertisedTrainNumber);
-			if (response.ok) {
-				const train = await response.json();
-				console.log(train);
-				selected = `${train.ProductInformation.map((p) => p.Description)} ${
-					train.AdvertisedTrainIdent
-				} från ${train.FromLocation.map(locationName)} till ${train.ToLocation.map(locationName)} ${
-					ps[0].Speed ? ` i ${ps[0].Speed} km/h` : ''
-				}`;
-			}
+	let scale = 1000;
+	let location = 'Smn';
 
-			function locationName(location) {
-				return location.LocationName;
-			}
+	$: x = (s) => {
+		const s2 = places[location]?.sweref99tm ?? 'POINT (503403 6546585)';
+		const sweref = s.match(/[\d.]+ /)[0];
+		const xOffset = s2.match(/[\d.]+ /)[0] - 240 * scale;
+		return sweref / scale - xOffset / scale;
+	};
+
+	$: y = (s) => {
+		const s2 = places[location]?.sweref99tm ?? 'POINT (503403 6546585)';
+		const sweref = s.match(/ [\d.]+/)[0];
+		const yOffset = Number(s2.match(/ [\d.]+/)[0]) + 320 * scale;
+		return yOffset / scale - sweref / scale;
+	};
+
+	function onClick(place) {
+		return () => {
+			location = place;
 		};
 	}
 
@@ -64,7 +65,13 @@
 </script>
 
 <div class="page">
-	<span class="sticky">{selected}</span>
+	<div>
+		{scale}
+		<input type="range" min="100" max="1000" step="100" bind:value={scale} />
+	</div>
+	<div>
+		{places[location]?.name}
+	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 640">
 		<rect x="0" y="0" width="480" height="640" fill="white" />
 		{#each Object.keys(places) as place}
@@ -72,26 +79,28 @@
 				x={x(places[place].sweref99tm)}
 				y={y(places[place].sweref99tm)}
 				text-anchor="middle"
-				style="fill: gray;">{place}</text
+				style="fill: gray;"
+				on:click={onClick(place)}
+				on:keydown={onClick(place)}
+				role="button"
+				tabindex="0"
 			>
+				{place}
+			</text>
 		{/each}
 		{#each Object.values(data.positions) as ps}
 			<polyline points={points(ps)} stroke="hsl({ps[0].Bearing}, 100%, 27.5%)" fill="none" />
 			<circle
 				cx={x(ps[0].Position.SWEREF99TM)}
 				cy={y(ps[0].Position.SWEREF99TM)}
-				r="3"
+				r="5"
 				fill="black"
 			/>
 			<circle
-				role="button"
-				tabindex="0"
 				cx={x(ps[0].Position.SWEREF99TM)}
 				cy={y(ps[0].Position.SWEREF99TM)}
-				r="2"
+				r="4"
 				fill="hsl({ps[0].Bearing}, 100%, 27.5%)"
-				on:click={onClick(ps)}
-				on:keydown={onClick(ps)}
 			/>
 		{/each}
 	</svg>
@@ -101,16 +110,11 @@
 	.page {
 		background-color: antiquewhite;
 	}
-	.sticky {
-		position: sticky;
-		top: 0;
-		z-index: 100;
-	}
 	svg {
 		font-family: sans-serif;
-		font-size: 4px;
+		font-size: 12px;
 	}
 	polyline {
-		stroke-width: 1;
+		stroke-width: 3;
 	}
 </style>

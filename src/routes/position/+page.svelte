@@ -7,26 +7,49 @@
 
 	let eventSource;
 
-	let scale = 1000;
-	let location = 'Smn';
+	let location = 'Nba';
+	let logScale = 6;
+
+	$: scale = () => 2 ** logScale;
 
 	$: x = (s) => {
 		const s2 = places[location]?.sweref99tm ?? 'POINT (503403 6546585)';
 		const sweref = s.match(/[\d.]+ /)[0];
-		const xOffset = s2.match(/[\d.]+ /)[0] - 240 * scale;
-		return sweref / scale - xOffset / scale;
+		const xOffset = s2.match(/[\d.]+ /)[0] - 240 * scale();
+		return sweref / scale() - xOffset / scale();
 	};
 
 	$: y = (s) => {
 		const s2 = places[location]?.sweref99tm ?? 'POINT (503403 6546585)';
 		const sweref = s.match(/ [\d.]+/)[0];
-		const yOffset = Number(s2.match(/ [\d.]+/)[0]) + 320 * scale;
-		return yOffset / scale - sweref / scale;
+		const yOffset = Number(s2.match(/ [\d.]+/)[0]) + 320 * scale();
+		return yOffset / scale() - sweref / scale();
 	};
 
-	function onClick(place) {
+	function center(place) {
 		return () => {
 			location = place;
+		};
+	}
+
+	function onClick(ps) {
+		return async () => {
+			console.log(ps[0].Train.AdvertisedTrainNumber, ps[0].Speed);
+			const response = await fetch('position/train?id=' + ps[0].Train.AdvertisedTrainNumber);
+			if (response.ok) {
+				const train = await response.json();
+				console.log(
+					`${train.ProductInformation.map((p) => p.Description)} ${
+						train.AdvertisedTrainIdent
+					} från ${train.FromLocation.map(locationName)} till ${train.ToLocation.map(
+						locationName
+					)} ${ps[0].Speed ? ` i ${ps[0].Speed} km/h` : ''}`
+				);
+			}
+
+			function locationName(location) {
+				return location.LocationName;
+			}
 		};
 	}
 
@@ -66,8 +89,9 @@
 
 <div class="page">
 	<div>
-		{scale}
-		<input type="range" min="100" max="1000" step="100" bind:value={scale} />
+		{scale()}
+		{logScale}
+		<input type="range" min="4" max="10" step="1" bind:value={logScale} />
 	</div>
 	<div>
 		{places[location]?.name}
@@ -80,8 +104,8 @@
 				y={y(places[place].sweref99tm)}
 				text-anchor="middle"
 				style="fill: gray;"
-				on:click={onClick(place)}
-				on:keydown={onClick(place)}
+				on:click={center(place)}
+				on:keydown={center(place)}
 				role="button"
 				tabindex="0"
 			>
@@ -97,10 +121,14 @@
 				fill="black"
 			/>
 			<circle
+				role="button"
+				tabindex="0"
 				cx={x(ps[0].Position.SWEREF99TM)}
 				cy={y(ps[0].Position.SWEREF99TM)}
 				r="4"
 				fill="hsl({ps[0].Bearing}, 100%, 27.5%)"
+				on:click={onClick(ps)}
+				on:keydown={onClick(ps)}
 			/>
 		{/each}
 	</svg>

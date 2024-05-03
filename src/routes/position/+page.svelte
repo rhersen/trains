@@ -7,6 +7,8 @@
 
 	let eventSource;
 
+	let train;
+	let trains = {};
 	let location = 'Nba';
 	let logScale = 6;
 
@@ -32,12 +34,15 @@
 		};
 	}
 
+	function locationName(location) {
+		return location.LocationName;
+	}
+
 	function onClick(ps) {
-		return async () => {
+		return () => {
 			console.log(ps[0].Train.AdvertisedTrainNumber, ps[0].Speed);
-			const response = await fetch('position/train?id=' + ps[0].Train.AdvertisedTrainNumber);
-			if (response.ok) {
-				const train = await response.json();
+			train = trains[ps[0].Train.AdvertisedTrainNumber];
+			if (train)
 				console.log(
 					`${train.ProductInformation.map((p) => p.Description)} ${
 						train.AdvertisedTrainIdent
@@ -45,41 +50,55 @@
 						locationName
 					)} ${ps[0].Speed ? ` i ${ps[0].Speed} km/h` : ''}`
 				);
-			}
-
-			function locationName(location) {
-				return location.LocationName;
-			}
 		};
 	}
 
-	function points(ps) {
-		return ps.map((p) => `${x(p.Position.SWEREF99TM)},${y(p.Position.SWEREF99TM)}`).join(' ');
+	$: points = (ps) =>
+		ps.map((p) => `${x(p.Position.SWEREF99TM)},${y(p.Position.SWEREF99TM)}`).join(' ');
+
+	function fill(p) {
+		const location = trains[p.Train.AdvertisedTrainNumber]?.ToLocation.map(locationName).join();
+		if (location === 'Sci') return `hsl(0, 100%, 40%)`;
+		if (location === 'U') return `hsl(30, 100%, 40%)`;
+		if (location === 'Mr') return `hsl(60, 100%, 40%)`;
+		if (location === 'Tu') return `hsl(120, 100%, 40%)`;
+		if (location === 'Söc') return `hsl(180, 100%, 40%)`;
+
+		if (location === 'Bål') return `hsl(0, 60%, 30%)`;
+		if (location === 'Khä') return `hsl(60, 60%, 30%)`;
+		if (location === 'Kän') return `hsl(30, 60%, 30%)`;
+		if (location === 'Vhe') return `hsl(120, 60%, 30%)`;
+		if (location === 'Nyc') return `hsl(180, 60%, 30%)`;
+
+		return `hsl(${p.Bearing}, 0%, 50%)`;
 	}
 
-	onMount(() => {
-		if (!data?.sseUrl) return;
+	onMount(async () => {
+		if (data?.sseUrl) {
+			eventSource = new EventSource(data.sseUrl);
+			eventSource.onmessage = ({ data: s }) => {
+				const updated = { ...data.positions };
+				JSON.parse(s).RESPONSE.RESULT[0].TrainPosition.forEach((p) => {
+					const key = p.Train.AdvertisedTrainNumber;
+					const found = updated[key];
+					if (!found) updated[key] = [p];
+					else found.unshift(p);
+				});
 
-		eventSource = new EventSource(data.sseUrl);
-		eventSource.onmessage = ({ data: s }) => {
-			const updated = { ...data.positions };
-			JSON.parse(s).RESPONSE.RESULT[0].TrainPosition.forEach((p) => {
-				const key = p.Train.AdvertisedTrainNumber;
-				const found = updated[key];
-				if (!found) updated[key] = [p];
-				else found.unshift(p);
-			});
+				const filtered = _.mapValues(updated, (value) =>
+					_.reject(value, (p) => {
+						const seconds = differenceInSeconds(new Date(), parseISO(p.TimeStamp));
+						return seconds > 120;
+					})
+				);
+				data.positions = _.omitBy(filtered, _.isEmpty);
+			};
+		}
 
-			const filtered = _.mapValues(updated, (value) =>
-				_.reject(value, (p) => {
-					const seconds = differenceInSeconds(new Date(), parseISO(p.TimeStamp));
-					const reject = seconds > 120;
-					if (reject) console.log(seconds);
-					return reject;
-				})
-			);
-			data.positions = _.omitBy(filtered, _.isEmpty);
-		};
+		if (data?.positions) {
+			const response = await fetch('position/train?id=' + Object.keys(data.positions).join(','));
+			if (response.ok) trains = await response.json();
+		}
 	});
 
 	onDestroy(() => {
@@ -95,6 +114,8 @@
 	</div>
 	<div>
 		{places[location]?.name}
+		/
+		{train?.ToLocation.map(locationName)}
 	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 640">
 		<rect x="0" y="0" width="480" height="640" fill="white" />
@@ -113,7 +134,7 @@
 			</text>
 		{/each}
 		{#each Object.values(data.positions) as ps}
-			<polyline points={points(ps)} stroke="hsl({ps[0].Bearing}, 100%, 27.5%)" fill="none" />
+			<polyline points={points(ps)} stroke={fill(ps[0])} fill="none" />
 			<circle
 				cx={x(ps[0].Position.SWEREF99TM)}
 				cy={y(ps[0].Position.SWEREF99TM)}
@@ -126,7 +147,7 @@
 				cx={x(ps[0].Position.SWEREF99TM)}
 				cy={y(ps[0].Position.SWEREF99TM)}
 				r="4"
-				fill="hsl({ps[0].Bearing}, 100%, 27.5%)"
+				fill={fill(ps[0])}
 				on:click={onClick(ps)}
 				on:keydown={onClick(ps)}
 			/>

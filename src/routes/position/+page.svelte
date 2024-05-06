@@ -57,7 +57,7 @@
 		ps.map((p) => `${x(p.Position.SWEREF99TM)},${y(p.Position.SWEREF99TM)}`).join(' ');
 
 	function fill(p) {
-		const location = trains[p.Train.AdvertisedTrainNumber]?.ToLocation.map(locationName).join();
+		const location = trains[p.Train.AdvertisedTrainNumber]?.ToLocation?.map(locationName).join();
 		if (location === 'Sci') return `hsl(0, 100%, 40%)`;
 		if (location === 'U') return `hsl(30, 100%, 40%)`;
 		if (location === 'Mr') return `hsl(60, 100%, 40%)`;
@@ -115,7 +115,7 @@
 	<div>
 		{places[location]?.name}
 		/
-		{train?.ToLocation.map(locationName)}
+		{train?.ToLocation?.map(locationName)}
 	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 640">
 		<rect x="0" y="0" width="480" height="640" fill="white" />

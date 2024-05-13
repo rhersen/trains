@@ -38,7 +38,6 @@ export const GET = async ({ url }) => {
 function getBody({ id }) {
 	const now = Date.now();
 	const since = new Date(now - 12 * 6e4).toISOString();
-	const until = new Date(now + 12 * 6e4).toISOString();
 	const ids = id
 		.split(',')
 		.map((s) => `<EQ name='AdvertisedTrainIdent' value='${s}' />`)
@@ -53,7 +52,7 @@ function getBody({ id }) {
           <GT name='AdvertisedTimeAtLocation' value='${since}' />
           <GT name='EstimatedTimeAtLocation' value='${since}' />
         </OR>
-        <LT name='AdvertisedTimeAtLocation' value='${until}' />
+        <EQ name='ActivityType' value='Avgang' />
       </FILTER>
       <INCLUDE>AdvertisedTimeAtLocation</INCLUDE>
       <INCLUDE>AdvertisedTrainIdent</INCLUDE>

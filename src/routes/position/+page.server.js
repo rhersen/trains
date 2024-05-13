@@ -34,7 +34,13 @@ export const load = async ({ params }) => {
 const minutes = 6e4;
 
 const trainGroups = {
-	x2000: '/^[1378]..$/',
+	x2000: '/^[4-6]..$/',
+	m_sj: '/^2..$/',
+	m1_sjreg: '/^1..$/',
+	m9: '/^9..$/',
+	m109: '/^109..$/',
+	mtrx: '/^20[0-4].$/',
+	sn: '/^39[0-4].$/',
 	sl: '/2[2-9]..$/',
 	sln: '/2[2-9].[02468]$/',
 	sls: '/2[2-9].[13579]$/'
@@ -49,6 +55,13 @@ function positionQuery() {
     <FILTER>
         <GT name='TimeStamp' value='${since}'/>
         <OR>
+        	<LIKE name='Train.AdvertisedTrainNumber' value='${trainGroups.x2000}'/>
+        	<LIKE name='Train.AdvertisedTrainNumber' value='${trainGroups.m_sj}'/>
+        	<LIKE name='Train.AdvertisedTrainNumber' value='${trainGroups.m1_sjreg}'/>
+        	<LIKE name='Train.AdvertisedTrainNumber' value='${trainGroups.m9}'/>
+        	<LIKE name='Train.AdvertisedTrainNumber' value='${trainGroups.m109}'/>
+        	<LIKE name='Train.AdvertisedTrainNumber' value='${trainGroups.mtrx}'/>
+        	<LIKE name='Train.AdvertisedTrainNumber' value='${trainGroups.sn}'/>
         	<LIKE name='Train.AdvertisedTrainNumber' value='${trainGroups.sl}'/>
 		</OR>
     </FILTER>

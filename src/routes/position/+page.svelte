@@ -8,6 +8,7 @@
 	let eventSource;
 
 	let train;
+	let position;
 	let trains = {};
 	let location = 'Nba';
 	let logScale = 6;
@@ -38,18 +39,24 @@
 		return location.LocationName;
 	}
 
-	function onClick(ps) {
+	function placeName(location) {
+		return places[location.LocationName]?.name;
+	}
+
+	function trainInfo(train) {
+		if (train) {
+			return `${train.ProductInformation[0].Description} ${
+				train.AdvertisedTrainIdent
+			} från ${train.FromLocation.map(placeName)} till ${train.ToLocation.map(placeName)} ${
+				position.Speed
+			}`;
+		}
+	}
+
+	function onClick(p) {
 		return () => {
-			console.log(ps[0].Train.AdvertisedTrainNumber, ps[0].Speed);
-			train = trains[ps[0].Train.AdvertisedTrainNumber];
-			if (train)
-				console.log(
-					`${train.ProductInformation.map((p) => p.Description)} ${
-						train.AdvertisedTrainIdent
-					} från ${train.FromLocation.map(locationName)} till ${train.ToLocation.map(
-						locationName
-					)} ${ps[0].Speed ? ` i ${ps[0].Speed} km/h` : ''}`
-				);
+			position = p;
+			train = trains[p.Train.AdvertisedTrainNumber];
 		};
 	}
 
@@ -111,11 +118,10 @@
 		{scale()}
 		{logScale}
 		<input type="range" min="4" max="10" step="1" bind:value={logScale} />
+		{places[location]?.name}
 	</div>
 	<div>
-		{places[location]?.name}
-		/
-		{train?.ToLocation?.map(locationName)}
+		{trainInfo(train)}
 	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 640">
 		<rect x="0" y="0" width="480" height="640" fill="white" />
@@ -148,8 +154,8 @@
 				cy={y(ps[0].Position.SWEREF99TM)}
 				r="4"
 				fill={fill(ps[0])}
-				on:click={onClick(ps)}
-				on:keydown={onClick(ps)}
+				on:click={onClick(ps[0])}
+				on:keydown={onClick(ps[0])}
 			/>
 		{/each}
 	</svg>

@@ -64,20 +64,25 @@
 		ps.map((p) => `${x(p.Position.SWEREF99TM)},${y(p.Position.SWEREF99TM)}`).join(' ');
 
 	function fill(p) {
-		const location = trains[p.Train.AdvertisedTrainNumber]?.ToLocation?.map(locationName).join();
-		if (location === 'Sci') return `hsl(0, 100%, 40%)`;
-		if (location === 'U') return `hsl(30, 100%, 40%)`;
-		if (location === 'Mr') return `hsl(60, 100%, 40%)`;
-		if (location === 'Tu') return `hsl(120, 100%, 40%)`;
-		if (location === 'Söc') return `hsl(180, 100%, 40%)`;
+		const train = trains[p.Train.AdvertisedTrainNumber];
+		if (train) {
+			const code = train.ProductInformation[0].Code;
+			if (code === 'PNA014') return `hsl(0, 0%, 30%)`;
+			const location = train.ToLocation?.map(locationName).join();
+			if (location === 'Sci') return `hsl(0, 100%, 40%)`;
+			if (location === 'U') return `hsl(30, 100%, 40%)`;
+			if (location === 'Mr') return `hsl(60, 100%, 40%)`;
+			if (location === 'Tu') return `hsl(120, 100%, 40%)`;
+			if (location === 'Söc') return `hsl(180, 100%, 40%)`;
 
-		if (location === 'Bål') return `hsl(0, 60%, 30%)`;
-		if (location === 'Khä') return `hsl(60, 60%, 30%)`;
-		if (location === 'Kän') return `hsl(30, 60%, 30%)`;
-		if (location === 'Vhe') return `hsl(120, 60%, 30%)`;
-		if (location === 'Nyc') return `hsl(180, 60%, 30%)`;
+			if (location === 'Bål') return `hsl(0, 60%, 30%)`;
+			if (location === 'Khä') return `hsl(60, 60%, 30%)`;
+			if (location === 'Kän') return `hsl(30, 60%, 30%)`;
+			if (location === 'Vhe') return `hsl(120, 60%, 30%)`;
+			if (location === 'Nyc') return `hsl(180, 60%, 30%)`;
+		}
 
-		return `hsl(${p.Bearing}, 0%, 50%)`;
+		return `hsl(${p.Bearing}, 0%, 70%)`;
 	}
 
 	onMount(async () => {

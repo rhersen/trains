@@ -1,9 +1,7 @@
 import { error } from '@sveltejs/kit';
 import _ from 'lodash';
 
-export const load = async ({ params }) => {
-	const { id } = params;
-
+export const load = async () => {
 	const headers = {
 		'Content-Type': 'application/xml',
 		Accept: 'application/json'
@@ -12,7 +10,7 @@ export const load = async ({ params }) => {
 
 	const positionPromise = fetch(url, {
 		method: 'POST',
-		body: positionQuery({ id }),
+		body: positionQuery(),
 		headers
 	});
 
@@ -41,7 +39,7 @@ function positionQuery() {
     <QUERY objecttype='TrainPosition' namespace='järnväg.trafikinfo' sseurl='true' schemaversion='1.1'>
     <FILTER>
       <GT name='TimeStamp' value='${since}'/>
-      <WITHIN name="Position.SWEREF99TM" shape="center" value="672021 6577352" radius="25000" />
+      <WITHIN name="Position.SWEREF99TM" shape="box" value="632000 6532000, 679000 6639000"/>
     </FILTER>
     <INCLUDE>Bearing</INCLUDE>
     <INCLUDE>Position</INCLUDE>

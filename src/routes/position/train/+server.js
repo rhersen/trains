@@ -13,31 +13,20 @@ export const GET = async ({ url }) => {
 			Accept: 'application/json'
 		}
 	});
+
 	if (!response.ok) error(response.status, response.statusText);
 
 	const { RESPONSE } = await response.json();
-	const trainAnnouncement = RESPONSE.RESULT[0].TrainAnnouncement;
-	const dictionary = _.groupBy(trainAnnouncement, (train) => train.AdvertisedTrainIdent);
-	return new Response(
-		JSON.stringify(
-			_.mapValues(dictionary, (trainAnnouncement) => {
-				const found = trainAnnouncement.find(({ ToLocation }) => ToLocation);
-
-				return {
-					AdvertisedTrainIdent: found?.AdvertisedTrainIdent,
-					FromLocation: found?.FromLocation,
-					ProductInformation: found?.ProductInformation,
-					ToLocation: found?.ToLocation,
-					ViaToLocation: found?.ViaToLocation
-				};
-			})
-		)
-	);
+	const [result] = RESPONSE.RESULT;
+	const grouped = _.groupBy(result.TrainAnnouncement, (train) => train.AdvertisedTrainIdent);
+	return new Response(JSON.stringify(_.mapValues(grouped, _.first)));
 };
 
 function getBody({ id }) {
 	const now = Date.now();
-	const since = new Date(now - 12 * 6e4).toISOString();
+	const windowMillis = 60 * 6e4;
+	const since = new Date(now - windowMillis).toISOString();
+	const until = new Date(now + windowMillis).toISOString();
 	const ids = id
 		.split(',')
 		.map((s) => `<EQ name='AdvertisedTrainIdent' value='${s}' />`)
@@ -48,11 +37,9 @@ function getBody({ id }) {
     <QUERY objecttype='TrainAnnouncement' orderby='AdvertisedTimeAtLocation' sseurl='false' schemaversion='1.6'>
       <FILTER>
         <OR>${ids}</OR>
-        <OR>
-          <GT name='AdvertisedTimeAtLocation' value='${since}' />
-          <GT name='EstimatedTimeAtLocation' value='${since}' />
-        </OR>
-        <EQ name='ActivityType' value='Avgang' />
+        <GT name='AdvertisedTimeAtLocation' value='${since}' />
+        <LT name='AdvertisedTimeAtLocation' value='${until}' />
+        <EXISTS name='ToLocation' value='true' />
       </FILTER>
       <INCLUDE>AdvertisedTimeAtLocation</INCLUDE>
       <INCLUDE>AdvertisedTrainIdent</INCLUDE>

@@ -40,7 +40,9 @@
 	}
 
 	function placeName(location) {
-		return places[location.LocationName]?.name;
+		return places[location.LocationName]
+			? places[location.LocationName].name
+			: location.LocationName;
 	}
 
 	function trainInfo(train) {

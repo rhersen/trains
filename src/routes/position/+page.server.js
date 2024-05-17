@@ -2,36 +2,32 @@ import { error } from '@sveltejs/kit';
 import _ from 'lodash';
 
 export const load = async () => {
-	const headers = {
-		'Content-Type': 'application/xml',
-		Accept: 'application/json'
-	};
-	const url = 'https://api.trafikinfo.trafikverket.se/v2/data.json';
-
-	const positionPromise = fetch(url, {
+	const response = await fetch('https://api.trafikinfo.trafikverket.se/v2/data.json', {
 		method: 'POST',
-		body: positionQuery(),
-		headers
+		body: query(),
+		headers: {
+			'Content-Type': 'application/xml',
+			Accept: 'application/json'
+		}
 	});
 
-	const positionResponse = await positionPromise;
+	if (!response.ok) throw error(response.status, response.statusText);
 
-	if (!positionResponse.ok) throw error(positionResponse.status, positionResponse.statusText);
-
-	const positionJson = await positionResponse.json();
+	const { RESPONSE } = await response.json();
+	const [result] = RESPONSE.RESULT;
 
 	return {
 		positions: _.groupBy(
-			positionJson.RESPONSE.RESULT[0].TrainPosition,
+			result.TrainPosition,
 			(trainPosition) => trainPosition.Train.AdvertisedTrainNumber
 		),
-		sseUrl: positionJson.RESPONSE.RESULT[0].INFO?.SSEURL
+		sseUrl: result.INFO?.SSEURL
 	};
 };
 
 const minutes = 6e4;
 
-function positionQuery() {
+function query() {
 	const since = new Date(Date.now() - 5 * minutes).toISOString();
 	return `
 <REQUEST>

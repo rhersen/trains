@@ -28,7 +28,7 @@ export const load = async () => {
 const minutes = 6e4;
 
 function query() {
-	const since = new Date(Date.now() - 5 * minutes).toISOString();
+	const since = new Date(Date.now() - 3 * minutes).toISOString();
 	return `
 <REQUEST>
   <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}' />

@@ -7,26 +7,26 @@
 
 	let eventSource;
 
-	let train;
-	let position;
+	let trainNumber;
 	let trains = {};
+	let trainInfo = '';
 	let location = 'Nba';
 	let logScale = 6;
 
-	$: scale = () => 2 ** logScale;
+	$: scale = 2 ** logScale;
 
 	$: x = (s) => {
 		const s2 = places[location]?.sweref99tm ?? 'POINT (503403 6546585)';
 		const sweref = s.match(/[\d.]+ /)[0];
-		const xOffset = s2.match(/[\d.]+ /)[0] - 240 * scale();
-		return sweref / scale() - xOffset / scale();
+		const xOffset = s2.match(/[\d.]+ /)[0] - 240 * scale;
+		return sweref / scale - xOffset / scale;
 	};
 
 	$: y = (s) => {
 		const s2 = places[location]?.sweref99tm ?? 'POINT (503403 6546585)';
 		const sweref = s.match(/ [\d.]+/)[0];
-		const yOffset = Number(s2.match(/ [\d.]+/)[0]) + 320 * scale();
-		return yOffset / scale() - sweref / scale();
+		const yOffset = Number(s2.match(/ [\d.]+/)[0]) + 320 * scale;
+		return yOffset / scale - sweref / scale;
 	};
 
 	function center(place) {
@@ -45,22 +45,18 @@
 			: location.LocationName;
 	}
 
-	function trainInfo(train) {
+	$: if (trainNumber) {
+		const train = trains[trainNumber];
 		if (train) {
-			return `${train.ProductInformation[0].Description} ${
+			trainInfo = `${train.ProductInformation[0].Description} ${
 				train.AdvertisedTrainIdent
-			} från ${train.FromLocation.map(placeName)} till ${train.ToLocation.map(placeName)} ${
-				position.Speed
-			}`;
-		}
-
-		if (position) return position.Train.AdvertisedTrainNumber;
+			} från ${train.FromLocation.map(placeName)} till ${train.ToLocation.map(placeName)} `;
+		} else trainInfo = trainNumber;
 	}
 
 	function onClick(p) {
 		return () => {
-			position = p;
-			train = trains[p.Train.AdvertisedTrainNumber];
+			trainNumber = p;
 		};
 	}
 
@@ -124,16 +120,15 @@
 
 <div class="page">
 	<div>
-		{scale()}
+		{scale}
 		{logScale}
 		<input type="range" min="4" max="10" step="1" bind:value={logScale} />
 		{places[location]?.name}
 	</div>
 	<div>
-		{trainInfo(train)}
+		{trainInfo}
 	</div>
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 640">
-		<rect x="0" y="0" width="480" height="640" fill="white" />
 		{#each Object.keys(places) as place}
 			<text
 				x={x(places[place].sweref99tm)}
@@ -163,8 +158,8 @@
 				cy={y(ps[0].Position.SWEREF99TM)}
 				r="4"
 				fill={fill(ps[0])}
-				on:click={onClick(ps[0])}
-				on:keydown={onClick(ps[0])}
+				on:click={onClick(ps[0].Train.AdvertisedTrainNumber)}
+				on:keydown={onClick(ps[0].Train.AdvertisedTrainNumber)}
 			/>
 		{/each}
 	</svg>

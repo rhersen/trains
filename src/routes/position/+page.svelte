@@ -16,19 +16,19 @@
 
 	$: scale = 2 ** logScale;
 
-	function x(s) {
+	$: x = (s) => {
 		const s2 = places[centered]?.sweref99tm ?? 'POINT (503403 6546585)';
 		const sweref = s.match(/[\d.]+ /)[0];
 		const xOffset = s2.match(/[\d.]+ /)[0] - 240 * scale;
 		return sweref / scale - xOffset / scale;
-	}
+	};
 
-	function y(s) {
+	$: y = (s) => {
 		const s2 = places[centered]?.sweref99tm ?? 'POINT (503403 6546585)';
 		const sweref = s.match(/ [\d.]+/)[0];
 		const yOffset = Number(s2.match(/ [\d.]+/)[0]) + 320 * scale;
 		return yOffset / scale - sweref / scale;
-	}
+	};
 
 	function center(place) {
 		return () => {
@@ -64,21 +64,25 @@
 		if (data?.sseUrl) {
 			eventSource = new EventSource(data.sseUrl);
 			eventSource.onmessage = ({ data: s }) => {
-				const updated = { ...data.positions };
-				JSON.parse(s).RESPONSE.RESULT[0].TrainPosition.forEach((p) => {
+				const json = JSON.parse(s);
+				const [result] = json.RESPONSE.RESULT;
+
+				result.TrainPosition.forEach((p) => {
 					const key = p.Train.AdvertisedTrainNumber;
-					const found = updated[key];
-					if (!found) updated[key] = [p];
+					const found = data.positions[key];
+					if (!found) data.positions[key] = [p];
 					else found.unshift(p);
 				});
 
-				const filtered = _.mapValues(updated, (value) =>
-					_.reject(value, (p) => {
-						const seconds = differenceInSeconds(new Date(), parseISO(p.TimeStamp));
-						return seconds > 120;
-					})
+				data.positions = _.omitBy(
+					_.mapValues(data.positions, (value) =>
+						_.reject(
+							value,
+							({ TimeStamp }) => differenceInSeconds(new Date(), parseISO(TimeStamp)) > 120
+						)
+					),
+					_.isEmpty
 				);
-				data.positions = _.omitBy(filtered, _.isEmpty);
 			};
 		}
 

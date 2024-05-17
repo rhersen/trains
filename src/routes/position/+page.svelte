@@ -3,6 +3,7 @@
 	import { differenceInSeconds, parseISO } from 'date-fns';
 	import { onDestroy, onMount } from 'svelte';
 	import places from '$lib/sweref99tm.json';
+	import { position as fill } from '$lib/color.js';
 	export let data;
 
 	let eventSource;
@@ -35,10 +36,6 @@
 		};
 	}
 
-	function locationName(location) {
-		return location.LocationName;
-	}
-
 	function placeName(location) {
 		return places[location.LocationName]
 			? places[location.LocationName].name
@@ -62,28 +59,6 @@
 
 	$: points = (ps) =>
 		ps.map((p) => `${x(p.Position.SWEREF99TM)},${y(p.Position.SWEREF99TM)}`).join(' ');
-
-	function fill(p) {
-		const train = trains[p.Train.AdvertisedTrainNumber];
-		if (train) {
-			const code = train.ProductInformation[0].Code;
-			if (code === 'PNA014') return `hsl(0, 0%, 30%)`;
-			const location = train.ToLocation?.map(locationName).join();
-			if (location === 'Sci') return `hsl(0, 100%, 40%)`;
-			if (location === 'U') return `hsl(30, 100%, 40%)`;
-			if (location === 'Mr') return `hsl(60, 100%, 40%)`;
-			if (location === 'Tu') return `hsl(120, 100%, 40%)`;
-			if (location === 'Söc') return `hsl(180, 100%, 40%)`;
-
-			if (location === 'Bål') return `hsl(0, 60%, 30%)`;
-			if (location === 'Khä') return `hsl(60, 60%, 30%)`;
-			if (location === 'Kän') return `hsl(30, 60%, 30%)`;
-			if (location === 'Vhe') return `hsl(120, 60%, 30%)`;
-			if (location === 'Nyc') return `hsl(180, 60%, 30%)`;
-		}
-
-		return `hsl(${p.Bearing}, 0%, 70%)`;
-	}
 
 	onMount(async () => {
 		if (data?.sseUrl) {
@@ -143,7 +118,11 @@
 			</text>
 		{/each}
 		{#each Object.values(data.positions) as ps}
-			<polyline points={points(ps)} stroke={fill(ps[0])} fill="none" />
+			<polyline
+				points={points(ps)}
+				stroke={fill(trains[ps[0].Train.AdvertisedTrainNumber])}
+				fill="none"
+			/>
 			<circle
 				cx={x(ps[0].Position.SWEREF99TM)}
 				cy={y(ps[0].Position.SWEREF99TM)}
@@ -156,7 +135,7 @@
 				cx={x(ps[0].Position.SWEREF99TM)}
 				cy={y(ps[0].Position.SWEREF99TM)}
 				r="4"
-				fill={fill(ps[0])}
+				fill={fill(trains[ps[0].Train.AdvertisedTrainNumber])}
 				on:click={onClick(ps[0].Train.AdvertisedTrainNumber)}
 				on:keydown={onClick(ps[0].Train.AdvertisedTrainNumber)}
 			/>

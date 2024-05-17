@@ -10,28 +10,28 @@
 	let trainNumber;
 	let trains = {};
 	let trainInfo = '';
-	let location = 'Nba';
+	let centered = 'Nba';
 	let logScale = 6;
 
 	$: scale = 2 ** logScale;
 
-	$: x = (s) => {
-		const s2 = places[location]?.sweref99tm ?? 'POINT (503403 6546585)';
+	function x(s) {
+		const s2 = places[centered]?.sweref99tm ?? 'POINT (503403 6546585)';
 		const sweref = s.match(/[\d.]+ /)[0];
 		const xOffset = s2.match(/[\d.]+ /)[0] - 240 * scale;
 		return sweref / scale - xOffset / scale;
-	};
+	}
 
-	$: y = (s) => {
-		const s2 = places[location]?.sweref99tm ?? 'POINT (503403 6546585)';
+	function y(s) {
+		const s2 = places[centered]?.sweref99tm ?? 'POINT (503403 6546585)';
 		const sweref = s.match(/ [\d.]+/)[0];
 		const yOffset = Number(s2.match(/ [\d.]+/)[0]) + 320 * scale;
 		return yOffset / scale - sweref / scale;
-	};
+	}
 
 	function center(place) {
 		return () => {
-			location = place;
+			centered = place;
 		};
 	}
 
@@ -121,9 +121,8 @@
 <div class="page">
 	<div>
 		{scale}
-		{logScale}
 		<input type="range" min="4" max="10" step="1" bind:value={logScale} />
-		{places[location]?.name}
+		{places[centered]?.name}
 	</div>
 	<div>
 		{trainInfo}

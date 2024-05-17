@@ -51,6 +51,8 @@
 				position.Speed
 			}`;
 		}
+
+		if (position) return position.Train.AdvertisedTrainNumber;
 	}
 
 	function onClick(p) {

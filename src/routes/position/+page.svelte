@@ -13,21 +13,35 @@
 	let trainInfo = '';
 	let centered = 'Nba';
 	let logScale = 6;
+	let now = Date.now();
 
 	$: scale = 2 ** logScale;
 
 	$: x = (s) => {
-		const s2 = places[centered]?.sweref99tm ?? 'POINT (503403 6546585)';
+		const center = places[centered]?.sweref99tm ?? 'POINT (503403 6546585)';
 		const sweref = s.match(/[\d.]+ /)[0];
-		const xOffset = s2.match(/[\d.]+ /)[0] - 240 * scale;
+		const xOffset = center.match(/[\d.]+ /)[0] - 240 * scale;
 		return sweref / scale - xOffset / scale;
 	};
 
 	$: y = (s) => {
-		const s2 = places[centered]?.sweref99tm ?? 'POINT (503403 6546585)';
+		const center = places[centered]?.sweref99tm ?? 'POINT (503403 6546585)';
 		const sweref = s.match(/ [\d.]+/)[0];
-		const yOffset = Number(s2.match(/ [\d.]+/)[0]) + 320 * scale;
+		const yOffset = Number(center.match(/ [\d.]+/)[0]) + 320 * scale;
 		return yOffset / scale - sweref / scale;
+	};
+
+	$: interpolate = (p0, p1) => {
+		if (!p1) {
+			return p0.Position.SWEREF99TM;
+		}
+		const dt = differenceInSeconds(parseISO(p1.TimeStamp), parseISO(p0.TimeStamp));
+		const d = differenceInSeconds(now, parseISO(p0.TimeStamp));
+		const x0 = Number(p0.Position.SWEREF99TM.match(/[\d.]+ /)[0]);
+		const y0 = Number(p0.Position.SWEREF99TM.match(/ [\d.]+/)[0]);
+		const x1 = Number(p1.Position.SWEREF99TM.match(/[\d.]+ /)[0]);
+		const y1 = Number(p1.Position.SWEREF99TM.match(/ [\d.]+/)[0]);
+		return `POINT (${x0 + ((x1 - x0) * d) / dt} ${y0 + ((y1 - y0) * d) / dt})`;
 	};
 
 	function center(place) {
@@ -95,6 +109,9 @@
 	onDestroy(() => {
 		if (eventSource) eventSource.close();
 	});
+
+	const interval = setInterval(() => (now = Date.now()), 1000);
+	onDestroy(() => clearInterval(interval));
 </script>
 
 <div class="page">
@@ -128,16 +145,16 @@
 				fill="none"
 			/>
 			<circle
-				cx={x(ps[0].Position.SWEREF99TM)}
-				cy={y(ps[0].Position.SWEREF99TM)}
+				cx={x(interpolate(ps[0], ps[1], Date.now()))}
+				cy={y(interpolate(ps[0], ps[1], Date.now()))}
 				r="5"
 				fill="black"
 			/>
 			<circle
 				role="button"
 				tabindex="0"
-				cx={x(ps[0].Position.SWEREF99TM)}
-				cy={y(ps[0].Position.SWEREF99TM)}
+				cx={x(interpolate(ps[0], ps[1], Date.now()))}
+				cy={y(interpolate(ps[0], ps[1], Date.now()))}
 				r="4"
 				fill={fill(trains[ps[0].Train.AdvertisedTrainNumber])}
 				on:click={onClick(ps[0].Train.AdvertisedTrainNumber)}

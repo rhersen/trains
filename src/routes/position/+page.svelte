@@ -71,7 +71,7 @@
 					const key = p.Train.AdvertisedTrainNumber;
 					const found = data.positions[key];
 					if (!found) data.positions[key] = [p];
-					else found.unshift(p);
+					else if (p.Position.SWEREF99TM !== found[0]?.Position?.SWEREF99TM) found.unshift(p);
 				});
 
 				data.positions = _.omitBy(

@@ -24,9 +24,8 @@ export const GET = async ({ url }) => {
 
 function getBody({ id }) {
 	const now = Date.now();
-	const windowMillis = 60 * 6e4;
+	const windowMillis = 15 * 6e4;
 	const since = new Date(now - windowMillis).toISOString();
-	const until = new Date(now + windowMillis).toISOString();
 	const ids = id
 		.split(',')
 		.map((s) => `<EQ name='AdvertisedTrainIdent' value='${s}' />`)
@@ -37,17 +36,14 @@ function getBody({ id }) {
     <QUERY objecttype='TrainAnnouncement' orderby='AdvertisedTimeAtLocation' sseurl='false' schemaversion='1.6'>
       <FILTER>
         <OR>${ids}</OR>
-        <GT name='AdvertisedTimeAtLocation' value='${since}' />
-        <LT name='AdvertisedTimeAtLocation' value='${until}' />
+        <GT name='TimeAtLocationWithSeconds' value='${since}' />
         <EXISTS name='ToLocation' value='true' />
       </FILTER>
-      <INCLUDE>AdvertisedTimeAtLocation</INCLUDE>
+      <INCLUDE>TimeAtLocationWithSeconds</INCLUDE>
       <INCLUDE>AdvertisedTrainIdent</INCLUDE>
-      <INCLUDE>EstimatedTimeAtLocation</INCLUDE>
       <INCLUDE>FromLocation</INCLUDE>
       <INCLUDE>ProductInformation</INCLUDE>
       <INCLUDE>ToLocation</INCLUDE>
-      <INCLUDE>ViaToLocation</INCLUDE>
     </QUERY>
 </REQUEST>`;
 }

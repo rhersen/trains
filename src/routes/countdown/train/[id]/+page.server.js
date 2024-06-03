@@ -40,7 +40,11 @@ function getBody({ id }) {
       <FILTER>
          <AND>
             <NE name='Canceled' value='true' />
-        		<EQ name='AdvertisedTrainIdent' value='${id}' />
+        	<EQ name='AdvertisedTrainIdent' value='${id}' />
+            <OR>
+               <EQ name='Advertised' value='true' />
+               <EXISTS name='TimeAtLocation' value='true' />
+            </OR>
             <OR>
                <GT name='AdvertisedTimeAtLocation' value='${since}' />
                <GT name='EstimatedTimeAtLocation' value='${since}' />

@@ -33,7 +33,7 @@ async function fetchAnnouncements() {
 
 const locationSignature = [
 	'Söd,Öte,Rön,Tu,Tul,Flb,Hu,Sta',
-	'Äs,Åbe,Sst,Sci,Sod',
+	'Äs,Åbe,Sst,Sci,Cst,Sod',
 	'So,Udl,Hel,Sol,Hgv,Nvk,R,Upv,Rs,Mr',
 	'Nyc,Ngd,Gdv,Öso,Ssä,Hfa,Ts,Kda,Vhe,Jbo,Hnd,Vga,Skg,Tåd,Fas',
 	'Sub,Spå,Bkb,Jkb,Khä,Kän,Bro,Bål'

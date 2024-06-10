@@ -9,7 +9,6 @@
 	let eventSource;
 
 	let trainNumber;
-	let trains = {};
 	let trainInfo = '';
 	let centered = 'Nba';
 	let logScale = 6;
@@ -57,7 +56,7 @@
 	}
 
 	$: if (trainNumber) {
-		const train = trains[trainNumber];
+		const train = data.trains[trainNumber];
 		if (train) {
 			trainInfo = `${train.ProductInformation[0].Description} ${
 				train.AdvertisedTrainIdent
@@ -99,11 +98,6 @@
 				);
 			};
 		}
-
-		if (data?.positions) {
-			const response = await fetch('position/train?id=' + Object.keys(data.positions).join(','));
-			if (response.ok) trains = await response.json();
-		}
 	});
 
 	onDestroy(() => {
@@ -141,7 +135,7 @@
 		{#each Object.values(data.positions) as ps}
 			<polyline
 				points={points(ps)}
-				stroke={fill(trains[ps[0].Train.AdvertisedTrainNumber])}
+				stroke={fill(data.trains[ps[0].Train.AdvertisedTrainNumber])}
 				fill="none"
 			/>
 			<circle
@@ -156,7 +150,7 @@
 				cx={x(interpolate(ps[0], ps[1], Date.now()))}
 				cy={y(interpolate(ps[0], ps[1], Date.now()))}
 				r="4"
-				fill={fill(trains[ps[0].Train.AdvertisedTrainNumber])}
+				fill={fill(data.trains[ps[0].Train.AdvertisedTrainNumber])}
 				on:click={onClick(ps[0].Train.AdvertisedTrainNumber)}
 				on:keydown={onClick(ps[0].Train.AdvertisedTrainNumber)}
 			/>

@@ -55,6 +55,11 @@
 	}
 
 	$: latestStationCoordinates = locations[latestStation(data.events)].sweref99tm;
+
+	$: near = () =>
+		Object.entries(locations).filter(([, location]) => {
+			return distance(location.sweref99tm, latestPosition(data.events).Position.SWEREF99TM) < 2500;
+		});
 </script>
 
 <h1>{data.id}</h1>
@@ -67,9 +72,13 @@ senaste station
 
 senaste position
 {latestPosition(data.events).Position.SWEREF99TM}
-{distance(latestStationCoordinates, latestPosition(data.events).Position.SWEREF99TM)}
-meter från
-{latestStation(data.events)}
+{#each near() as [k, location]}
+	<div>
+		{distance(location.sweref99tm, latestPosition(data.events).Position.SWEREF99TM)}
+		meter från
+		{k}
+	</div>
+{/each}
 
 <hr />
 

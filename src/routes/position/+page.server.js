@@ -1,5 +1,4 @@
 import { error } from '@sveltejs/kit';
-import _ from 'lodash';
 
 async function positionResult() {
 	const response = await fetch('https://api.trafikinfo.trafikverket.se/v2/data.json', {
@@ -15,13 +14,13 @@ async function positionResult() {
 
 	const { RESPONSE } = await response.json();
 	const [result] = RESPONSE.RESULT;
-	return { trainPosition: result.TrainPosition, sseUrl: result.INFO?.SSEURL };
+	return { positions: result.TrainPosition, sseUrl: result.INFO?.SSEURL };
 }
 
-async function announcementResult(id) {
+async function announcementResult(set) {
 	const response = await fetch('https://api.trafikinfo.trafikverket.se/v2/data.json', {
 		method: 'POST',
-		body: announcementQuery({ id }),
+		body: announcementQuery(Array.from(set)),
 		headers: {
 			'Content-Type': 'application/xml',
 			Accept: 'application/json'
@@ -36,15 +35,11 @@ async function announcementResult(id) {
 }
 
 export const load = async () => {
-	const { trainPosition, sseUrl } = await positionResult();
-	const positions = _.groupBy(trainPosition, ({ Train }) => Train.AdvertisedTrainNumber);
-	const announcements = await announcementResult(Object.keys(positions));
-	const grouped = _.groupBy(announcements, (train) => train.AdvertisedTrainIdent);
-	return {
-		positions,
-		trains: _.mapValues(grouped, _.first),
-		sseUrl: sseUrl
-	};
+	const { positions, sseUrl } = await positionResult();
+	const announcements = await announcementResult(
+		new Set(positions.map(({ Train }) => Train.AdvertisedTrainNumber))
+	);
+	return { positions, announcements, sseUrl };
 };
 
 const minutes = 6e4;
@@ -68,17 +63,14 @@ function positionQuery() {
 </REQUEST>`;
 }
 
-function announcementQuery({ id }) {
-	const now = Date.now();
-	const windowMillis = 15 * 6e4;
-	const since = new Date(now - windowMillis).toISOString();
-	const ids = id.map((s) => `<EQ name='AdvertisedTrainIdent' value='${s}' />`).join(' ');
+function announcementQuery(idArray) {
+	const since = new Date(Date.now() - 15 * minutes).toISOString();
 	return `
 <REQUEST>
   <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}' />
     <QUERY objecttype='TrainAnnouncement' orderby='AdvertisedTimeAtLocation' sseurl='false' schemaversion='1.6'>
       <FILTER>
-        <OR>${ids}</OR>
+        <IN name='AdvertisedTrainIdent' value='${idArray}' />
         <GT name='TimeAtLocationWithSeconds' value='${since}' />
         <EXISTS name='ToLocation' value='true' />
       </FILTER>

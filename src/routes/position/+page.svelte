@@ -6,6 +6,13 @@
 	import { position as fill } from '$lib/color.js';
 	export let data;
 
+	let positions = _.groupBy(data.positions, ({ Train }) => Train.AdvertisedTrainNumber);
+
+	let trains = _.mapValues(
+		_.groupBy(data.announcements, (train) => train.AdvertisedTrainIdent),
+		_.first
+	);
+
 	let eventSource;
 
 	let trainNumber;
@@ -56,7 +63,7 @@
 	}
 
 	$: if (trainNumber) {
-		const train = data.trains[trainNumber];
+		const train = trains[trainNumber];
 		if (train) {
 			trainInfo = `${train.ProductInformation[0].Description} ${
 				train.AdvertisedTrainIdent
@@ -82,13 +89,13 @@
 
 				result.TrainPosition.forEach((p) => {
 					const key = p.Train.AdvertisedTrainNumber;
-					const found = data.positions[key];
-					if (!found) data.positions[key] = [p];
+					const found = positions[key];
+					if (!found) positions[key] = [p];
 					else if (p.Position.SWEREF99TM !== found[0]?.Position?.SWEREF99TM) found.unshift(p);
 				});
 
-				data.positions = _.omitBy(
-					_.mapValues(data.positions, (value) =>
+				positions = _.omitBy(
+					_.mapValues(positions, (value) =>
 						_.reject(
 							value,
 							({ TimeStamp }) => differenceInSeconds(new Date(), parseISO(TimeStamp)) > 120
@@ -132,10 +139,10 @@
 				{place}
 			</text>
 		{/each}
-		{#each Object.values(data.positions) as ps}
+		{#each Object.values(positions) as ps}
 			<polyline
 				points={points(ps)}
-				stroke={fill(data.trains[ps[0].Train.AdvertisedTrainNumber])}
+				stroke={fill(trains[ps[0].Train.AdvertisedTrainNumber])}
 				fill="none"
 			/>
 			<circle
@@ -150,7 +157,7 @@
 				cx={x(interpolate(ps[0], ps[1], Date.now()))}
 				cy={y(interpolate(ps[0], ps[1], Date.now()))}
 				r="4"
-				fill={fill(data.trains[ps[0].Train.AdvertisedTrainNumber])}
+				fill={fill(trains[ps[0].Train.AdvertisedTrainNumber])}
 				on:click={onClick(ps[0].Train.AdvertisedTrainNumber)}
 				on:keydown={onClick(ps[0].Train.AdvertisedTrainNumber)}
 			/>

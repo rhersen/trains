@@ -6,8 +6,6 @@
 	import { position as fill } from '$lib/color.js';
 	export let data;
 
-	let positions = _.groupBy(data.positions, ({ Train }) => Train.AdvertisedTrainNumber);
-
 	let trains = _.mapValues(
 		_.groupBy(data.announcements, (train) => train.AdvertisedTrainIdent),
 		_.first
@@ -80,6 +78,8 @@
 	$: points = (ps) =>
 		ps.map((p) => `${x(p.Position.SWEREF99TM)},${y(p.Position.SWEREF99TM)}`).join(' ');
 
+	const interval = setInterval(() => (now = Date.now()), 1000);
+
 	onMount(async () => {
 		if (data?.sseUrl) {
 			eventSource = new EventSource(data.sseUrl);
@@ -88,31 +88,32 @@
 				const [result] = json.RESPONSE.RESULT;
 
 				result.TrainPosition.forEach((p) => {
-					const key = p.Train.AdvertisedTrainNumber;
-					const found = positions[key];
-					if (!found) positions[key] = [p];
-					else if (p.Position.SWEREF99TM !== found[0]?.Position?.SWEREF99TM) found.unshift(p);
+					const train = trains[p.Train.AdvertisedTrainNumber];
+					if (train) {
+						trains[p.Train.AdvertisedTrainNumber].positions = [
+							p,
+							..._.reject(
+								train.positions,
+								({ TimeStamp }) => differenceInSeconds(new Date(), parseISO(TimeStamp)) > 120
+							)
+						];
+					} else {
+						console.log('new train', p.Train.AdvertisedTrainNumber);
+					}
 				});
-
-				positions = _.omitBy(
-					_.mapValues(positions, (value) =>
-						_.reject(
-							value,
-							({ TimeStamp }) => differenceInSeconds(new Date(), parseISO(TimeStamp)) > 120
-						)
-					),
-					_.isEmpty
-				);
 			};
 		}
 	});
 
 	onDestroy(() => {
 		if (eventSource) eventSource.close();
+		clearInterval(interval);
 	});
 
-	const interval = setInterval(() => (now = Date.now()), 1000);
-	onDestroy(() => clearInterval(interval));
+	data.positions.forEach((position) => {
+		const train = trains[position.Train.AdvertisedTrainNumber];
+		if (train) train.positions = [position];
+	});
 </script>
 
 <div class="page">
@@ -139,7 +140,7 @@
 				{place}
 			</text>
 		{/each}
-		{#each Object.values(positions) as ps}
+		{#each Object.values(trains) as { positions: ps }}
 			<polyline
 				points={points(ps)}
 				stroke={fill(trains[ps[0].Train.AdvertisedTrainNumber])}

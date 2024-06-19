@@ -11,7 +11,8 @@
 		_.first
 	);
 
-	let eventSource;
+	let announcementSource;
+	let positionSource;
 
 	let trainNumber;
 	let trainInfo = '';
@@ -36,9 +37,7 @@
 	};
 
 	$: interpolate = (p0, p1) => {
-		if (!p1) {
-			return p0.Position.SWEREF99TM;
-		}
+		if (!p1) return p0.Position.SWEREF99TM;
 		const dt = differenceInSeconds(parseISO(p1.TimeStamp), parseISO(p0.TimeStamp));
 		const d = differenceInSeconds(now, parseISO(p0.TimeStamp));
 		const x0 = Number(p0.Position.SWEREF99TM.match(/[\d.]+ /)[0]);
@@ -78,35 +77,56 @@
 	$: points = (ps) =>
 		ps.map((p) => `${x(p.Position.SWEREF99TM)},${y(p.Position.SWEREF99TM)}`).join(' ');
 
+	function addPosition(p) {
+		const train = trains[p.Train.AdvertisedTrainNumber];
+		if (train) {
+			trains[p.Train.AdvertisedTrainNumber].positions = [
+				p,
+				..._.reject(
+					train.positions,
+					({ TimeStamp }) => differenceInSeconds(new Date(), parseISO(TimeStamp)) > 120
+				)
+			];
+		} else {
+			console.log('position train not found', p.Train.AdvertisedTrainNumber);
+		}
+	}
+
+	function addAnnouncement(a) {
+		const train = trains[a.AdvertisedTrainIdent];
+		if (!train) {
+			console.log(a.AdvertisedTrainIdent, 'announcement train not found', a);
+			trains = { ...trains, [a.AdvertisedTrainIdent]: { positions: [], ...a } };
+		} else {
+			train.atStation = a.ActivityType === 'Ankomst' ? a.LocationSignature : null;
+		}
+	}
+
 	const interval = setInterval(() => (now = Date.now()), 1000);
 
 	onMount(async () => {
-		if (data?.sseUrl) {
-			eventSource = new EventSource(data.sseUrl);
-			eventSource.onmessage = ({ data: s }) => {
+		if (data?.ssePosition) {
+			positionSource = new EventSource(data.ssePosition);
+			positionSource.onmessage = ({ data: s }) => {
 				const json = JSON.parse(s);
 				const [result] = json.RESPONSE.RESULT;
+				result.TrainPosition.forEach(addPosition);
+			};
+		}
 
-				result.TrainPosition.forEach((p) => {
-					const train = trains[p.Train.AdvertisedTrainNumber];
-					if (train) {
-						trains[p.Train.AdvertisedTrainNumber].positions = [
-							p,
-							..._.reject(
-								train.positions,
-								({ TimeStamp }) => differenceInSeconds(new Date(), parseISO(TimeStamp)) > 120
-							)
-						];
-					} else {
-						console.log('new train', p.Train.AdvertisedTrainNumber);
-					}
-				});
+		if (data?.sseAnnouncement) {
+			announcementSource = new EventSource(data.sseAnnouncement);
+			announcementSource.onmessage = ({ data: s }) => {
+				const json = JSON.parse(s);
+				const [result] = json.RESPONSE.RESULT;
+				result.TrainAnnouncement.forEach(addAnnouncement);
 			};
 		}
 	});
 
 	onDestroy(() => {
-		if (eventSource) eventSource.close();
+		if (positionSource) positionSource.close();
+		if (announcementSource) announcementSource.close();
 		clearInterval(interval);
 	});
 
@@ -140,27 +160,27 @@
 				{place}
 			</text>
 		{/each}
-		{#each Object.values(trains) as { positions: ps }}
+		{#each Object.values(trains) as train}
 			<polyline
-				points={points(ps)}
-				stroke={fill(trains[ps[0].Train.AdvertisedTrainNumber])}
+				points={points(train.positions)}
+				stroke={fill(trains[train.positions[0]?.Train.AdvertisedTrainNumber])}
 				fill="none"
 			/>
 			<circle
-				cx={x(interpolate(ps[0], ps[1], Date.now()))}
-				cy={y(interpolate(ps[0], ps[1], Date.now()))}
+				cx={x(interpolate(train))}
+				cy={y(interpolate(train))}
 				r="5"
-				fill="black"
+				fill={train.atStation ? 'red' : 'black'}
 			/>
 			<circle
 				role="button"
 				tabindex="0"
-				cx={x(interpolate(ps[0], ps[1], Date.now()))}
-				cy={y(interpolate(ps[0], ps[1], Date.now()))}
+				cx={x(interpolate(train))}
+				cy={y(interpolate(train))}
 				r="4"
-				fill={fill(trains[ps[0].Train.AdvertisedTrainNumber])}
-				on:click={onClick(ps[0].Train.AdvertisedTrainNumber)}
-				on:keydown={onClick(ps[0].Train.AdvertisedTrainNumber)}
+				fill={fill(trains[train.positions[0]?.Train.AdvertisedTrainNumber])}
+				on:click={onClick(train.positions[0]?.Train.AdvertisedTrainNumber)}
+				on:keydown={onClick(train.positions[0]?.Train.AdvertisedTrainNumber)}
 			/>
 		{/each}
 	</svg>

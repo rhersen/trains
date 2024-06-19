@@ -14,7 +14,7 @@ async function positionResult() {
 
 	const { RESPONSE } = await response.json();
 	const [result] = RESPONSE.RESULT;
-	return { positions: result.TrainPosition, sseUrl: result.INFO?.SSEURL };
+	return { positions: result.TrainPosition, ssePosition: result.INFO?.SSEURL };
 }
 
 async function announcementResult(set) {
@@ -31,15 +31,15 @@ async function announcementResult(set) {
 
 	const { RESPONSE } = await response.json();
 	const [result] = RESPONSE.RESULT;
-	return result.TrainAnnouncement;
+	return { announcements: result.TrainAnnouncement, sseAnnouncement: result.INFO?.SSEURL };
 }
 
 export const load = async () => {
-	const { positions, sseUrl } = await positionResult();
-	const announcements = await announcementResult(
+	const { positions, ssePosition } = await positionResult();
+	const { announcements, sseAnnouncement } = await announcementResult(
 		new Set(positions.map(({ Train }) => Train.AdvertisedTrainNumber))
 	);
-	return { positions, announcements, sseUrl };
+	return { positions, announcements, ssePosition, sseAnnouncement };
 };
 
 const minutes = 6e4;
@@ -68,12 +68,14 @@ function announcementQuery(idArray) {
 	return `
 <REQUEST>
   <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}' />
-    <QUERY objecttype='TrainAnnouncement' orderby='AdvertisedTimeAtLocation' sseurl='false' schemaversion='1.6'>
+    <QUERY objecttype='TrainAnnouncement' orderby='AdvertisedTimeAtLocation' sseurl='true' schemaversion='1.6'>
       <FILTER>
         <IN name='AdvertisedTrainIdent' value='${idArray}' />
         <GT name='TimeAtLocationWithSeconds' value='${since}' />
         <EXISTS name='ToLocation' value='true' />
       </FILTER>
+      <INCLUDE>ActivityType</INCLUDE>
+      <INCLUDE>LocationSignature</INCLUDE>
       <INCLUDE>TimeAtLocationWithSeconds</INCLUDE>
       <INCLUDE>AdvertisedTrainIdent</INCLUDE>
       <INCLUDE>FromLocation</INCLUDE>

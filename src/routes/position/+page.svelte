@@ -36,8 +36,10 @@
 		return yOffset / scale - sweref / scale;
 	};
 
-	$: interpolate = (p0, p1) => {
-		if (!p1) return p0.Position.SWEREF99TM;
+	$: interpolate = (train) => {
+		const p0 = train.positions[0];
+		const p1 = train.positions[1];
+		if (!p1 || train.atStation) return p0.Position.SWEREF99TM;
 		const dt = differenceInSeconds(parseISO(p1.TimeStamp), parseISO(p0.TimeStamp));
 		const d = differenceInSeconds(now, parseISO(p0.TimeStamp));
 		const x0 = Number(p0.Position.SWEREF99TM.match(/[\d.]+ /)[0]);
@@ -87,16 +89,15 @@
 					({ TimeStamp }) => differenceInSeconds(new Date(), parseISO(TimeStamp)) > 120
 				)
 			];
-		} else {
+		} /* else {
 			console.log('position train not found', p.Train.AdvertisedTrainNumber);
-		}
+		}*/
 	}
 
 	function addAnnouncement(a) {
 		const train = trains[a.AdvertisedTrainIdent];
 		if (!train) {
 			console.log(a.AdvertisedTrainIdent, 'announcement train not found', a);
-			trains = { ...trains, [a.AdvertisedTrainIdent]: { positions: [], ...a } };
 		} else {
 			train.atStation = a.ActivityType === 'Ankomst' ? a.LocationSignature : null;
 		}

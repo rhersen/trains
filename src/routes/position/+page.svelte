@@ -14,7 +14,7 @@
 	let announcementSource;
 	let positionSource;
 
-	let trainNumber;
+	let selectedTrainNumber;
 	let trainInfo = '';
 	let centered = 'Lm';
 	let logScale = 6;
@@ -61,18 +61,18 @@
 			: location.LocationName;
 	}
 
-	$: if (trainNumber) {
-		const train = trains[trainNumber];
+	$: if (selectedTrainNumber) {
+		const train = trains[selectedTrainNumber];
 		if (train) {
 			trainInfo = `${train.ProductInformation[0].Description} ${
 				train.AdvertisedTrainIdent
 			} från ${train.FromLocation.map(placeName)} till ${train.ToLocation.map(placeName)} `;
-		} else trainInfo = trainNumber;
+		} else trainInfo = selectedTrainNumber;
 	}
 
-	function onClick(p) {
+	function setSelectedTrainNumber(trainNumber) {
 		return () => {
-			trainNumber = p;
+			selectedTrainNumber = trainNumber;
 		};
 	}
 
@@ -167,7 +167,7 @@
 				cx={x(interpolate(train))}
 				cy={y(interpolate(train))}
 				r="5"
-				fill={train.atStation ? 'white' : 'black'}
+				fill={train.atStation ? 'red' : 'black'}
 			/>
 			<circle
 				role="button"
@@ -176,8 +176,8 @@
 				cy={y(interpolate(train))}
 				r="4"
 				fill={fill(train)}
-				on:click={onClick(train.positions[0]?.Train.AdvertisedTrainNumber)}
-				on:keydown={onClick(train.positions[0]?.Train.AdvertisedTrainNumber)}
+				on:click={setSelectedTrainNumber(train.positions[0]?.Train.AdvertisedTrainNumber)}
+				on:keydown={setSelectedTrainNumber(train.positions[0]?.Train.AdvertisedTrainNumber)}
 			/>
 		{/each}
 	</svg>

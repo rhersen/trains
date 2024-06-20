@@ -44,10 +44,12 @@
 		if (!p1 || train.atStation) return p0.Position.SWEREF99TM;
 		const dt = differenceInSeconds(parseISO(p1.TimeStamp), parseISO(p0.TimeStamp));
 		const d = differenceInSeconds(now, parseISO(p0.TimeStamp));
-		const x0 = Number(p0.Position.SWEREF99TM.match(coords)[1]);
-		const y0 = Number(p0.Position.SWEREF99TM.match(coords)[2]);
-		const x1 = Number(p1.Position.SWEREF99TM.match(coords)[1]);
-		const y1 = Number(p1.Position.SWEREF99TM.match(coords)[2]);
+		const coords0 = p0.Position.SWEREF99TM.match(coords);
+		const coords1 = p1.Position.SWEREF99TM.match(coords);
+		const x0 = Number(coords0[1]);
+		const y0 = Number(coords0[2]);
+		const x1 = Number(coords1[1]);
+		const y1 = Number(coords1[2]);
 		return `POINT (${x0 + ((x1 - x0) * d) / dt} ${y0 + ((y1 - y0) * d) / dt})`;
 	};
 

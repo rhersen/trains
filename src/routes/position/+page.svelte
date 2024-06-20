@@ -16,7 +16,7 @@
 
 	let trainNumber;
 	let trainInfo = '';
-	let centered = 'Nba';
+	let centered = 'Lm';
 	let logScale = 6;
 	let now = Date.now();
 
@@ -162,16 +162,12 @@
 			</text>
 		{/each}
 		{#each Object.values(trains) as train}
-			<polyline
-				points={points(train.positions)}
-				stroke={fill(trains[train.positions[0]?.Train.AdvertisedTrainNumber])}
-				fill="none"
-			/>
+			<polyline points={points(train.positions)} stroke={fill(train)} fill="none" />
 			<circle
 				cx={x(interpolate(train))}
 				cy={y(interpolate(train))}
 				r="5"
-				fill={train.atStation ? 'red' : 'black'}
+				fill={train.atStation ? 'white' : 'black'}
 			/>
 			<circle
 				role="button"
@@ -179,7 +175,7 @@
 				cx={x(interpolate(train))}
 				cy={y(interpolate(train))}
 				r="4"
-				fill={fill(trains[train.positions[0]?.Train.AdvertisedTrainNumber])}
+				fill={fill(train)}
 				on:click={onClick(train.positions[0]?.Train.AdvertisedTrainNumber)}
 				on:keydown={onClick(train.positions[0]?.Train.AdvertisedTrainNumber)}
 			/>

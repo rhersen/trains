@@ -6,6 +6,8 @@
 	import { position as fill } from '$lib/color.js';
 	export let data;
 
+	let coords = /([\d.]+) ([\d.]+)/;
+
 	let trains = _.mapValues(
 		_.groupBy(data.announcements, (train) => train.AdvertisedTrainIdent),
 		_.first
@@ -24,15 +26,15 @@
 
 	$: x = (s) => {
 		const center = places[centered]?.sweref99tm ?? 'POINT (503403 6546585)';
-		const sweref = s.match(/[\d.]+ /)[0];
-		const xOffset = center.match(/[\d.]+ /)[0] - 240 * scale;
+		const sweref = s.match(coords)[1];
+		const xOffset = center.match(coords)[1] - 240 * scale;
 		return sweref / scale - xOffset / scale;
 	};
 
 	$: y = (s) => {
 		const center = places[centered]?.sweref99tm ?? 'POINT (503403 6546585)';
-		const sweref = s.match(/ [\d.]+/)[0];
-		const yOffset = Number(center.match(/ [\d.]+/)[0]) + 320 * scale;
+		const sweref = s.match(coords)[2];
+		const yOffset = Number(center.match(coords)[2]) + 320 * scale;
 		return yOffset / scale - sweref / scale;
 	};
 
@@ -42,10 +44,10 @@
 		if (!p1 || train.atStation) return p0.Position.SWEREF99TM;
 		const dt = differenceInSeconds(parseISO(p1.TimeStamp), parseISO(p0.TimeStamp));
 		const d = differenceInSeconds(now, parseISO(p0.TimeStamp));
-		const x0 = Number(p0.Position.SWEREF99TM.match(/[\d.]+ /)[0]);
-		const y0 = Number(p0.Position.SWEREF99TM.match(/ [\d.]+/)[0]);
-		const x1 = Number(p1.Position.SWEREF99TM.match(/[\d.]+ /)[0]);
-		const y1 = Number(p1.Position.SWEREF99TM.match(/ [\d.]+/)[0]);
+		const x0 = Number(p0.Position.SWEREF99TM.match(coords)[1]);
+		const y0 = Number(p0.Position.SWEREF99TM.match(coords)[2]);
+		const x1 = Number(p1.Position.SWEREF99TM.match(coords)[1]);
+		const y1 = Number(p1.Position.SWEREF99TM.match(coords)[2]);
 		return `POINT (${x0 + ((x1 - x0) * d) / dt} ${y0 + ((y1 - y0) * d) / dt})`;
 	};
 

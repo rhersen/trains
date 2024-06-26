@@ -25,7 +25,7 @@ export function delay(a) {
 export function position(train) {
 	if (train?.ProductInformation) {
 		const code = train.ProductInformation[0].Code;
-		if (code === 'PNA014') return `hsl(0, 0%, 30%)`;
+		if (code === 'PNA014') return `hsl(240, 100%, 50%)`;
 		const location = train.ToLocation?.map(({ LocationName }) => LocationName).join();
 		if (location === 'Sci') return `hsl(0, 100%, 40%)`;
 		if (location === 'U') return `hsl(30, 100%, 40%)`;

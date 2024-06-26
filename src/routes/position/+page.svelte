@@ -18,8 +18,8 @@
 
 	let selectedTrainNumber;
 	let trainInfo = '';
-	let centered = 'Lm';
-	let logScale = 6;
+	let centered = 'Mby';
+	let logScale = 8;
 	let now = Date.now();
 
 	$: scale = 2 ** logScale;
@@ -90,7 +90,7 @@
 				p,
 				..._.reject(
 					train.positions,
-					({ TimeStamp }) => differenceInSeconds(new Date(), parseISO(TimeStamp)) > 120
+					({ TimeStamp }) => differenceInSeconds(new Date(), parseISO(TimeStamp)) > 180
 				)
 			];
 		} /* else {

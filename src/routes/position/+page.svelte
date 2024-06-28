@@ -24,26 +24,18 @@
 
 	$: scale = 2 ** logScale;
 
-	$: x = (s) => xCoord(parseX(s));
+	$: parseX = (s) => s.match(coords)[1];
 
-	$: y = (s) => yCoord(parseY(s));
-
-	$: parseX = (s) => {
-		const center = places[centered]?.sweref99tm;
-		return { sweref: s.match(coords)[1], center: center?.match(coords)[1] };
-	};
-
-	$: xCoord = ({ sweref, center }) => {
+	$: xCoord = (sweref) => {
+		const center = places[centered]?.sweref99tm?.match(coords)[1];
 		const xOffset = center - 240 * scale;
 		return sweref / scale - xOffset / scale;
 	};
 
-	$: parseY = (s) => {
-		const center = places[centered]?.sweref99tm;
-		return { sweref: s.match(coords)[2], center: Number(center?.match(coords)[2]) };
-	};
+	$: parseY = (s) => s.match(coords)[2];
 
-	$: yCoord = ({ sweref, center }) => {
+	$: yCoord = (sweref) => {
+		const center = Number(places[centered]?.sweref99tm?.match(coords)[2]);
 		const yOffset = center + 320 * scale;
 		return yOffset / scale - sweref / scale;
 	};
@@ -93,7 +85,11 @@
 	}
 
 	$: points = (ps) =>
-		ps.map((p) => `${x(p.Position.SWEREF99TM)},${y(p.Position.SWEREF99TM)}`).join(' ');
+		ps
+			.map(
+				(p) => `${xCoord(parseX(p.Position.SWEREF99TM))},${yCoord(parseY(p.Position.SWEREF99TM))}`
+			)
+			.join(' ');
 
 	function addPosition(p) {
 		const train = trains[p.Train.AdvertisedTrainNumber];
@@ -165,8 +161,8 @@
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 640">
 		{#each Object.keys(places) as place}
 			<text
-				x={x(places[place].sweref99tm)}
-				y={y(places[place].sweref99tm)}
+				x={xCoord(parseX(places[place].sweref99tm))}
+				y={yCoord(parseY(places[place].sweref99tm))}
 				text-anchor="middle"
 				style="fill: gray;"
 				on:click={center(place)}
@@ -180,16 +176,16 @@
 		{#each Object.values(trains) as train}
 			<polyline points={points(train.positions)} stroke={fill(train)} fill="none" />
 			<circle
-				cx={x(interpolate(train))}
-				cy={y(interpolate(train))}
+				cx={xCoord(parseX(interpolate(train)))}
+				cy={yCoord(parseY(interpolate(train)))}
 				r="5"
 				fill={train.atStation ? 'red' : 'black'}
 			/>
 			<circle
 				role="button"
 				tabindex="0"
-				cx={x(interpolate(train))}
-				cy={y(interpolate(train))}
+				cx={xCoord(parseX(interpolate(train)))}
+				cy={yCoord(parseY(interpolate(train)))}
 				r="4"
 				fill={fill(train)}
 				on:click={setSelectedTrainNumber(train.positions[0]?.Train.AdvertisedTrainNumber)}

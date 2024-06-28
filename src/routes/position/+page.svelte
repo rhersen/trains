@@ -24,17 +24,27 @@
 
 	$: scale = 2 ** logScale;
 
-	$: x = (s) => {
-		const center = places[centered]?.sweref99tm ?? 'POINT (503403 6546585)';
-		const sweref = s.match(coords)[1];
-		const xOffset = center.match(coords)[1] - 240 * scale;
+	$: x = (s) => xCoord(parseX(s));
+
+	$: y = (s) => yCoord(parseY(s));
+
+	$: parseX = (s) => {
+		const center = places[centered]?.sweref99tm;
+		return { sweref: s.match(coords)[1], center: center?.match(coords)[1] };
+	};
+
+	$: xCoord = ({ sweref, center }) => {
+		const xOffset = center - 240 * scale;
 		return sweref / scale - xOffset / scale;
 	};
 
-	$: y = (s) => {
-		const center = places[centered]?.sweref99tm ?? 'POINT (503403 6546585)';
-		const sweref = s.match(coords)[2];
-		const yOffset = Number(center.match(coords)[2]) + 320 * scale;
+	$: parseY = (s) => {
+		const center = places[centered]?.sweref99tm;
+		return { sweref: s.match(coords)[2], center: Number(center?.match(coords)[2]) };
+	};
+
+	$: yCoord = ({ sweref, center }) => {
+		const yOffset = center + 320 * scale;
 		return yOffset / scale - sweref / scale;
 	};
 
@@ -42,6 +52,7 @@
 		const p0 = train.positions[0];
 		const p1 = train.positions[1];
 		if (!p1 || train.atStation) return p0.Position.SWEREF99TM;
+
 		const dt = differenceInSeconds(parseISO(p1.TimeStamp), parseISO(p0.TimeStamp));
 		const d = differenceInSeconds(now, parseISO(p0.TimeStamp));
 		const coords0 = p0.Position.SWEREF99TM.match(coords);
@@ -50,6 +61,7 @@
 		const y0 = Number(coords0[2]);
 		const x1 = Number(coords1[1]);
 		const y1 = Number(coords1[2]);
+
 		return `POINT (${x0 + ((x1 - x0) * d) / dt} ${y0 + ((y1 - y0) * d) / dt})`;
 	};
 

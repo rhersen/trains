@@ -24,6 +24,10 @@
 
 	$: scale = 2 ** logScale;
 
+	$: centerMatch = places[centered]?.sweref99tm?.match(coords);
+	$: xOffset = 240 - centerMatch[1] / scale;
+	$: yOffset = Number(centerMatch[2]) / scale + 320;
+
 	$: xCoord = (sweref) => {
 		const center = places[centered]?.sweref99tm?.match(coords)[1];
 		const xOffset = center - 240 * scale;
@@ -84,7 +88,7 @@
 		ps
 			.map((p) => {
 				const match = p.Position.SWEREF99TM.match(coords);
-				return `${xCoord(match[1])},${yCoord(match[2])}`;
+				return `${match[1] / scale},${match[2] / -scale}`;
 			})
 			.join(' ');
 
@@ -171,23 +175,26 @@
 			</text>
 		{/each}
 		{#each Object.values(trains) as train}
-			<polyline points={points(train.positions)} stroke={fill(train)} fill="none" />
-			<circle
-				cx={xCoord(interpolate(train)[0])}
-				cy={yCoord(interpolate(train)[1])}
-				r="5"
-				fill={train.atStation ? 'red' : 'black'}
-			/>
-			<circle
-				role="button"
-				tabindex="0"
-				cx={xCoord(interpolate(train)[0])}
-				cy={yCoord(interpolate(train)[1])}
-				r="4"
-				fill={fill(train)}
-				on:click={setSelectedTrainNumber(train.positions[0]?.Train.AdvertisedTrainNumber)}
-				on:keydown={setSelectedTrainNumber(train.positions[0]?.Train.AdvertisedTrainNumber)}
-			/>
+			<g transform={`translate(${xOffset},${yOffset})`}>
+				<polyline points={points(train.positions)} stroke={fill(train)} fill="none" />
+				<g
+					transform={`translate(${interpolate(train)[0] / scale},${
+						interpolate(train)[1] / -scale
+					})`}
+				>
+					<circle cx="0" cy="0" r="5" fill={train.atStation ? 'red' : 'black'} />
+					<circle
+						role="button"
+						tabindex="0"
+						cx="0"
+						cy="0"
+						r="4"
+						fill={fill(train)}
+						on:click={setSelectedTrainNumber(train.positions[0]?.Train.AdvertisedTrainNumber)}
+						on:keydown={setSelectedTrainNumber(train.positions[0]?.Train.AdvertisedTrainNumber)}
+					/>
+				</g>
+			</g>
 		{/each}
 	</svg>
 </div>

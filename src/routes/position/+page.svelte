@@ -180,15 +180,13 @@
 				<g
 					transform={`translate(${interpolate(train)[0] / scale},${
 						interpolate(train)[1] / -scale
-					})`}
+					}) rotate(${train.positions[0]?.Bearing || 0})`}
 				>
-					<circle cx="0" cy="0" r="5" fill={train.atStation ? 'red' : 'black'} />
-					<circle
+					<polygon
+						points={train.positions[0]?.Bearing ? '0 -2 4 8 -4 8' : '-6 -6 0 -6 0 0 -6 0'}
 						role="button"
 						tabindex="0"
-						cx="0"
-						cy="0"
-						r="4"
+						stroke={train.atStation ? 'red' : 'black'}
 						fill={fill(train)}
 						on:click={setSelectedTrainNumber(train.positions[0]?.Train.AdvertisedTrainNumber)}
 						on:keydown={setSelectedTrainNumber(train.positions[0]?.Train.AdvertisedTrainNumber)}

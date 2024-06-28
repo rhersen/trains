@@ -43,7 +43,7 @@
 	$: interpolate = (train) => {
 		const p0 = train.positions[0];
 		const p1 = train.positions[1];
-		if (!p1 || train.atStation) return p0.Position.SWEREF99TM;
+		if (!p1 || train.atStation) return p0.Position.SWEREF99TM.match(coords).slice(1);
 
 		const dt = differenceInSeconds(parseISO(p1.TimeStamp), parseISO(p0.TimeStamp));
 		const d = differenceInSeconds(now, parseISO(p0.TimeStamp));
@@ -54,7 +54,7 @@
 		const x1 = Number(coords1[1]);
 		const y1 = Number(coords1[2]);
 
-		return `POINT (${x0 + ((x1 - x0) * d) / dt} ${y0 + ((y1 - y0) * d) / dt})`;
+		return [x0 + ((x1 - x0) * d) / dt, y0 + ((y1 - y0) * d) / dt];
 	};
 
 	function center(place) {
@@ -176,16 +176,16 @@
 		{#each Object.values(trains) as train}
 			<polyline points={points(train.positions)} stroke={fill(train)} fill="none" />
 			<circle
-				cx={xCoord(parseX(interpolate(train)))}
-				cy={yCoord(parseY(interpolate(train)))}
+				cx={xCoord(interpolate(train)[0])}
+				cy={yCoord(interpolate(train)[1])}
 				r="5"
 				fill={train.atStation ? 'red' : 'black'}
 			/>
 			<circle
 				role="button"
 				tabindex="0"
-				cx={xCoord(parseX(interpolate(train)))}
-				cy={yCoord(parseY(interpolate(train)))}
+				cx={xCoord(interpolate(train)[0])}
+				cy={yCoord(interpolate(train)[1])}
 				r="4"
 				fill={fill(train)}
 				on:click={setSelectedTrainNumber(train.positions[0]?.Train.AdvertisedTrainNumber)}

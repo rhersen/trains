@@ -24,15 +24,11 @@
 
 	$: scale = 2 ** logScale;
 
-	$: parseX = (s) => s.match(coords)[1];
-
 	$: xCoord = (sweref) => {
 		const center = places[centered]?.sweref99tm?.match(coords)[1];
 		const xOffset = center - 240 * scale;
 		return sweref / scale - xOffset / scale;
 	};
-
-	$: parseY = (s) => s.match(coords)[2];
 
 	$: yCoord = (sweref) => {
 		const center = Number(places[centered]?.sweref99tm?.match(coords)[2]);
@@ -86,9 +82,10 @@
 
 	$: points = (ps) =>
 		ps
-			.map(
-				(p) => `${xCoord(parseX(p.Position.SWEREF99TM))},${yCoord(parseY(p.Position.SWEREF99TM))}`
-			)
+			.map((p) => {
+				const match = p.Position.SWEREF99TM.match(coords);
+				return `${xCoord(match[1])},${yCoord(match[2])}`;
+			})
 			.join(' ');
 
 	function addPosition(p) {
@@ -115,7 +112,7 @@
 		}
 	}
 
-	const interval = setInterval(() => (now = Date.now()), 1000);
+	const interval = setInterval(() => (now = Date.now()), 2000);
 
 	onMount(async () => {
 		if (data?.ssePosition) {
@@ -161,8 +158,8 @@
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 640">
 		{#each Object.keys(places) as place}
 			<text
-				x={xCoord(parseX(places[place].sweref99tm))}
-				y={yCoord(parseY(places[place].sweref99tm))}
+				x={xCoord(places[place].sweref99tm.match(coords)[1])}
+				y={yCoord(places[place].sweref99tm.match(coords)[2])}
 				text-anchor="middle"
 				style="fill: gray;"
 				on:click={center(place)}

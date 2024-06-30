@@ -42,6 +42,7 @@
 
 	$: interpolate = (train) => {
 		const p0 = train.positions[0];
+		if (!p0) return [0, 0];
 		const p1 = train.positions[1];
 		if (!p1 || train.atStation) return p0.Position.SWEREF99TM.match(coords).slice(1);
 
@@ -111,6 +112,9 @@
 		const train = trains[a.AdvertisedTrainIdent];
 		if (!train) {
 			console.log(a.AdvertisedTrainIdent, 'announcement train not found', a);
+			trains[a.AdvertisedTrainIdent] = a;
+			a.positions = [];
+			console.log(a.AdvertisedTrainIdent, 'announcement train added', a);
 		} else {
 			train.atStation = a.ActivityType === 'Ankomst' ? a.LocationSignature : null;
 		}

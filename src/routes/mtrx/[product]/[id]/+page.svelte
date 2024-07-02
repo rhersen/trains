@@ -87,7 +87,7 @@ senaste position
 		<div>
 			{event.TimeAtLocationWithSeconds.substring(11, 19)}
 			{event.ActivityType}
-			{event.LocationSignature}
+			{locations[event.LocationSignature].name}
 			{locations[event.LocationSignature].sweref99tm}
 		</div>
 	{:else if event.Position}

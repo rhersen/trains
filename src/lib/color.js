@@ -32,6 +32,7 @@ export function position(train) {
 		if (location === 'Mr') return `hsl(60, 100%, 40%)`;
 		if (location === 'Tu') return `hsl(120, 100%, 40%)`;
 		if (location === 'Söc') return `hsl(180, 100%, 40%)`;
+		if (location === 'Flb') return `hsl(180, 100%, 40%)`;
 
 		if (location === 'Bål') return `hsl(0, 60%, 30%)`;
 		if (location === 'Khä') return `hsl(60, 60%, 30%)`;

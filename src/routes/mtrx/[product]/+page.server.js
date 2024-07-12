@@ -24,7 +24,7 @@ export async function load({ params }) {
 const minutes = 6e4;
 
 function getBody(product) {
-	const since = new Date(Date.now() - 2 * minutes).toISOString();
+	const since = new Date(Date.now() - 4 * minutes).toISOString();
 	return `
 <REQUEST>
   <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}' />

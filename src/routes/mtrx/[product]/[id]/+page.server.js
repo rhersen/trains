@@ -7,7 +7,7 @@ export const load = async ({ params }) => {
 		'Content-Type': 'application/xml',
 		Accept: 'application/json'
 	};
-	const since = new Date(now - 2 * 6e4).toISOString();
+	const since = new Date(now - 4 * 6e4).toISOString();
 	const positionPromise = fetch('https://api.trafikinfo.trafikverket.se/v2/data.json', {
 		method,
 		headers,

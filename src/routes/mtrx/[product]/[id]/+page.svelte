@@ -49,7 +49,7 @@
 				events.RESPONSE.RESULT[0].TrainPosition.at(-1).Position.SWEREF99TM
 		)
 			console.log('duplicate', events.RESPONSE.RESULT[0].TrainPosition.at(-1).Position.SWEREF99TM);
-		else data.events = [...data.events, ...events.RESPONSE.RESULT[0].TrainPosition];
+		else data.events = [...events.RESPONSE.RESULT[0].TrainPosition, ...data.events];
 	}
 
 	$: near = Object.entries(locations)

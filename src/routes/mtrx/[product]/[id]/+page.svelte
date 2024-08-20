@@ -49,7 +49,7 @@
 				events.RESPONSE.RESULT[0].TrainPosition.at(-1).Position.SWEREF99TM
 		)
 			console.log('duplicate', events.RESPONSE.RESULT[0].TrainPosition.at(-1).Position.SWEREF99TM);
-		else data.events = [...events.RESPONSE.RESULT[0].TrainPosition, ...data.events];
+		else data.events = [...data.events, ...events.RESPONSE.RESULT[0].TrainPosition];
 	}
 
 	$: near = Object.entries(locations)
@@ -86,7 +86,7 @@ senaste position
 
 <hr />
 
-{#each data.events as event}
+{#each data.events.toReversed() as event}
 	{#if event.ActivityType}
 		<div>
 			{event.TimeAtLocationWithSeconds.substring(11, 19)}

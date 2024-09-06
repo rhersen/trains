@@ -4,9 +4,6 @@
 <a href="cancelled">
 	<img src="cancelled.png" width="120" alt="cancelled" />
 </a>
-<a href="oneliner">
-	<img src="text.png" width="120" alt="text" />
-</a>
 <a href="sheet">
 	<img src="sheet.png" width="120" alt="sheet" />
 </a>

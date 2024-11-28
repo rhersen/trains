@@ -6,6 +6,7 @@
 
 	export let data;
 	let eventSource;
+	let headerData = data.announcements.find((announcement) => announcement.ToLocation);
 
 	function update(announcements, updates) {
 		return [...announcements.filter(notUpdated), ...updates]
@@ -41,17 +42,17 @@
 <table>
 	<caption>
 		<div>
-			{data.ProductInformation?.map(({ Description }) => Description).join(' ')}
-			{data.AdvertisedTrainIdent}
+			{headerData.ProductInformation?.map(({ Description }) => Description).join(' ')}
+			{headerData.AdvertisedTrainIdent}
 			från
-			{data.FromLocation?.map(({ LocationName }) => locations[LocationName]).join(' ')}
+			{headerData.FromLocation?.map(({ LocationName }) => locations[LocationName]).join(' ')}
 			till
-			{data.ToLocation?.map(({ LocationName }) => locations[LocationName]).join(' ')}
+			{headerData.ToLocation?.map(({ LocationName }) => locations[LocationName]).join(' ')}
 		</div>
-		{#if data.ViaToLocation}
+		{#if headerData.ViaToLocation}
 			<div>
 				via
-				{data.ViaToLocation?.map(({ LocationName }) => locations[LocationName]).join(', ')}
+				{headerData.ViaToLocation?.map(({ LocationName }) => locations[LocationName]).join(', ')}
 			</div>
 		{/if}
 	</caption>

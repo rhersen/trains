@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import announcements from '$lib/announcements.js';
+import * as announcements from '$lib/announcements.js';
 
 export const load = async ({ params }) => {
 	const { id } = params;
@@ -18,7 +18,7 @@ export const load = async ({ params }) => {
 	const { RESPONSE } = await announcementsResponse.json();
 
 	return {
-		announcements: RESPONSE.RESULT[0].TrainAnnouncement.filter(announcements),
+		announcements: announcements.filter(RESPONSE.RESULT[0].TrainAnnouncement),
 		sseUrl: RESPONSE.RESULT[0].INFO?.SSEURL
 	};
 };

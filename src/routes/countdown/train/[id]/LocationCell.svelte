@@ -4,8 +4,9 @@
 	export let announcement;
 </script>
 
-<td>
+<td class={announcement.ActivityType}>
 	<a href="/countdown/station/{announcement.LocationSignature}">
+		{announcement.ActivityType == 'Ankomst' ? 'ank' : ''}
 		{locations[announcement.LocationSignature]}
 	</a>
 </td>
@@ -17,6 +18,10 @@
 		font-family: Palatino, serif;
 		text-align: left;
 		padding: 0 2px;
+	}
+
+	td.Ankomst {
+		font-style: italic;
 	}
 
 	@media (max-width: 370px) {

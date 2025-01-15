@@ -2,17 +2,26 @@
 	import locations from '$lib/short.json';
 	import Row from './Row.svelte';
 	import { onDestroy, onMount } from 'svelte';
-	import announcementFilter from '$lib/announcements.js';
+	import * as announcements from '$lib/announcements.js';
 
 	export let data;
 	let eventSource;
 	let headerData = data.announcements.find((announcement) => announcement.ToLocation);
 
-	function update(announcements, updates) {
-		return [...announcements.filter(notUpdated), ...updates]
-			.filter(announcementFilter)
-			.sort(({ AdvertisedTimeAtLocation: t1 }, { AdvertisedTimeAtLocation: t2 }) =>
-				t1 < t2 ? -1 : t1 > t2 ? 1 : 0
+	function update(announcementArray, updates) {
+		return announcements
+			.filter([...announcementArray.filter(notUpdated), ...updates])
+			.sort(
+				(
+					{ AdvertisedTimeAtLocation: t1, ActivityType: a1 },
+					{ AdvertisedTimeAtLocation: t2, ActivityType: a2 }
+				) => {
+					if (t1 < t2) return -1;
+					if (t1 > t2) return 1;
+					if (a1 < a2) return -1;
+					if (a1 > a2) return 1;
+					return 0;
+				}
 			);
 
 		function notUpdated({ ActivityType, LocationSignature }) {

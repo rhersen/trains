@@ -25,7 +25,7 @@ export const load = async ({ params }) => {
 
 function getBody({ id }) {
 	const now = Date.now();
-	const since = new Date(now - 12 * 60 * 6e4).toISOString();
+	const since = new Date(now - 10 * 60 * 6e4).toISOString();
 	const until = new Date(now + 12 * 60 * 6e4).toISOString();
 	return `
 <REQUEST>

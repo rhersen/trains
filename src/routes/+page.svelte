@@ -16,6 +16,6 @@
 <a href="mtrx">
 	<img src="mtr-express.jpg" width="120" alt="text" />
 </a>
-<a href="position">
+<a href="location">
 	<img src="position.webp" width="120" alt="text" />
 </a>

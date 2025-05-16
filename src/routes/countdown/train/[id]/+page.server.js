@@ -1,29 +1,32 @@
 import { error } from '@sveltejs/kit';
 import * as announcements from '$lib/announcements.js';
 
+const apiUrl = 'https://api.trafikinfo.trafikverket.se/v2/data.json';
+const headers = { 'Content-Type': 'application/xml', Accept: 'application/jsn' };
+
 export const load = async ({ params }) => {
 	const { id } = params;
-
-	const announcementsResponse = await fetch('https://api.trafikinfo.trafikverket.se/v2/data.json', {
-		method: 'POST',
-		body: getBody({ id }),
-		headers: {
-			'Content-Type': 'application/xml',
-			Accept: 'application/json'
-		}
-	});
-	if (!announcementsResponse.ok)
-		throw error(announcementsResponse.status, announcementsResponse.statusText);
-
-	const { RESPONSE } = await announcementsResponse.json();
+	const result = await fetchTrafikverket(announcementQuery({ id }));
 
 	return {
-		announcements: announcements.filter(RESPONSE.RESULT[0].TrainAnnouncement),
-		sseUrl: RESPONSE.RESULT[0].INFO?.SSEURL
+		announcements: announcements.filter(result.TrainAnnouncement),
+		sseUrl: result.INFO?.SSEURL
 	};
 };
 
-function getBody({ id }) {
+async function fetchTrafikverket(body) {
+	const response = await fetch(apiUrl, { method: 'POST', body, headers });
+
+	if (response.ok) {
+		const { RESPONSE } = await response.json();
+		const [result] = RESPONSE.RESULT;
+		return result;
+	} else {
+		throw error(response.status, response.statusText);
+	}
+}
+
+function announcementQuery({ id }) {
 	const now = Date.now();
 	const since = new Date(now - 10 * 60 * 6e4).toISOString();
 	const until = new Date(now + 12 * 60 * 6e4).toISOString();

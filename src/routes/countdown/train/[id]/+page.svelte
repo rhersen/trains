@@ -6,7 +6,7 @@
 
 	export let data;
 	let eventSource;
-	let headerData = data.announcements.find((announcement) => announcement.ToLocation);
+	let headerData = data.announcements.find((announcement) => announcement.ToLocation) ?? {};
 
 	function update(announcementArray, updates) {
 		return announcements

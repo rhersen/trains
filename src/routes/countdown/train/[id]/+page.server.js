@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit';
 import * as announcements from '$lib/announcements.js';
 
 const apiUrl = 'https://api.trafikinfo.trafikverket.se/v2/data.json';
-const headers = { 'Content-Type': 'application/xml', Accept: 'application/jsn' };
+const headers = { 'Content-Type': 'application/xml', Accept: 'application/json' };
 
 export const load = async ({ params }) => {
 	const { id } = params;

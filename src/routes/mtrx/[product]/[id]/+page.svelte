@@ -40,16 +40,14 @@
 	}
 
 	function handlePosition(events) {
-		events.RESPONSE.RESULT[0].TrainPosition.forEach((item) => {
-			console.log(item);
-		});
+		const positions = events.RESPONSE.RESULT[0].TrainPosition;
 		if (
-			events.RESPONSE.RESULT[0].TrainPosition.length === 1 &&
-			data.events.at(-1).Position?.SWEREF99TM ===
-				events.RESPONSE.RESULT[0].TrainPosition.at(-1).Position.SWEREF99TM
-		)
-			console.log('duplicate', events.RESPONSE.RESULT[0].TrainPosition.at(-1).Position.SWEREF99TM);
-		else data.events = [...data.events, ...events.RESPONSE.RESULT[0].TrainPosition];
+			positions.length === 1 &&
+			data.events.at(-1)?.Position?.SWEREF99TM === positions.at(-1).Position.SWEREF99TM
+		) {
+			return;
+		}
+		data.events = [...data.events, ...positions];
 	}
 
 	$: near = Object.entries(locations)

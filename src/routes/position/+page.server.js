@@ -42,10 +42,10 @@ export const load = async () => {
 	return { positions, announcements, ssePosition, sseAnnouncement };
 };
 
-const minutes = 6e4;
+const MINUTE = 60_000;
 
 function positionQuery() {
-	const since = new Date(Date.now() - 3 * minutes).toISOString();
+	const since = new Date(Date.now() - 3 * MINUTE).toISOString();
 	return `
 <REQUEST>
   <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}' />
@@ -64,7 +64,7 @@ function positionQuery() {
 }
 
 function announcementQuery(idArray) {
-	const since = new Date(Date.now() - 15 * minutes).toISOString();
+	const since = new Date(Date.now() - 15 * MINUTE).toISOString();
 	return `
 <REQUEST>
   <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}' />

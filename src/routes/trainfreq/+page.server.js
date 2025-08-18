@@ -25,7 +25,6 @@ function getBody() {
 	const since = new Date(now).toISOString().substring(0, 10) + 'T03:00:00.000+02:00';
 	const until =
 		new Date(now + 24 * 60 * 6e4).toISOString().substring(0, 10) + 'T03:00:00.000+02:00';
-	console.log(since, until);
 	return `
 <REQUEST>
   <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}' />

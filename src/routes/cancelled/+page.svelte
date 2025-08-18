@@ -1,5 +1,4 @@
-<script type="ts">
-
+<script>
 	export let data;
 
 	function hhmm(time) {
@@ -14,13 +13,15 @@
 		return data.locations[signature]?.AdvertisedShortLocationName ?? signature;
 	}
 
-	function description([{ Description }]) {
-		return Description.startsWith('SL ') ? Description.substring(3) : Description;
+	function description(productInfo) {
+		function description([{ Description } = { Description: '' }] = []) {
+			return Description.startsWith('SL ') ? Description.substring(3) : s;
+		}
 	}
 </script>
 
 <h1>{data.announcements.length} inställda tåg</h1>
-{#each data.announcements as { AdvertisedTimeAtLocation,AdvertisedTrainIdent, FromLocation, LocationSignature, ProductInformation, ToLocation }}
+{#each data.announcements as { AdvertisedTimeAtLocation, AdvertisedTrainIdent, FromLocation, LocationSignature, ProductInformation, ToLocation }}
 	<div>
 		{description(ProductInformation)}
 		{AdvertisedTrainIdent}

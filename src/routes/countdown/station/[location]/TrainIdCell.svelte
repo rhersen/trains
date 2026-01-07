@@ -1,9 +1,15 @@
 <script>
 	export let announcement;
+
+	const departureDate = (dt) => (typeof dt === 'string' ? dt.slice(0, 10) : dt);
 </script>
 
 <td>
-	<a href="/countdown/train/{announcement.AdvertisedTrainIdent}">
+	<a
+		href="/countdown/train/{announcement.AdvertisedTrainIdent}_{departureDate(
+			announcement.ScheduledDepartureDateTime
+		)}"
+	>
 		{announcement.AdvertisedTrainIdent}
 	</a>
 </td>

@@ -5,14 +5,19 @@ const apiUrl = 'https://api.trafikinfo.trafikverket.se/v2/data.json';
 const headers = { 'Content-Type': 'application/xml', Accept: 'application/json' };
 
 export const load = async ({ params }) => {
-	const { id } = params;
-	const result = await fetchTrafikverket(announcementQuery({ id }));
+	const result = await fetchTrafikverket(announcementQuery(parseTrainKey(params.id)));
 
 	return {
 		announcements: announcements.filter(result.TrainAnnouncement),
 		sseUrl: result.INFO?.SSEURL
 	};
 };
+
+function parseTrainKey(id) {
+	const m = /^(.+?)_(\d{4}-\d{2}-\d{2})$/.exec(id);
+	if (!m) throw error(400, 'Invalid train id. Expected "<AdvertisedTrainIdent>_<YYYY-MM-DD>".');
+	return { trainIdent: m[1], departureDate: m[2] };
+}
 
 async function fetchTrafikverket(body) {
 	const response = await fetch(apiUrl, { method: 'POST', body, headers });
@@ -26,42 +31,37 @@ async function fetchTrafikverket(body) {
 	}
 }
 
-function announcementQuery({ id }) {
-	const now = Date.now();
-	const since = new Date(now - 10 * 60 * 6e4).toISOString();
-	const until = new Date(now + 12 * 60 * 6e4).toISOString();
+function announcementQuery({ trainIdent, departureDate }) {
 	return `
 <REQUEST>
   <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}' />
-     <QUERY objecttype='TrainAnnouncement' orderby='AdvertisedTimeAtLocation' sseurl='true' schemaversion='1.6'>
-      <FILTER>
-         <AND>
-            <NE name='Canceled' value='true' />
-        	<EQ name='AdvertisedTrainIdent' value='${id}' />
-            <OR>
-               <EQ name='Advertised' value='true' />
-               <EXISTS name='TimeAtLocation' value='true' />
-            </OR>
-            <OR>
-               <GT name='AdvertisedTimeAtLocation' value='${since}' />
-               <GT name='EstimatedTimeAtLocation' value='${since}' />
-            </OR>
-            <LT name='AdvertisedTimeAtLocation' value='${until}' />
-         </AND>
-      </FILTER>
-      <INCLUDE>ActivityType</INCLUDE>
-      <INCLUDE>AdvertisedTimeAtLocation</INCLUDE>
-      <INCLUDE>AdvertisedTrainIdent</INCLUDE>
-      <INCLUDE>Deviation</INCLUDE>
-      <INCLUDE>EstimatedTimeAtLocation</INCLUDE>
-      <INCLUDE>FromLocation</INCLUDE>
-      <INCLUDE>LocationSignature</INCLUDE>
-      <INCLUDE>ProductInformation</INCLUDE>
-      <INCLUDE>TimeAtLocation</INCLUDE>
-      <INCLUDE>TimeAtLocationWithSeconds</INCLUDE>
-      <INCLUDE>ToLocation</INCLUDE>
-      <INCLUDE>TrackAtLocation</INCLUDE>
-      <INCLUDE>ViaToLocation</INCLUDE>
-     </QUERY>
-</REQUEST>`;
+  <QUERY objecttype='TrainAnnouncement' orderby='AdvertisedTimeAtLocation' sseurl='true' schemaversion='1.6'>
+    <FILTER>
+      <AND>
+        <NE name='Canceled' value='true' />
+        <EQ name='AdvertisedTrainIdent' value='${trainIdent}' />
+        <EQ name='ScheduledDepartureDateTime' value='${departureDate}' />
+        <OR>
+          <EQ name='Advertised' value='true' />
+          <EXISTS name='TimeAtLocation' value='true' />
+        </OR>
+      </AND>
+    </FILTER>
+    <INCLUDE>ActivityType</INCLUDE>
+    <INCLUDE>AdvertisedTimeAtLocation</INCLUDE>
+    <INCLUDE>AdvertisedTrainIdent</INCLUDE>
+    <INCLUDE>Deviation</INCLUDE>
+    <INCLUDE>EstimatedTimeAtLocation</INCLUDE>
+    <INCLUDE>FromLocation</INCLUDE>
+    <INCLUDE>LocationSignature</INCLUDE>
+    <INCLUDE>ProductInformation</INCLUDE>
+    <INCLUDE>ScheduledDepartureDateTime</INCLUDE>
+    <INCLUDE>TimeAtLocation</INCLUDE>
+    <INCLUDE>TimeAtLocationWithSeconds</INCLUDE>
+    <INCLUDE>ToLocation</INCLUDE>
+    <INCLUDE>TrackAtLocation</INCLUDE>
+    <INCLUDE>ViaToLocation</INCLUDE>
+  </QUERY>
+</REQUEST>
+`;
 }

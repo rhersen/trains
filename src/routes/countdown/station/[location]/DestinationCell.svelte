@@ -2,14 +2,15 @@
 	import locations from '$lib/short.json';
 	export let announcement;
 
-	function loc(array) {
-		return array.map((location) => locations[location.LocationName]).join();
-	}
+	const departureDate = (dt) => (typeof dt === 'string' ? dt.slice(0, 10) : dt);
+	const loc = (array) => array.map((location) => locations[location.LocationName]).join();
 </script>
 
 <td>
 	<span class="from">{loc(announcement.FromLocation)}–</span><a
-		href="/countdown/train/{announcement.AdvertisedTrainIdent}">{loc(announcement.ToLocation)}</a
+		href="/countdown/train/{announcement.AdvertisedTrainIdent}_{departureDate(
+			announcement.ScheduledDepartureDateTime
+		)}">{loc(announcement.ToLocation)}</a
 	>
 </td>
 

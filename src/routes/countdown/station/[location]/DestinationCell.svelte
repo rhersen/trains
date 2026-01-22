@@ -8,7 +8,7 @@
 
 <td>
 	<span class="from">{loc(announcement.FromLocation)}–</span><a
-		href="/countdown/train/{announcement.AdvertisedTrainIdent}_{departureDate(
+		href="/countdown/train/{announcement.AdvertisedTrainIdent}/{departureDate(
 			announcement.ScheduledDepartureDateTime
 		)}">{loc(announcement.ToLocation)}</a
 	>

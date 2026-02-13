@@ -8,16 +8,17 @@
 	import DelayCell from '$lib/components/DelayCell.svelte';
 	import DeviationCell from '$lib/components/DeviationCell.svelte';
 	import CountdownCell from '$lib/components/CountdownCell.svelte';
+	import hue from '$lib/hue.js';
 	import ProductCell from './ProductCell.svelte';
 
 	export let announcement;
 
-	function directionClass(announcement) {
-		return /\d+[24680]$/.test(announcement.AdvertisedTrainIdent) ? 'northbound' : 'southbound';
-	}
+	$: h =
+		announcement &&
+		hue(announcement.AdvertisedTimeAtLocation, announcement.TimeAtLocationWithSeconds);
 </script>
 
-<tr class={directionClass(announcement)}>
+<tr style="background-color: hsl({h}deg, 80%, 80%)">
 	<ProductCell {announcement} />
 	<TrainIdCell {announcement} />
 	<TrackCell {announcement} />
@@ -29,14 +30,3 @@
 	<CountdownCell {announcement} />
 	<DeviationCell {announcement} />
 </tr>
-
-<!--suppress CssUnusedSymbol -->
-<style>
-	tr.northbound {
-		background-color: #fdd;
-	}
-
-	tr.southbound {
-		background-color: lightblue;
-	}
-</style>

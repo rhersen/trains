@@ -43,10 +43,6 @@ function announcementQuery({ trainIdent, departureDate }) {
         <NE name='Canceled' value='true' />
         <EQ name='AdvertisedTrainIdent' value='${trainIdent}' />
         <EQ name='ScheduledDepartureDateTime' value='${departureDate}' />
-        <OR>
-          <EQ name='Advertised' value='true' />
-          <EXISTS name='TimeAtLocation' value='true' />
-        </OR>
       </AND>
     </FILTER>
     <INCLUDE>ActivityType</INCLUDE>

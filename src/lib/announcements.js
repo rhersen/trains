@@ -1,24 +1,13 @@
 export function filter(announcements) {
-	const statsByKey = announcements.reduce(
-		(m, a) => ({
-			...m,
-			[k(a)]: {
-				count: (m[k(a)]?.count ?? 0) + 1,
-				noAvgangYet: a.ActivityType === 'Avgang' && !a.TimeAtLocationWithSeconds
-			}
-		}),
-		{}
-	);
-
-	return announcements.filter((a) => {
-		if (a.ActivityType === 'Avgang') return true;
-
-		const { count, noAvgangYet } = statsByKey[k(a)];
-
-		return count === 1 || (a.TimeAtLocationWithSeconds && noAvgangYet);
+	return announcements.filter((announcement) => {
+		if (announcement.ActivityType === 'Avgang') return true;
+		const ankomst = announcement;
+		const avgang = announcements.find(matchesAvgangFor(ankomst));
+		return !avgang || (ankomst.TimeAtLocationWithSeconds && !avgang.TimeAtLocationWithSeconds);
 	});
 }
 
-function k({ LocationSignature, AdvertisedTimeAtLocation }) {
-	return `${LocationSignature}__${AdvertisedTimeAtLocation}`;
-}
+const matchesAvgangFor = (a) => (b) =>
+	b.ActivityType === 'Avgang' &&
+	a.LocationSignature === b.LocationSignature &&
+	a.AdvertisedTimeAtLocation === b.AdvertisedTimeAtLocation;

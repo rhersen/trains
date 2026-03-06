@@ -1,49 +1,31 @@
 export function filter(announcements) {
-	const countsByLocationAndTime = new Map();
-	const statusByLocationAndTime = new Map();
+	const m = getStatsMap(announcements);
 
-	for (const {
-		LocationSignature,
-		AdvertisedTimeAtLocation,
-		ActivityType,
-		TimeAtLocationWithSeconds
-	} of announcements) {
-		if (!LocationSignature || !AdvertisedTimeAtLocation) continue;
-		const key = `${LocationSignature}__${AdvertisedTimeAtLocation}`;
+	return announcements.filter((a) => {
+		if (a.ActivityType === 'Avgang') return true;
 
-		countsByLocationAndTime.set(key, (countsByLocationAndTime.get(key) || 0) + 1);
+		const { count, hasAvgangWithoutSeconds } = m.get(
+			`${a.LocationSignature}__${a.AdvertisedTimeAtLocation}`
+		);
 
-		const status = statusByLocationAndTime.get(key) || {
-			hasAnkomstWithSeconds: false,
-			hasAvgangWithoutSeconds: false
-		};
-		if (ActivityType === 'Ankomst' && TimeAtLocationWithSeconds) {
-			status.hasAnkomstWithSeconds = true;
-		}
-		if (ActivityType === 'Avgang' && !TimeAtLocationWithSeconds) {
-			status.hasAvgangWithoutSeconds = true;
-		}
-		statusByLocationAndTime.set(key, status);
+		return count === 1 || (a.TimeAtLocationWithSeconds && hasAvgangWithoutSeconds);
+	});
+}
+
+function getStatsMap(announcements) {
+	const m = new Map();
+
+	for (const a of announcements) {
+		const key = `${a.LocationSignature}__${a.AdvertisedTimeAtLocation}`;
+		m.set(key, getStats(m.get(key)?.count ?? 0, a.ActivityType, a.TimeAtLocationWithSeconds));
 	}
 
-	return announcements.filter(
-		({ ActivityType, LocationSignature, AdvertisedTimeAtLocation, TimeAtLocationWithSeconds }) => {
-			if (LocationSignature && AdvertisedTimeAtLocation) {
-				const key = `${LocationSignature}__${AdvertisedTimeAtLocation}`;
-				const hasDuplicate = (countsByLocationAndTime.get(key) || 0) > 1;
-				const status = statusByLocationAndTime.get(key);
+	return m;
+}
 
-				const preserveAnkomst =
-					ActivityType === 'Ankomst' &&
-					TimeAtLocationWithSeconds &&
-					status?.hasAvgangWithoutSeconds;
-
-				if (hasDuplicate && ActivityType === 'Ankomst' && !preserveAnkomst) {
-					return false;
-				}
-			}
-
-			return true;
-		}
-	);
+function getStats(count, ActivityType, TimeAtLocationWithSeconds) {
+	return {
+		count: count + 1,
+		hasAvgangWithoutSeconds: ActivityType === 'Avgang' && !TimeAtLocationWithSeconds
+	};
 }

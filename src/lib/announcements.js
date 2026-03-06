@@ -1,31 +1,24 @@
 export function filter(announcements) {
-	const m = getStatsMap(announcements);
+	const statsByKey = announcements.reduce(
+		(m, a) => ({
+			...m,
+			[k(a)]: {
+				count: (m[k(a)]?.count ?? 0) + 1,
+				noAvgangYet: a.ActivityType === 'Avgang' && !a.TimeAtLocationWithSeconds
+			}
+		}),
+		{}
+	);
 
 	return announcements.filter((a) => {
 		if (a.ActivityType === 'Avgang') return true;
 
-		const { count, hasAvgangWithoutSeconds } = m.get(
-			`${a.LocationSignature}__${a.AdvertisedTimeAtLocation}`
-		);
+		const { count, noAvgangYet } = statsByKey[k(a)];
 
-		return count === 1 || (a.TimeAtLocationWithSeconds && hasAvgangWithoutSeconds);
+		return count === 1 || (a.TimeAtLocationWithSeconds && noAvgangYet);
 	});
 }
 
-function getStatsMap(announcements) {
-	const m = new Map();
-
-	for (const a of announcements) {
-		const key = `${a.LocationSignature}__${a.AdvertisedTimeAtLocation}`;
-		m.set(key, getStats(m.get(key)?.count ?? 0, a.ActivityType, a.TimeAtLocationWithSeconds));
-	}
-
-	return m;
-}
-
-function getStats(count, ActivityType, TimeAtLocationWithSeconds) {
-	return {
-		count: count + 1,
-		hasAvgangWithoutSeconds: ActivityType === 'Avgang' && !TimeAtLocationWithSeconds
-	};
+function k({ LocationSignature, AdvertisedTimeAtLocation }) {
+	return `${LocationSignature}__${AdvertisedTimeAtLocation}`;
 }

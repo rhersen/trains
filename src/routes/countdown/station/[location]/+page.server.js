@@ -1,16 +1,30 @@
 import { error } from '@sveltejs/kit';
+import * as undici from '$lib/undici';
 
 export const load = async ({ params }) => {
 	const { location } = params;
 
-	const r = await fetch('https://api.trafikinfo.trafikverket.se/v2/data.json', {
-		method: 'POST',
-		body: getBody({ location }),
-		headers: {
-			'Content-Type': 'application/xml',
-			Accept: 'application/json'
+	let r;
+
+	try {
+		r = await fetch('https://api.trafikinfo.trafikverket.se/v2/data.json', {
+			method: 'POST',
+			body: getBody({ location }),
+			headers: {
+				'Content-Type': 'application/xml',
+				Accept: 'application/json'
+			}
+		});
+	} catch (err) {
+		if (undici.isConnectTimeout(err)) {
+			console.error('Trafikverket API connect timeout', err);
+			throw error(504, 'Trafikverket API connection timed out');
 		}
-	});
+
+		console.error('Failed to reach Trafikverket API', err);
+		throw error(503, 'Could not reach Trafikverket API');
+	}
+
 	if (!r.ok) throw error(r.status, r.statusText);
 
 	const { RESPONSE } = await r.json();

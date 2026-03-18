@@ -64,8 +64,11 @@
 				{headerData.ViaToLocation?.map(({ LocationName }) => locations[LocationName]).join(', ')}
 			</div>
 		{/if}
-		<a href="https://leaflet-hersen.netlify.app/recent/{headerData.AdvertisedTrainIdent}"
-			>visa på karta</a
+		<a
+			href="https://leaflet-hersen.netlify.app/recent/{headerData.AdvertisedTrainIdent}/{headerData.ScheduledDepartureDateTime.substring(
+				0,
+				10
+			)}">visa på karta</a
 		>
 	</caption>
 	<tbody>

@@ -5,12 +5,15 @@
 
 	export let data;
 	let eventSource;
+	let announcements = [];
+
+	$: announcements = data.announcements;
 
 	function update(announcements, updates) {
 		const a = [...announcements];
 
 		for (const update of updates) {
-			const i = data.announcements.findIndex(sameId(update));
+			const i = announcements.findIndex(sameId(update));
 			if (i >= 0) a[i] = update;
 		}
 
@@ -28,7 +31,7 @@
 		eventSource.onmessage = ({ data: s }) => {
 			const { RESPONSE } = JSON.parse(s);
 			const [{ TrainAnnouncement }] = RESPONSE.RESULT;
-			data.announcements = update(data.announcements, TrainAnnouncement);
+			announcements = update(announcements, TrainAnnouncement);
 		};
 	});
 
@@ -42,7 +45,7 @@
 		{locations[data.location]}
 	</caption>
 	<tbody>
-		{#each data.announcements as announcement}
+		{#each announcements as announcement}
 			<Row {announcement} />
 		{/each}
 	</tbody>

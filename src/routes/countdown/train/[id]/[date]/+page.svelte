@@ -2,27 +2,28 @@
 	import locations from '$lib/short.json';
 	import Row from './Row.svelte';
 	import { onDestroy, onMount } from 'svelte';
-	import * as announcements from '$lib/announcements.js';
+	import { filter } from '$lib/announcements.js';
 
 	export let data;
 	let eventSource;
 	let headerData = data.announcements.find((announcement) => announcement.ToLocation) ?? {};
+	let announcements = [];
+
+	$: announcements = data.announcements;
 
 	function update(announcementArray, updates) {
-		return announcements
-			.filter([...announcementArray.filter(notUpdated), ...updates])
-			.sort(
-				(
-					{ AdvertisedTimeAtLocation: t1, ActivityType: a1 },
-					{ AdvertisedTimeAtLocation: t2, ActivityType: a2 }
-				) => {
-					if (t1 < t2) return -1;
-					if (t1 > t2) return 1;
-					if (a1 < a2) return -1;
-					if (a1 > a2) return 1;
-					return 0;
-				}
-			);
+		return filter([...announcementArray.filter(notUpdated), ...updates]).sort(
+			(
+				{ AdvertisedTimeAtLocation: t1, ActivityType: a1 },
+				{ AdvertisedTimeAtLocation: t2, ActivityType: a2 }
+			) => {
+				if (t1 < t2) return -1;
+				if (t1 > t2) return 1;
+				if (a1 < a2) return -1;
+				if (a1 > a2) return 1;
+				return 0;
+			}
+		);
 
 		function notUpdated({ ActivityType, LocationSignature }) {
 			return !updates.some(
@@ -39,7 +40,7 @@
 		eventSource.onmessage = ({ data: s }) => {
 			const { RESPONSE } = JSON.parse(s);
 			const [{ TrainAnnouncement }] = RESPONSE.RESULT;
-			data.announcements = update(data.announcements, TrainAnnouncement);
+			announcements = update(announcements, TrainAnnouncement);
 		};
 	});
 
@@ -72,7 +73,7 @@
 		>
 	</caption>
 	<tbody>
-		{#each data.announcements as announcement}
+		{#each announcements as announcement}
 			<Row {announcement} />
 		{/each}
 	</tbody>

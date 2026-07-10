@@ -29,15 +29,6 @@ async function fetchAnnouncements() {
 	return announcements;
 }
 
-const locationSignature = [
-	'Söd,Öte,Rön,Tu,Tul,Flb,Hu,Sta',
-	'Äs,Åbe,Sst,Sci,Cst,Sod',
-	'So,Udl,Hel,Sol,Hgv,Nvk,R,Upv,Rs,Mr',
-	'Nyc,Ngd,Gdv,Öso,Ssä,Hfa,Ts,Kda,Vhe,Jbo,Hnd,Vga,Skg,Tåd,Fas',
-	'Sub,Spå,Bkb,Jkb,Khä,Kän,Bro,Bål'
-];
-const signatures = locationSignature.join(',');
-
 function getBody() {
 	const now = Date.now();
 	const since = formatISO(sub(now, { minutes: 24 }));
@@ -46,14 +37,9 @@ function getBody() {
             <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}'/>
             <QUERY sseurl='true' objecttype='TrainAnnouncement' orderby='TimeAtLocationWithSeconds' schemaversion='1.6'>
                 <FILTER>
-                    <OR>
-                        <AND>
-                            <IN name='LocationSignature' value='${signatures}'/>
-                            <EQ name='ProductInformation.Code' value='PNA054'/>
-                        </AND>
-                        <IN name='LocationSignature' value='Tmö,Kmy,Skby,Bvr,Bra,Gau,Södy,Uts,Kng,Hön,Huv,Duo,Brny,Tot'/>
-                    </OR>
+               	    <LIKE name='AdvertisedTrainIdent' value='/^(?:2[2-9]\\d\\d|12[89]\\d\\d|52[2-7]\\d\\d)$/' />
                     <GT name='TimeAtLocation' value='${since}'/>
+                    <NOTIN name='LocationSignature' value='Söc,Söd,Söu,Bre,Jn,Mö,Gn,Bvr,Arne,Arnc,Myn,Kn,Eby,Säy,U'/>
                 </FILTER>
                 <INCLUDE>ActivityType</INCLUDE>
                 <INCLUDE>AdvertisedTrainIdent</INCLUDE>

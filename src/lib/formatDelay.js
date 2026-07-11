@@ -2,6 +2,7 @@ import { differenceInSeconds, parseISO } from 'date-fns';
 
 export default (announcement) => {
 	if (!announcement.TimeAtLocationWithSeconds) return '';
+	if (!announcement.AdvertisedTimeAtLocation) return '';
 
 	const number = differenceInSeconds(
 		parseISO(announcement.TimeAtLocationWithSeconds),

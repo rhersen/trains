@@ -1,6 +1,9 @@
 import { differenceInSeconds, parseISO } from 'date-fns';
 
 export default (advertised, actual) => {
+	if (advertised === undefined) return;
+	if (actual === undefined) return;
+
 	const delay = actual && differenceInSeconds(parseISO(actual), parseISO(advertised));
 
 	if (delay === undefined) return;

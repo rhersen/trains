@@ -7,6 +7,7 @@
 		return hmm(announcement.AdvertisedTimeAtLocation);
 
 		function hmm(advertised) {
+			if (!advertised) return '';
 			const parsed = parseISO(advertised);
 			return format(parsed, parsed.getSeconds() ? 'H:mm:ss' : 'H:mm');
 		}

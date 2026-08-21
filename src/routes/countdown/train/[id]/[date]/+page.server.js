@@ -16,8 +16,7 @@ export const load = async ({ params }) => {
 	);
 
 	return {
-		announcements: announcements.filter(result.TrainAnnouncement),
-		sseUrl: result.INFO?.SSEURL
+		announcements: announcements.forServiceDate(result.TrainAnnouncement ?? [], date)
 	};
 };
 
@@ -37,12 +36,12 @@ function announcementQuery({ trainIdent, departureDate }) {
 	return `
 <REQUEST>
   <LOGIN authenticationkey='${process.env.TRAFIKVERKET_API_KEY}' />
-  <QUERY objecttype='TrainAnnouncement' orderby='AdvertisedTimeAtLocation' sseurl='true' schemaversion='1.6'>
+  <QUERY objecttype='TrainAnnouncement' orderby='AdvertisedTimeAtLocation' sseurl='false' schemaversion='1.6'>
     <FILTER>
       <AND>
         <NE name='Canceled' value='true' />
         <EQ name='AdvertisedTrainIdent' value='${trainIdent}' />
-        <EQ name='ScheduledDepartureDateTime' value='${departureDate}' />
+        <LTE name='ScheduledDepartureDateTime' value='${departureDate}' />
       </AND>
     </FILTER>
     <INCLUDE>ActivityType</INCLUDE>

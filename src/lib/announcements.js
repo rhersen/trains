@@ -7,6 +7,11 @@ export function filter(announcements) {
 	});
 }
 
+const matchesAvgangFor = (a) => (b) =>
+	b.ActivityType === 'Avgang' &&
+	a.LocationSignature === b.LocationSignature &&
+	a.AdvertisedTimeAtLocation === b.AdvertisedTimeAtLocation;
+
 export function forServiceDate(announcements, date) {
 	const current = announcements.filter((announcement) =>
 		announcement.ScheduledDepartureDateTime?.startsWith(date)
@@ -62,8 +67,3 @@ function compareAnnouncements(a, b) {
 	if (a.AdvertisedTimeAtLocation > b.AdvertisedTimeAtLocation) return 1;
 	return a.ActivityType.localeCompare(b.ActivityType);
 }
-
-const matchesAvgangFor = (a) => (b) =>
-	b.ActivityType === 'Avgang' &&
-	a.LocationSignature === b.LocationSignature &&
-	a.AdvertisedTimeAtLocation === b.AdvertisedTimeAtLocation;

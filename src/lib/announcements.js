@@ -36,12 +36,9 @@ const newestAnnouncementByLocation = (announcements) =>
 	);
 
 const templateForDate = (announcement, date) => ({
-	..._.omit(announcement, [
-		'TimeAtLocation',
-		'TimeAtLocationWithSeconds',
-		'EstimatedTimeAtLocation',
-		'Deviation'
-	]),
+	ActivityType: announcement.ActivityType,
+	AdvertisedTrainIdent: announcement.AdvertisedTrainIdent,
+	LocationSignature: announcement.LocationSignature,
 	AdvertisedTimeAtLocation: withDate(announcement.AdvertisedTimeAtLocation, date),
 	ScheduledDepartureDateTime: withDate(announcement.ScheduledDepartureDateTime, date)
 });

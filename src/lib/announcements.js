@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export function filter(announcements) {
 	return announcements.filter((announcement) => {
 		if (announcement.ActivityType === 'Avgang') return true;
@@ -28,39 +30,23 @@ export function forServiceDate(announcements, date) {
 	return filter([...current, ...fallback]).sort(compareAnnouncements);
 }
 
-function newestAnnouncementByLocation(announcements) {
-	const newestByLocation = new Map();
+const newestAnnouncementByLocation = (announcements) =>
+	_.map(_.groupBy(announcements, 'LocationSignature'), (announcementsAtLocation) =>
+		_.maxBy(announcementsAtLocation, 'ScheduledDepartureDateTime')
+	);
 
-	for (const announcement of announcements) {
-		const existing = newestByLocation.get(announcement.LocationSignature);
-		if (
-			!existing ||
-			announcement.ScheduledDepartureDateTime > existing.ScheduledDepartureDateTime
-		) {
-			newestByLocation.set(announcement.LocationSignature, announcement);
-		}
-	}
+const templateForDate = (announcement, date) => ({
+	..._.omit(announcement, [
+		'TimeAtLocation',
+		'TimeAtLocationWithSeconds',
+		'EstimatedTimeAtLocation',
+		'Deviation'
+	]),
+	AdvertisedTimeAtLocation: withDate(announcement.AdvertisedTimeAtLocation, date),
+	ScheduledDepartureDateTime: withDate(announcement.ScheduledDepartureDateTime, date)
+});
 
-	return [...newestByLocation.values()];
-}
-
-function templateForDate(announcement, date) {
-	const template = { ...announcement };
-	delete template.TimeAtLocation;
-	delete template.TimeAtLocationWithSeconds;
-	delete template.EstimatedTimeAtLocation;
-	delete template.Deviation;
-
-	return {
-		...template,
-		AdvertisedTimeAtLocation: withDate(announcement.AdvertisedTimeAtLocation, date),
-		ScheduledDepartureDateTime: withDate(announcement.ScheduledDepartureDateTime, date)
-	};
-}
-
-function withDate(value, date) {
-	return `${date}${value.slice(10)}`;
-}
+const withDate = (value, date) => date + value.slice(10);
 
 function compareAnnouncements(a, b) {
 	if (a.AdvertisedTimeAtLocation < b.AdvertisedTimeAtLocation) return -1;

@@ -11,6 +11,7 @@ export const load = async ({ params }) => {
 };
 
 async function fetchAnnouncements() {
+	console.time('fetch-text');
 	const r = await fetch('https://api.trafikinfo.trafikverket.se/v2/data.json', {
 		method: 'POST',
 		body: getBody(),
@@ -19,8 +20,9 @@ async function fetchAnnouncements() {
 			Accept: 'application/json'
 		}
 	});
-
+	console.timeEnd('fetch-text');
 	if (!r.ok) {
+		console.log(await r.text());
 		throw error(r.status, r.statusText);
 	}
 

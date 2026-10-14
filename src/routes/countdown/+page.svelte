@@ -20,6 +20,7 @@
 <h1>SJ och Mälartåg</h1>
 <div>
 	<a href="countdown/station/Cst">Centralen</a> •
+	<a href="countdown/station/U">Uppsala</a> •
 	<a href="countdown/station/K">Katrineholm</a> •
 	<a href="countdown/station/G">Göteborg</a> •
 	<a href="countdown/station/Hpbg">Hallsberg</a> •

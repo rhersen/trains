@@ -5,9 +5,8 @@
 
 	export let data;
 	let eventSource;
-	let announcements = [];
 
-	$: announcements = data.announcements;
+	$: announcements = data.TrainAnnouncement ?? [];
 
 	function update(announcements, updates) {
 		const a = [...announcements];
@@ -18,26 +17,31 @@
 		}
 
 		return a;
-
-		function sameId(a1) {
-			return (a2) => a1.AdvertisedTrainIdent === a2.AdvertisedTrainIdent;
-		}
 	}
 
-	onMount(() => {
-		if (!data?.sseUrl) return;
+	function connect(sseUrl) {
+		if (eventSource) eventSource.close();
+		if (!sseUrl) return;
 
-		eventSource = new EventSource(data.sseUrl);
+		eventSource = new EventSource(sseUrl);
 		eventSource.onmessage = ({ data: s }) => {
 			const { RESPONSE } = JSON.parse(s);
 			const [{ TrainAnnouncement }] = RESPONSE.RESULT;
 			announcements = update(announcements, TrainAnnouncement);
 		};
+	}
+
+	onMount(() => {
+		connect(data.sseUrl);
 	});
 
 	onDestroy(() => {
 		if (eventSource) eventSource.close();
 	});
+
+	function sameId(a1) {
+		return (a2) => a1.AdvertisedTrainIdent === a2.AdvertisedTrainIdent;
+	}
 </script>
 
 <table>

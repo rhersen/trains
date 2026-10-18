@@ -4,6 +4,15 @@ import * as undici from '$lib/undici';
 export const load = async ({ params }) => {
 	const { location } = params;
 
+	const { TrainAnnouncement, INFO } = await fetchAnnouncements(params);
+	return {
+		location,
+		TrainAnnouncement,
+		sseUrl: INFO?.SSEURL
+	};
+};
+
+async function fetchAnnouncements({ location }) {
 	let r;
 
 	try {
@@ -29,12 +38,8 @@ export const load = async ({ params }) => {
 
 	const { RESPONSE } = await r.json();
 	const [announcements] = RESPONSE.RESULT;
-	return {
-		location,
-		announcements: announcements.TrainAnnouncement,
-		sseUrl: announcements.INFO?.SSEURL
-	};
-};
+	return announcements;
+}
 
 function getBody({ location }) {
 	const now = Date.now();

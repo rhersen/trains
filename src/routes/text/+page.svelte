@@ -5,41 +5,32 @@
 
 	export let data;
 
-	let north = grouped(
-		data.TrainAnnouncement.filter(({ AdvertisedTrainIdent }) =>
-			/[02468]$/.test(AdvertisedTrainIdent)
-		)
-	);
-
-	let south = grouped(
-		data.TrainAnnouncement.filter(({ AdvertisedTrainIdent }) =>
-			/[13579]$/.test(AdvertisedTrainIdent)
-		)
-	);
-
+	let mounted = false;
 	let eventSource;
 
-	onMount(() => {
-		if (!data.sseUrl) return;
+	$: announcements = data.TrainAnnouncement ?? [];
+	$: north = grouped(
+		announcements.filter(({ AdvertisedTrainIdent }) => /[02468]$/.test(AdvertisedTrainIdent))
+	);
+	$: south = grouped(
+		announcements.filter(({ AdvertisedTrainIdent }) => /[13579]$/.test(AdvertisedTrainIdent))
+	);
+	$: if (mounted) connect(data.sseUrl);
 
-		eventSource = new EventSource(data.sseUrl);
+	function connect(sseUrl) {
+		if (eventSource) eventSource.close();
+		if (!sseUrl) return;
+
+		eventSource = new EventSource(sseUrl);
 		eventSource.onmessage = ({ data: s }) => {
 			const { RESPONSE } = JSON.parse(s);
-			const [{ TrainAnnouncement }] = RESPONSE.RESULT;
-			data.TrainAnnouncement = [...TrainAnnouncement, ...data.TrainAnnouncement];
-
-			north = grouped(
-				data.TrainAnnouncement.filter(({ AdvertisedTrainIdent }) =>
-					/[02468]$/.test(AdvertisedTrainIdent)
-				)
-			);
-
-			south = grouped(
-				data.TrainAnnouncement.filter(({ AdvertisedTrainIdent }) =>
-					/[13579]$/.test(AdvertisedTrainIdent)
-				)
-			);
+			const [{ TrainAnnouncement = [] }] = RESPONSE.RESULT;
+			announcements = [...TrainAnnouncement, ...announcements];
 		};
+	}
+
+	onMount(() => {
+		mounted = true;
 	});
 
 	onDestroy(() => {

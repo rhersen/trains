@@ -53,6 +53,7 @@ function currentTrains(announcement) {
 	function hasArrivedAtDestination({ latest }) {
 		if (!latest) return false;
 		if (latest.LocationSignature === 'Söd') return true;
+		if (latest.LocationSignature === 'Vhe') return true;
 		if (latest.LocationSignature === 'Bvr') return true;
 		if (latest.ActivityType !== 'Ankomst') return false;
 		return _.map(latest.ToLocation, 'LocationName').join() === latest.LocationSignature;

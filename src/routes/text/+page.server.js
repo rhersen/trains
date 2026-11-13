@@ -41,7 +41,7 @@ function getBody() {
                 <FILTER>
                	    <LIKE name='AdvertisedTrainIdent' value='/^(?:2[2-9]\\d\\d|12[89]\\d\\d|52[2-7]\\d\\d)$/' />
                     <GT name='TimeAtLocation' value='${since}'/>
-                    <NOTIN name='LocationSignature' value='Söc,Söu,Bre,Jn,Mö,Gn,Arne,Arnc,Myn,Kn,Eby,Säy,U'/>
+                    <IN name='LocationSignature' value='Mr,Rs,Bvr,Upv,R,Nvk,Hgv,Sol,Hel,Udl,So,Sod,Sci,Sst,Åbe,Äs,Sta,Hu,Flb,Tul,Tu,Rön,Öte,Söd,Bra,Skby,Uts,Södy,Gau,Dån,Bål,Bro,Kän,Khä,Jkb,Bkb,Spå,Sub,Fas,Tåd,Skg,Vga,Hnd,Jbo,Vhe,Tot,Brny,Duo,Huv,Hön'/>
                 </FILTER>
                 <INCLUDE>ActivityType</INCLUDE>
                 <INCLUDE>AdvertisedTrainIdent</INCLUDE>
